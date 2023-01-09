@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/screen.css">
+    <title>Interactive palen</title>
+    <!-- Favicon -->
+    <link rel="shortcute icon" type="image/png" href="img/favicon-dark.ico" id="faviconTag"/>
+    <link rel="icon" href="/pictures/icon.svg">
+    <script
+      src="https://cdn.socket.io/4.4.1/socket.io.min.js"
+      integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
+      crossorigin="anonymous"
+    ></script>
+    <script src="script/dataHandler.js"></script>
+    <script src="script/app.js"></script>
+</head>
+<body>
+    <div class="js-showermonitor-page"></div>
+    <header class="o-row">
+        <div class="o-container">
+            <div class="c-header">
+                <div class="c-header__logo">                      
+                    <a class="title" href="">
+                        <h1>
+                            1 vs 1
+                        </h1>
+                    </a> 
+                </div>
+                <div class="c-header-nav__disappear">
+                    <div class="c-nav">
+                        <nav class="c-nav u-hide">
+                            <ul class="o-list c-nav__list">
+                                <li class="c-nav-item"><a class="c-nav__link" href="./index.html">Home</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="c-header__mobile-nav-trigger">
+                    <button class="o-button-reset c-nav-trigger js-toggle-nav">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 18">
+                            <path class="c-nav-trigger__svg" id="navbar_mobile" d="M3,24H27V21H3v3Zm0-7.5H27v-3H3v3ZM3,6V9H27V6Z" transform="translate(-3 -6)" fill="#0000ac" fill-rule="evenodd"/>
+                          </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div>
+            <div class="c-layout c-layout--gutter">
+                <header class="o-row">
+                    <div class="o-container" style="text-align: center;">
+                        <div style="text-align: left;">
+                            <br>
+                            <div class="c-players">
+                                <h2>Players</h2>
+                                <div class="c-grid-players">
+                                    <!-- Player 1 -->
+                                    <!-- color picker -->
+                                    <div class="c-card-player">
+                                        <svg class="c-card-player__svg c-player-1__svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="240" viewBox="0 0 240 240">
+                                            <defs>
+                                              <clipPath id="clip-player">
+                                                <rect width="240" height="240"/>
+                                              </clipPath>
+                                            </defs>
+                                            <g id="player" clip-path="url(#clip-player)">
+                                              <g id="noun-person-1607993" transform="translate(-42.206 -93.144)">
+                                                <path id="Path_8" data-name="Path 8" d="M369.387,248.847l-8.681-56.995v-.834c0-.255-.053-.5-.073-.744-.065-.022-.111-.049-.177-.07l-.083-.56a9.119,9.119,0,0,0-8.218-7.692v-.063h-4.65l-14.771,0H286.56l0,.063a9.107,9.107,0,0,0-8.218,7.693l-9.018,59.2a9.125,9.125,0,1,0,18.041,2.749l6.968-45.751h.07V341.07a11.068,11.068,0,1,0,22.136,0l0-67.926v-2.885a2.819,2.819,0,1,1,5.639,0v70.806a11.068,11.068,0,1,0,22.136,0l0-78.278V205.843h.07l6.972,45.751a9.122,9.122,0,1,0,18.036-2.752Z" transform="translate(-157.15 -29.633)"/>
+                                                <path id="Path_9" data-name="Path 9" d="M358.591,125.88a22.1,22.1,0,1,1-22.1-22.1,22.1,22.1,0,0,1,22.1,22.1" transform="translate(-174.288 0)"/>
+                                              </g>
+                                            </g>
+                                          </svg>
+                                                                                     
+                                        <div class="c-card-player__footer">
+                                            <input class="c-card-player__Name" value="Player 1"></input>
+                                        </div>
+                                    </div>
+                                    <!-- Player 2 -->
+                                    <div class="c-card-player">
+                                        <svg class="c-card-player__svg c-player-2__svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="240" viewBox="0 0 240 240">
+                                            <defs>
+                                              <clipPath id="clip-player">
+                                                <rect width="240" height="240"/>
+                                              </clipPath>
+                                            </defs>
+                                            <g id="player" clip-path="url(#clip-player)">
+                                              <g id="noun-person-1607993" transform="translate(-42.206 -93.144)">
+                                                <path id="Path_8" data-name="Path 8" d="M369.387,248.847l-8.681-56.995v-.834c0-.255-.053-.5-.073-.744-.065-.022-.111-.049-.177-.07l-.083-.56a9.119,9.119,0,0,0-8.218-7.692v-.063h-4.65l-14.771,0H286.56l0,.063a9.107,9.107,0,0,0-8.218,7.693l-9.018,59.2a9.125,9.125,0,1,0,18.041,2.749l6.968-45.751h.07V341.07a11.068,11.068,0,1,0,22.136,0l0-67.926v-2.885a2.819,2.819,0,1,1,5.639,0v70.806a11.068,11.068,0,1,0,22.136,0l0-78.278V205.843h.07l6.972,45.751a9.122,9.122,0,1,0,18.036-2.752Z" transform="translate(-157.15 -29.633)"/>
+                                                <path id="Path_9" data-name="Path 9" d="M358.591,125.88a22.1,22.1,0,1,1-22.1-22.1,22.1,22.1,0,0,1,22.1,22.1" transform="translate(-174.288 0)"/>
+                                              </g>
+                                            </g>
+                                          </svg>
+                                                                                    
+                                        <div class="c-card-player__footer">
+                                            <input class="c-card-player__Name" value="Player 2"></input>
+                                        </div>
+                                    </div>
+                                    <!-- Player 3 -->
+                                    <div class="c-card-player">
+                                        <svg class="c-card-player__svg c-player-3__svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="240" viewBox="0 0 240 240">
+                                            <defs>
+                                              <clipPath id="clip-player">
+                                                <rect width="240" height="240"/>
+                                              </clipPath>
+                                            </defs>
+                                            <g id="player" clip-path="url(#clip-player)">
+                                              <g id="noun-person-1607993" transform="translate(-42.206 -93.144)">
+                                                <path id="Path_8" data-name="Path 8" d="M369.387,248.847l-8.681-56.995v-.834c0-.255-.053-.5-.073-.744-.065-.022-.111-.049-.177-.07l-.083-.56a9.119,9.119,0,0,0-8.218-7.692v-.063h-4.65l-14.771,0H286.56l0,.063a9.107,9.107,0,0,0-8.218,7.693l-9.018,59.2a9.125,9.125,0,1,0,18.041,2.749l6.968-45.751h.07V341.07a11.068,11.068,0,1,0,22.136,0l0-67.926v-2.885a2.819,2.819,0,1,1,5.639,0v70.806a11.068,11.068,0,1,0,22.136,0l0-78.278V205.843h.07l6.972,45.751a9.122,9.122,0,1,0,18.036-2.752Z" transform="translate(-157.15 -29.633)"/>
+                                                <path id="Path_9" data-name="Path 9" d="M358.591,125.88a22.1,22.1,0,1,1-22.1-22.1,22.1,22.1,0,0,1,22.1,22.1" transform="translate(-174.288 0)"/>
+                                              </g>
+                                            </g>
+                                          </svg>
+                                                                                     
+                                        <div class="c-card-player__footer">
+                                            <input class="c-card-player__Name" value="Player 3"></input>
+                                        </div>
+                                    </div>
+                                    <!-- Player 4 -->
+                                    <div class="c-card-player">
+                                        <svg class="c-card-player__svg c-player-4__svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="240" viewBox="0 0 240 240">
+                                            <defs>
+                                              <clipPath id="clip-player">
+                                                <rect width="240" height="240"/>
+                                              </clipPath>
+                                            </defs>
+                                            <g id="player" clip-path="url(#clip-player)">
+                                              <g id="noun-person-1607993" transform="translate(-42.206 -93.144)">
+                                                <path id="Path_8" data-name="Path 8" d="M369.387,248.847l-8.681-56.995v-.834c0-.255-.053-.5-.073-.744-.065-.022-.111-.049-.177-.07l-.083-.56a9.119,9.119,0,0,0-8.218-7.692v-.063h-4.65l-14.771,0H286.56l0,.063a9.107,9.107,0,0,0-8.218,7.693l-9.018,59.2a9.125,9.125,0,1,0,18.041,2.749l6.968-45.751h.07V341.07a11.068,11.068,0,1,0,22.136,0l0-67.926v-2.885a2.819,2.819,0,1,1,5.639,0v70.806a11.068,11.068,0,1,0,22.136,0l0-78.278V205.843h.07l6.972,45.751a9.122,9.122,0,1,0,18.036-2.752Z" transform="translate(-157.15 -29.633)"/>
+                                                <path id="Path_9" data-name="Path 9" d="M358.591,125.88a22.1,22.1,0,1,1-22.1-22.1,22.1,22.1,0,0,1,22.1,22.1" transform="translate(-174.288 0)"/>
+                                              </g>
+                                            </g>
+                                          </svg>
+                                                                                     
+                                        <div class="c-card-player__footer">
+                                            <input class="c-card-player__Name" value="Player 4"></input>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+            </div>
+        </div>
+    </main>
+    <aside class="c-mobile-nav">
+      <div class="c-mobile-nav__bg"></div>
+      <div class="c-mobile-nav__body">
+          <div class="c-mobile-nav__header">            
+              <h1 class="c-mobile-nav-tile">
+                  Interactive palen
+              </h1>
+              <button class="o-button-reset c-nav-trigger js-toggle-nav">
+                  <svg class="c-nav-trigger__svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                          d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                  </svg>
+              </button>
+          </div>
+          <div class="c-mobile-nav__nav c-mobile-nav__nav--main">
+              <nav class="c-nav">
+                  <ul class="o-list c-nav__list">
+                      <li class="c-nav__item"><a href="../Front-end/index.html" class="c-nav__link">Home</a></li>
+                  </ul>
+              </nav>
+          </div>
+      </div>
+    </aside>
+  </body>
+</html>
