@@ -435,6 +435,12 @@ a:focus {
     max-width: 60em;
 }
 
+.o-container-speedrun {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 40em;
+}
+
 /*
     Objects: section
     ---
@@ -1796,13 +1802,13 @@ a:focus {
     margin-bottom: 24px;
 }
 
-.c-card-speedrun > h2{
+.c-card-speedrun-settings > h2{
     font-size: var(--global-speedrun-title-font-size);
     font-weight: 600;
     color: var(--global-title-color);
 }
 
-.c-card-speedrun > h3, .c-card-speedrun > div > h3{
+.c-card-speedrun-settings > h3, .c-card-speedrun-settings > div > h3{
     font-size: var(--global-speedrun-subtitle-font-size);
     line-height: var(--global-speedrun-subtitle-font-size);
     font-weight: 400;
@@ -1811,11 +1817,11 @@ a:focus {
     padding-bottom: 0px;
 }
 
-.c-card-speedrun > div > h3 + *{
+.c-card-speedrun-settings > div > h3 + *{
     margin-bottom: calc(var(--global-speedrun-margin) * 2);
 }
 
-.c-card-speedrun > p{
+.c-card-speedrun-settings> p{
     font-size: var(--global-speedrun-font-size);
     font-weight: 400;
     color: var(--global-txt-color);
@@ -1835,7 +1841,7 @@ a:focus {
 
 .c-card-speedrun-setting-username__title
 {
-    display: block;
+    display: inline-block;
 }
 
 .c-card-speedrun-setting-ButtonGoal__title
@@ -1853,6 +1859,11 @@ a:focus {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-gap: 8px;
 }
+
+.c-card-speedrun-setting-username > input{
+    max-width: 100px;
+}
+
 
 
 /*------------------------------------*\
