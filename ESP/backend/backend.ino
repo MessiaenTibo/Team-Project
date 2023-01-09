@@ -19,6 +19,7 @@ void setup(){
     Serial.println("\nConnected to the WiFi network");
     Serial.print("Local ESP32 IP: ");
     Serial.println(WiFi.localIP());
+    Serial.println("hypoe");
 }
 
 void loop(){
