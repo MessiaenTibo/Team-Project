@@ -72,7 +72,6 @@ html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     box-sizing: border-box;
-    padding: 0px 24px 0px;
 }
 
 body{
@@ -80,6 +79,7 @@ body{
     margin: 0;
     padding: 0;
     position: relative;
+    padding: 0px 24px 0px;
 
     /*Background image*/
     background-image: url(../img/Background-Pentagon-Animated.png);
@@ -432,7 +432,6 @@ a:focus {
 .o-container {
     margin-left: auto;
     margin-right: auto;
-    max-width: 60em;
 }
 
 .o-container-speedrun {
@@ -966,7 +965,7 @@ a:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 24px;
+    /* margin-bottom: 24px; */
     width: 24px;
     height: 24px;
 }
