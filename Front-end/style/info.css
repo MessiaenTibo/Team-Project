@@ -1,11 +1,117 @@
+p{
+    font-size: 12px;
+    line-height: 15px;
+    margin-bottom: 8px;
+}
+
+h1{
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+h2{
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 31px;
+    margin-bottom: 12px;
+}
+
+h3{
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 22px;
+    margin-bottom: 4px;
+}
+
+img{
+    min-width: 264px;
+    height: 264px;
+    margin-bottom: 16px;
+}
+
 .c-card-info{
     display: block;
     width: 280px;
     height: auto;
     padding: 8px 8px 12px 8px;
+    margin-bottom: 36px;
 }
 
-.c-card-info > img{
-    width: 200px;
-    height: 200px;
+
+@media (min-width: 460px) and (max-width: 767px) {
+    .c-card-info{
+        margin: 12px;
+        width: 80vw;
+    }
+    h2{
+        font-size: 24px;
+    }
+    h3{
+        font-size: 20px;
+    }
+    p{
+        font-size: 14px;
+        line-height: 18px;
+        display: inline-block;
+    }
+    img{
+        min-width: 150px;
+        height: 150px;
+        margin-bottom: 0px;
+        display: inline-block;
+    }
+    .c-placeholder-info{
+        display: flex;
+        justify-content: space-evenly;
+        gap: 8px;
+        align-items: center;
+    }
+    .c-placeholder-parapraph{
+        display: inline-block;
+    }
+    .o-reverse{
+        display: flex;
+        flex-direction: row-reverse;
+    }
+}
+
+
+
+
+@media (min-width: 768px) {
+    p{
+        font-size: 16px;
+        line-height: 20px;
+    }
+    h2{
+        font-size: 28px;
+    }
+    h3{
+        font-size: 24px;
+    }
+    .c-card-info{
+        padding: 20px;
+        width: 80vw;
+    }
+    .c-card-info--content{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 72px;
+    }
+    img{
+        min-width: 150px;
+        height: auto;
+        margin-bottom: 0px;
+        object-fit: contain;
+    }
+    .o-reverse{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .c-placeholder-info{
+        justify-content: space-evenly;
+    }
 }
