@@ -3,7 +3,8 @@ import paho.mqtt.client as mqtt
 
 
 def on_publish(client, userdata, mid):
-    print("message published") 
+    #voorlopig niks
+    pass 
 def callback_esp32_sensor1(client, userdata, msg):
     print('ESP sensor1 data: ', msg.payload.decode('utf-8'))
 def callback_esp32_sensor2(client, userdata, msg):
@@ -37,22 +38,15 @@ print("......client setup complete............")
 # start a new thread
 client.loop_start()
 
-
-k=0
 while True:
-    k=k+1
-    if(k>20):
-        k=1 
-        
     try:
-        msg =str(k)
+        msg ='bigtest'
         pubMsg = client.publish(
             topic='rpi/broadcast',
             payload=msg.encode('utf-8'),
             qos=0,
         )
         pubMsg.wait_for_publish()
-        print(pubMsg.is_published())
     
     except Exception as e:
         print(e)
