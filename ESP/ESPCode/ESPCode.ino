@@ -116,7 +116,20 @@ void setup() {
 }
 
 void loop() { 
+  for(int i =0;i<9;i++)
+        {
+          leds[i] = CRGB::Red; 
+        }
+        FastLED.show();
+        delay(100);
+        for(int i =0;i<9;i++)
+        {
+          leds[i] = CRGB::Black; 
+        }
+        FastLED.show(); 
+        delay(100);
     currentState = digitalRead(BUTTON_PIN);
+    
     if (!client.connected()) {
     connect_mqttServer();
   }
