@@ -145,17 +145,61 @@ const HomePage = function(){
 }
 
 OneVSOnePage = function(){
-    btnColorSelector.addEventListener('input', function(){
-        ColorSelectorSVG.forEach(element => {
-            element.style.fill = this.value;
+    // btnColorSelector1.addEventListener('input', function(){
+    //     ColorSelectorSVGPlayer1.forEach(element => {
+    //         element.style.fill = this.value;
+    //     });
+    // });
+    // btnColorSelector2.addEventListener('input', function(){
+    //     ColorSelectorSVGPlayer2.forEach(element => {
+    //         element.style.fill = this.value;
+    //     });
+    // });
+
+    btnColorSelector1.forEach(element => {
+        element.addEventListener('input', function(){
+            ColorSelectorSVGPlayer1.forEach(element => {
+                element.style.fill = this.value;
+            });
         });
     });
-    ColorSelectorSVG.forEach(element => {
+    btnColorSelector1.forEach(element => {
+        element.addEventListener('change', function(){
+            console.log(this.value)
+            btnColorSelector1[0].value = this.value;
+        });
+    });
+    btnColorSelector2.forEach(element => {
+        element.addEventListener('input', function(){
+            ColorSelectorSVGPlayer2.forEach(element => {
+                element.style.fill = this.value;
+            });
+        });
+    });
+    btnColorSelector2.forEach(element => {
+        element.addEventListener('change', function(){
+            console.log(this.value)
+            btnColorSelector2[0].value = this.value;
+        });
+    });
+
+    ColorSelectorSVGPlayer1.forEach(element => {
         element.addEventListener('click', function(){
-            btnColorSelector.click();
+            btnColorSelector1.forEach(element2 => {
+                element2.click();
+            });
+        });
+    });
+    
+    ColorSelectorSVGPlayer2.forEach(element => {
+        element.addEventListener('click', function(){
+            btnColorSelector2.forEach(element2 => {
+                element2.click();
+            });
         });
     });
 }
+
 
 
 
@@ -239,8 +283,10 @@ const init = function () {
     /*
     Page: 1VS1
     */
-   btnColorSelector = document.querySelector('.js-btn-color-selector');
-   ColorSelectorSVG = document.querySelectorAll('.c-card-player__svg');
+    btnColorSelector1 = document.querySelectorAll('.js-btn-color-selector1');
+    btnColorSelector2 = document.querySelectorAll('.js-btn-color-selector2');
+    ColorSelectorSVGPlayer1 = document.querySelectorAll('.c-player-1__svg');
+    ColorSelectorSVGPlayer2 = document.querySelectorAll('.c-player-2__svg');
 
     // *** Handle User Interactions
     handleDataUI();
