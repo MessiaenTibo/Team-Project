@@ -1,7 +1,7 @@
 import time
 import paho.mqtt.client as mqtt
-
-
+started = 0
+publish = 0
 def on_publish(client, userdata, mid):
     #voorlopig niks
     pass 
@@ -10,7 +10,14 @@ def callback_esp32_sensor1(client, userdata, msg):
 def callback_esp32_sensor2(client, userdata, msg):
     print('ESP sensor2 data: ', str(msg.payload.decode('utf-8')))
 def callback_esp32_sensor5(client, userdata, msg):
+    global started
+    global publish
     print('ESP sensor5 data: ', str(msg.payload.decode('utf-8')))
+    if(started ==1):
+        print('test succes')
+        publish = 1
+    elif(started == 0):
+        started = 1
 def callback_rpi_broadcast(client, userdata, msg):
     print('RPi Broadcast message:  ', str(msg.payload.decode('utf-8')))
 def client_subscriptions(client):
@@ -25,6 +32,7 @@ def on_disconnect(client, userdata, rc):
    global flag_connected
    flag_connected = 0
    print("Disconnected from MQTT server")
+
 client = mqtt.Client("rpi_client2") #this name should be unique
 client.on_publish = on_publish
 flag_connected = 0
@@ -40,18 +48,32 @@ client_subscriptions(client)
 print("......client setup complete............")
 # start a new thread
 client.loop_start()
-
 while True:
     try:
-        msg ='bigtest'
-        pubMsg = client.publish(
-            topic='rpi/broadcast',
-            payload=msg.encode('utf-8'),
-            qos=0,
-        )
-        pubMsg.wait_for_publish()
+        if(publish == 1):
+            print("enter")
+            msg ='led_uit'
+            pubMsg = client.publish(
+                topic='rpi/broadcast',
+                payload=msg.encode('utf-8'),
+                qos=0,
+                )
+            pubMsg.wait_for_publish()
+            print("succes")
+            #hier komt normaal dan random esp kiezen en die aanzetten
+            #voorlopig gewoon delay en zelfde terug aan
+            time.sleep(0.5)
+            msg ='led_aan'
+            pubMsg = client.publish(
+                topic='rpi/esp5',
+                payload=msg.encode('utf-8'),
+                qos=0,
+                )
+            pubMsg.wait_for_publish()
+            print("succes2")
+            started = 0
+            publish = 0
     
     except Exception as e:
         print(e)
         
-    time.sleep(2)
