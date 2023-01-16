@@ -37,7 +37,7 @@ void loop() {
     currentState = digitalRead(BUTTON_PIN);
   if(lastState == LOW && currentState == HIGH&&go==1)
   { 
-    if(progress<11)
+    if(progress<7)
     {
       Serial.print("knop:");
       Serial.println(progress);
