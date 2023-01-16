@@ -167,6 +167,7 @@ OneVSOnePage = function(){
         element.addEventListener('change', function(){
             console.log(this.value)
             btnColorSelector1[0].value = this.value;
+            btnColorSelector1[1].value = this.value;
         });
     });
     btnColorSelector2.forEach(element => {
@@ -180,6 +181,7 @@ OneVSOnePage = function(){
         element.addEventListener('change', function(){
             console.log(this.value)
             btnColorSelector2[0].value = this.value;
+            btnColorSelector2[1].value = this.value;
         });
     });
 

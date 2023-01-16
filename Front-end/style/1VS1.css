@@ -6,6 +6,7 @@ button{
     font-weight: 600;
 }
 
+
 h3{
     font-size: 16px;
     font-weight: 600;
@@ -117,6 +118,9 @@ input[type=color]::-webkit-color-swatch{
 .tabledHorizontal{
     display: none;
 }
+.laptop{
+    display: none;
+}
 
 @media (min-width: 768px) {
     .mobile{
@@ -152,6 +156,36 @@ input[type=color]::-webkit-color-swatch{
         flex-direction: column;
         justify-content: center;
     }
+
+    .c-card-player-center
+    {
+        width: 240px;
+        height: 240px;
+        display: inline-block;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .c-card-player-center > h2{
+        color: var(--global-color-alpha);
+    }
+    .c-card-player-side{
+        width: 100px;
+        height: 240px;
+        display: inline-block;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: white;
+    }
+    .c-card-player-side{
+        background-color: var(--global-color-alpha);
+    }
+    .c-card-player-side > *{
+        color: var(--global-color-white);
+    }
     .c-card-player__svg{
         width: 160px;
         height: 240px;
@@ -161,7 +195,7 @@ input[type=color]::-webkit-color-swatch{
     }
 }
 
-@media (min-width: 1024px) and (max-width: 1440px)
+@media (min-width: 1024px)
 {
     .mobile{
         display: none;
@@ -180,6 +214,9 @@ input[type=color]::-webkit-color-swatch{
         align-items: center;
         margin-bottom: 60px;
     }
+    .laptop{
+        display: none;
+    }
     .c-players-row > *{
         margin: 0 10px;
     }
@@ -195,7 +232,19 @@ input[type=color]::-webkit-color-swatch{
     .tabledHorizontal{
         display: none;
     }
-    .laptop{
-        display: grid;
+    .laptop
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        margin-bottom: 60px;
+    }
+    .c-players{
+        height: 70vh; /* 100vh - 15(header) - 15(cuz center)*/
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
     }
 }
