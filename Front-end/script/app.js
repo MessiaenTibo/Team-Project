@@ -144,6 +144,19 @@ const HomePage = function(){
     });
 }
 
+OneVSOnePage = function(){
+    btnColorSelector.addEventListener('input', function(){
+        ColorSelectorSVG.forEach(element => {
+            element.style.fill = this.value;
+        });
+    });
+    ColorSelectorSVG.forEach(element => {
+        element.addEventListener('click', function(){
+            btnColorSelector.click();
+        });
+    });
+}
+
 
 
 const checkFavicon = function(){
@@ -166,6 +179,11 @@ const handleDataUI = function () {
     }
     if(btnStart){
         listenToClickKnopen();
+    }
+    if(document.URL.includes("1vs1"))
+    {
+        console.log("1vs1");
+        OneVSOnePage();
     }
     toggleNav();
 };
@@ -217,6 +235,12 @@ const init = function () {
     scorePlayer3 = document.querySelector('.js-score-player3');
     scorePlayer4 = document.querySelector('.js-score-player4');
     placeHolderTimer = document.querySelector('.js-timer');
+
+    /*
+    Page: 1VS1
+    */
+   btnColorSelector = document.querySelector('.js-btn-color-selector');
+   ColorSelectorSVG = document.querySelectorAll('.c-card-player__svg');
 
     // *** Handle User Interactions
     handleDataUI();

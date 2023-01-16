@@ -8,6 +8,9 @@
 \*------------------------------------*/
 
 :root {
+    --global-color-alpha: rgb(32, 34, 58);
+    --global-color-white: rgb(255, 255, 255);
+
     --global-txt-color: rgb(75,76,96);
     --global-title-color: rgb(32,34,58);
     --global-background-color: rgb(245,246,250);

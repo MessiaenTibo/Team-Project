@@ -6,6 +6,11 @@ button{
     font-weight: 600;
 }
 
+h3{
+    font-size: 16px;
+    font-weight: 600;
+}
+
 /*
     Component: player grid
     ---
@@ -18,17 +23,6 @@ button{
     margin-bottom: 24px;
 }
 
-@media (min-width: 768px) {
-    .c-grid-players {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-@media (min-width: 1440px) {
-    .c-grid-players {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
-}
 
 /*
     Component: card player
@@ -38,13 +32,13 @@ button{
 
 .c-card-player{
     background-color: #fff;
-    height: 240px;
-    width: 240px;
+    height: 200px;
+    width: 200px;
 }
 
 .c-card-player__svg{
-    height: 200px;
-    width: 240px;
+    height: 160px;
+    width: 200px;
     display: block;
 }
 
@@ -89,4 +83,71 @@ button{
 
 .c-player-2__svg{
     fill: var(--global-player2-color);
+}
+
+.u-align-content-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type=color]{
+    width: 200px;
+    height: 60px;
+    padding: 0px;
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+input[type=color]::-webkit-color-swatch{
+    border-radius: 15px;
+    border: none;
+}
+
+.mobile{
+    display: grid;
+}
+.tabled{
+    display: none;
+}
+
+@media (min-width: 480px) {
+    .mobile{
+        display: none;
+    }
+    .tabled{
+        display: grid;
+    }
+    .c-card-player{
+        /* vertical align items */
+        display: flex;
+        flex-direction: row;
+        width: 400px;
+        height: 240px;
+    }
+    .c-card-player-left{
+        background-color: var(--global-color-alpha);
+        width: 240px;
+        height: 240px;
+        /* center elements */
+        display: inline-block;
+        align-items: center;
+    }
+    .c-card-player-right{
+        width: 160px;
+        height: 240px;
+        display: inline-block;
+    }
+    .c-card-player__svg{
+        width: 160px;
+        height: 240px;
+    }
+    h2{
+        color: var(--global-color-white);
+    }
 }
