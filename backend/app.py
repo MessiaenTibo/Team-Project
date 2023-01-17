@@ -48,6 +48,7 @@ client.on_disconnect = on_disconnect
 client.message_callback_add('esp32/sensor1', callback_esp32_sensor1)
 client.message_callback_add('esp32/sensor2', callback_esp32_sensor2)
 client.message_callback_add('esp32/sensor5', callback_esp32_sensor5)
+client.message_callback_add('esp32/sensor4', callback_esp32_sensor5)
 client.message_callback_add('rpi/broadcast', callback_rpi_broadcast)
 client.message_callback_add('esp32/kleur5', callback_rpi_esp5)
 client.connect('127.0.0.1',1883)
@@ -70,7 +71,7 @@ while True:
             print("succes")
             #hier komt normaal dan random esp kiezen en die aanzetten
             #voorlopig gewoon delay en zelfde terug aan
-            msg ='0xFFFF00'
+            msg ='0x00FF00'
             pubMsg = client.publish(
                 topic=f'esp32/kleur{btn_choiche}',
                 payload=msg.encode('utf-8'),
