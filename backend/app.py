@@ -7,6 +7,7 @@ from flask_cors import CORS
 import time
 import paho.mqtt.client as mqtt
 import random
+import threading
 started = 0
 publish = 0
 btn_choiche = 0
@@ -71,58 +72,63 @@ def newOneVsOne(testvariabl):
 def test():
     print('test')
 
-
-
+def mqttrun():
+    global started
+    global publish
+    global btn_choiche
+    client = mqtt.Client("rpi_client2") #this name should be unique
+    client.on_publish = on_publish
+    flag_connected = 0
+    client.on_connect = on_connect
+    client.on_disconnect = on_disconnect
+    client.message_callback_add('esp32/sensor1', callback_esp32_sensor1)
+    client.message_callback_add('esp32/sensor2', callback_esp32_sensor2)
+    client.message_callback_add('esp32/sensor5', callback_esp32_sensor5)
+    client.message_callback_add('esp32/sensor4', callback_esp32_sensor5)
+    client.message_callback_add('rpi/broadcast', callback_rpi_broadcast)
+    client.message_callback_add('esp32/kleur5', callback_rpi_esp5)
+    client.connect('127.0.0.1',1883)
+    client.loop_start()
+    client_subscriptions(client)
+    print("......client setup complete............")
+    # start a new thread
+    client.loop_start()
+    while True:
+        try:
+            if(publish == 1):
+                print("enter")
+                msg ='led_uit'
+                pubMsg = client.publish(
+                    topic='rpi/broadcast',
+                    payload=msg.encode('utf-8'),
+                    qos=0,
+                    )
+                pubMsg.wait_for_publish()
+                print("succes")
+                #hier komt normaal dan random esp kiezen en die aanzetten
+                #voorlopig gewoon delay en zelfde terug aan
+                msg ='0x00FF00'
+                pubMsg = client.publish(
+                    topic=f'esp32/kleur{btn_choiche}',
+                    payload=msg.encode('utf-8'),
+                    qos=0,
+                    )
+                pubMsg.wait_for_publish()
+                print("succes2")
+                started = 0
+                publish = 0
+                btn_choiche = 0
+        
+        except Exception as e:
+            print(e)
 # START THE APP
 if __name__ == '__main__':
     try:
+        print("in de try")
+        thread = threading.Thread(target=mqttrun, args=(), daemon=True)
+        thread.start()
+        print("thread gestart")
         print("backend running")
         socketio.run(app, debug=False, host='0.0.0.0')
     except KeyboardInterrupt:
         print('KeyboardInterrupt exception is caught')
-client = mqtt.Client("rpi_client2") #this name should be unique
-client.on_publish = on_publish
-flag_connected = 0
-client.on_connect = on_connect
-client.on_disconnect = on_disconnect
-client.message_callback_add('esp32/sensor1', callback_esp32_sensor1)
-client.message_callback_add('esp32/sensor2', callback_esp32_sensor2)
-client.message_callback_add('esp32/sensor5', callback_esp32_sensor5)
-client.message_callback_add('esp32/sensor4', callback_esp32_sensor5)
-client.message_callback_add('rpi/broadcast', callback_rpi_broadcast)
-client.message_callback_add('esp32/kleur5', callback_rpi_esp5)
-client.connect('127.0.0.1',1883)
-client.loop_start()
-client_subscriptions(client)
-print("......client setup complete............")
-# start a new thread
-client.loop_start()
-while True:
-    try:
-        if(publish == 1):
-            print("enter")
-            msg ='led_uit'
-            pubMsg = client.publish(
-                topic='rpi/broadcast',
-                payload=msg.encode('utf-8'),
-                qos=0,
-                )
-            pubMsg.wait_for_publish()
-            print("succes")
-            #hier komt normaal dan random esp kiezen en die aanzetten
-            #voorlopig gewoon delay en zelfde terug aan
-            msg ='0x00FF00'
-            pubMsg = client.publish(
-                topic=f'esp32/kleur{btn_choiche}',
-                payload=msg.encode('utf-8'),
-                qos=0,
-                )
-            pubMsg.wait_for_publish()
-            print("succes2")
-            started = 0
-            publish = 0
-            btn_choiche = 0
-    
-    except Exception as e:
-        print(e)
-        
