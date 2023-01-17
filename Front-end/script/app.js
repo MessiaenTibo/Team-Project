@@ -177,7 +177,6 @@ SpeedrunPage = function(){
             btnColorSelector1[0].value = this.value;
             btnColorSelector1[1].value = this.value;
             btnColorSelector1[2].value = this.value;
-            btnColorSelector1[3].value = this.value;
         });
     });
 
@@ -245,17 +244,10 @@ callbackOneVSOne = function(event){
 
 callbackSpeedrun = function(event){
     var jsonBody = {
-        player: {
-            name: inputsUsername1[0].value,
-            color:  btnColorSelector1[0].value
-        },
-        difficulty: {
-            degree: inputDifficulty[0].value,
-        },
-        tijd: {
-            minutes: inputsTime[0].value,
-            seconds: 0
-        }
+        name: inputsUsername1[0].value,
+        color:  btnColorSelector1[0].value,
+        degree: inputDifficulty[0].value,
+        buttonGoal: inputButtonGoal[0].value,
     };
     socketio.emit('Speedrun', jsonBody);
 }

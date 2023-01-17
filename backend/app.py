@@ -71,6 +71,13 @@ def newOneVsOne(testvariabl):
     print(type(testvariabl))
     print(testvariabl["name1"])
 
+@socketio.on('Speedrun')
+def newSpeedrun(testvariabl):
+    print('Speedrun', testvariabl)
+    #y = json.dumps(testvariabl)
+    print(type(testvariabl))
+    print(testvariabl["name"])
+
 @socketio.on('test')
 def test():
     print('test')
