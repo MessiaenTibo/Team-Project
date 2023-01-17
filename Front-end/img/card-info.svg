@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="240" viewBox="0 0 240 240">
+  <defs>
+    <clipPath id="clip-card-info">
+      <rect width="240" height="240"/>
+    </clipPath>
+  </defs>
+  <g id="card-info" clip-path="url(#clip-card-info)">
+    <g id="noun-help-4616759" transform="translate(-63.867 -26.664)">
+      <path id="Path_5" data-name="Path 5" d="M216.67,46.666a99.991,99.991,0,1,0,50,13.395,100,100,0,0,0-50-13.395Zm0,180a80,80,0,1,1,40-10.719,79.993,79.993,0,0,1-40,10.719Z" transform="translate(-32.803 0)"/>
+      <path id="Path_6" data-name="Path 6" d="M326.67,373.33h20.023v20.023H326.67Z" transform="translate(-152.813 -186.683)"/>
+      <path id="Path_7" data-name="Path 7" d="M303.371,140a35.039,35.039,0,0,0-35.039,35.039h20.023a15.016,15.016,0,1,1,15.017,15.017,10.008,10.008,0,0,0-10.01,10.01v20.023h20.023l0-11.464A35.039,35.039,0,0,0,303.371,140Z" transform="translate(-119.505 -53.363)"/>
+    </g>
+  </g>
+</svg>

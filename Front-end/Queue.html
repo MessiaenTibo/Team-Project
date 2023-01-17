@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/screen.css">
+    <title>Interactive palen</title>
+    <!-- Favicon -->
+    <link rel="shortcute icon" type="image/png" href="img/favicon-dark.ico" id="faviconTag"/>
+    <link rel="icon" href="/pictures/icon.svg">
+    <script
+      src="https://cdn.socket.io/4.4.1/socket.io.min.js"
+      integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
+      crossorigin="anonymous"
+    ></script>
+    <script src="script/dataHandler.js"></script>
+    <script src="script/app.js"></script>
+</head>
+<body>
+    <div class="js-showermonitor-page"></div>
+    <header class="o-row">
+        <div class="o-container">
+            <div class="c-header">
+                <div class="c-header__logo">                      
+                    <a class="title" href="">
+                        <h1>
+                            Queue
+                        </h1>
+                    </a> 
+                </div>
+                <div class="c-header-nav__disappear">
+                    <div class="c-nav">
+                        <nav class="c-nav u-hide">
+                            <ul class="o-list c-nav__list">
+                                <li class="c-nav-item"><a class="c-nav__link" href="./index.html">Home</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="c-header__mobile-nav-trigger">
+                    <button class="o-button-reset c-nav-trigger js-toggle-nav">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 18">
+                            <path class="c-nav-trigger__svg" id="navbar_mobile" d="M3,24H27V21H3v3Zm0-7.5H27v-3H3v3ZM3,6V9H27V6Z" transform="translate(-3 -6)" fill="#0000ac" fill-rule="evenodd"/>
+                          </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="o-row">
+            <div class="o-container">
+                <div class="c-card-queue">
+                    <div class="c-card-queue__title">
+                        <h2 class="c-card-queue__title-text">Games in queue</h2>
+                    </div>
+                    <div class="c-card-queue-grid">
+                        <div class="c-card-queue-grid-row c-card-queue-grid-row__title">
+                            <div class="c-card-queue-grid-row-item c-card-queue-grid-row-item__title">Nr</div>
+                            <div class="c-card-queue-grid-row-item c-card-queue-grid-row-item__title">Gamemode</div>
+                            <div class="c-card-queue-grid-row-item c-card-queue-grid-row-item__title">Objective</div>
+                            <div class="c-card-queue-grid-row-item c-card-queue-grid-row-item__title">Usernames</div>
+                        </div>
+                        <div class="c-card-queue-grid-row">
+                            <div class="c-card-queue-grid-row-item">1</div>
+                            <div class="c-card-queue-grid-row-item">1vs1</div>
+                            <div class="c-card-queue-grid-row-item">02:00</div>
+                            <div class="c-card-queue-grid-row-item">Tibo, Tjörven, lander en Ibe</div>
+                        </div>
+                        <div class="c-card-queue-grid-row">
+                            <div class="c-card-queue-grid-row-item">2</div>
+                            <div class="c-card-queue-grid-row-item">Simon Says</div>
+                            <div class="c-card-queue-grid-row-item">Until failure</div>
+                            <div class="c-card-queue-grid-row-item">Doran</div>
+                        </div>
+                        <div class="c-card-queue-grid-row">
+                            <div class="c-card-queue-grid-row-item">3</div>
+                            <div class="c-card-queue-grid-row-item">Speedrun</div>
+                            <div class="c-card-queue-grid-row-item">20 Buttons</div>
+                            <div class="c-card-queue-grid-row-item">Milan</div>
+                        </div>
+                        <div class="c-card-queue-grid-row">
+                            <div class="c-card-queue-grid-row-item">4</div>
+                            <div class="c-card-queue-grid-row-item">Shuttle Run</div>
+                            <div class="c-card-queue-grid-row-item">Until failure</div>
+                            <div class="c-card-queue-grid-row-item">Lars</div>
+                        </div>
+                        <div class="c-card-queue-grid-row">
+                            <div class="c-card-queue-grid-row-item">5</div>
+                            <div class="c-card-queue-grid-row-item">1vs1</div>
+                            <div class="c-card-queue-grid-row-item">02:00</div>
+                            <div class="c-card-queue-grid-row-item">Tibo, Tjörven, lander en Ibe</div>
+                        </div>
+                        <div class="c-card-queue-grid-row">
+                            <div class="c-card-queue-grid-row-item">6</div>
+                            <div class="c-card-queue-grid-row-item">Simon Says</div>
+                            <div class="c-card-queue-grid-row-item">Until failure</div>
+                            <div class="c-card-queue-grid-row-item">Vic</div>
+                        </div>
+                        <div class="c-card-queue-grid-row">
+                            <div class="c-card-queue-grid-row-item">7</div>
+                            <div class="c-card-queue-grid-row-item">Speedrun</div>
+                            <div class="c-card-queue-grid-row-item">20 Buttons</div>
+                            <div class="c-card-queue-grid-row-item">Michiel</div>
+                        </div>
+                        <div class="c-card-queue-grid-row">
+                            <div class="c-card-queue-grid-row-item">8</div>
+                            <div class="c-card-queue-grid-row-item">Shuttle Run</div>
+                            <div class="c-card-queue-grid-row-item">Until failure</div>
+                            <div class="c-card-queue-grid-row-item">Robbe</div>
+                        </div>
+                    </div>
+                    <div class="c-card-queue-footer">
+                        <div class="c-card-queue-footer-left">
+                            <div class="c-card-queue-footer-pages">1 of 2</div>
+                        </div>
+                        <div class="c-card-queue-footer-right">
+                            <div class="c-card-queue-footer-page__text">The page you're on</div>
+                            <input type="number" class="c-card-queue-footer-page__input" value="1" min="1" max="1"></input>
+                            <svg class="c-card-queue-footer-page__arrow c-card-queue-footer-page__arrow-disabled" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="240" viewBox="0 0 240 240">
+                            <defs>
+                              <clipPath id="clip-Arrow-left">
+                                <rect width="240" height="240"/>
+                              </clipPath>
+                            </defs>
+                            <g id="Arrow-left" clip-path="url(#clip-Arrow-left)">
+                              <g id="noun-arrow-2094742" transform="translate(255.004 241.307) rotate(180)">
+                                <g id="Group_12" data-name="Group 12">
+                                  <path id="Path_14" data-name="Path 14" d="M244.395,111.946,185.6,53.053a14.407,14.407,0,1,0-20.361,20.376l34.755,34.761H84.4a14.419,14.419,0,0,0,0,28.839H199.67l-34.433,34.547A14.407,14.407,0,0,0,185.6,191.951l58.8-58.893a14.323,14.323,0,0,0,4.215-10.2,2.153,2.153,0,0,0,0-.358,2.453,2.453,0,0,0,0-.358,14.45,14.45,0,0,0-4.215-10.2Z" transform="translate(-24.063 -1.358)"/>
+                                  <rect id="Rectangle_1" data-name="Rectangle 1" width="180" height="180" transform="translate(45.004 31.307)" fill="none"/>
+                                </g>
+                              </g>
+                            </g>
+                          </svg>
+                            <svg class="c-card-queue-footer-page__arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="240" viewBox="0 0 240 240">
+                                <defs>
+                                  <clipPath id="clip-Arrow-right">
+                                    <rect width="240" height="240"/>
+                                  </clipPath>
+                                </defs>
+                                <g id="Arrow-right" clip-path="url(#clip-Arrow-right)">
+                                  <g id="noun-arrow-2094742" transform="translate(-15.004 -1.307)">
+                                    <g id="Group_12" data-name="Group 12">
+                                      <path id="Path_14" data-name="Path 14" d="M244.395,111.946,185.6,53.053a14.407,14.407,0,1,0-20.361,20.376l34.755,34.761H84.4a14.419,14.419,0,0,0,0,28.839H199.67l-34.433,34.547A14.407,14.407,0,0,0,185.6,191.951l58.8-58.893a14.323,14.323,0,0,0,4.215-10.2,2.153,2.153,0,0,0,0-.358,2.453,2.453,0,0,0,0-.358,14.45,14.45,0,0,0-4.215-10.2Z" transform="translate(-24.063 -1.358)"/>
+                                      <rect id="Rectangle_1" data-name="Rectangle 1" width="180" height="180" transform="translate(45.004 31.307)" fill="none"/>
+                                    </g>
+                                  </g>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <aside class="c-mobile-nav">
+        <div class="c-mobile-nav__bg"></div>
+        <div class="c-mobile-nav__body">
+            <div class="c-mobile-nav__header">            
+                <h1 class="c-mobile-nav-tile">
+                    Interactive palen
+                </h1>
+                <button class="o-button-reset c-nav-trigger js-toggle-nav">
+                    <svg class="c-nav-trigger__svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                    </svg>
+                </button>
+            </div>
+            <div class="c-mobile-nav__nav c-mobile-nav__nav--main">
+                <nav class="c-nav">
+                    <ul class="o-list c-nav__list">
+                        <li class="c-nav__item"><a href="../Front-end/index.html" class="c-nav__link">Home</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </aside>
+</body>
+</html>
