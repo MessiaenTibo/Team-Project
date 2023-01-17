@@ -67,6 +67,9 @@ def initial_connection():
 @socketio.on('1vs1')
 def newOneVsOne(testvariabl):
     print('1vs1', testvariabl)
+    #y = json.dumps(testvariabl)
+    print(type(testvariabl))
+    print(testvariabl["name1"])
 
 @socketio.on('test')
 def test():

@@ -245,19 +245,13 @@ callback = function(event){
     // };
 
     var jsonBody = {
-        player1: {
-            name: inputsUsername1[0].value,
-            color:  btnColorSelector1[0].value
-        },
-        player2: {
-            name: inputsUsername2[0].value,
-            color: btnColorSelector2[0].value
-        },
-        tijd: {
+            name1: inputsUsername1[0].value,
+            color1:  btnColorSelector1[0].value,
+            name2: inputsUsername2[0].value,
+            color2: btnColorSelector2[0].value,
             minutes: inputsTime[0].value,
             seconds: 0
-        }
-    };
+        };
     socketio.emit('1vs1', jsonBody);
 }
 
