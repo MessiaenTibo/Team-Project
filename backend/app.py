@@ -10,8 +10,12 @@ import random
 import threading
 started = 0
 publish = 0
+power_off =0
+game_progress = 0
 btn_choiche = 0
 color_choiche = ""
+game_bezig = 0
+aantal_knoppen = 0
 def on_publish(client, userdata, mid):
     #voorlopig niks
     pass 
@@ -24,15 +28,19 @@ def callback_rpi_esp5(client, userdata, msg):
 def callback_esp32_sensor5(client, userdata, msg):
     global started
     global publish
+    global power_off
     global btn_choiche
+    global game_bezig
+    global aantal_knoppen
     print('ESP sensor5 data: ', str(msg.payload.decode('utf-8')))
-    if(started ==1):
+    if(game_bezig ==1):
         print('test succes')
         publish = 1
         btn_choiche = random.randint(4,5)
         print(btn_choiche)
-    elif(started == 0):
-        started = 1
+    elif(game_bezig == 0):
+        power_off = 1
+        game_bezig = 1
 def callback_rpi_broadcast(client, userdata, msg):
     print('RPi Broadcast message:  ', str(msg.payload.decode('utf-8')))
 def client_subscriptions(client):
@@ -74,7 +82,10 @@ def newOneVsOne(testvariabl):
 
 @socketio.on('Speedrun')
 def newSpeedrun(testvariabl):
+    global game_bezig
+    global aantal_knoppen
     global color_choiche
+    global game_progress
     print('Speedrun', testvariabl)
     #y = json.dumps(testvariabl)
     print(type(testvariabl))
@@ -82,6 +93,9 @@ def newSpeedrun(testvariabl):
     temp = testvariabl["color"].replace("#", "")
     temp = "0x" + temp
     color_choiche = temp
+    aantal_knoppen = int(testvariabl["buttonGoal"])
+    game_bezig = 1
+    game_progress = 0
     print(temp)
 
 @socketio.on('test')
@@ -91,7 +105,11 @@ def test():
 def mqttrun():
     global started
     global publish
+    global power_off
     global btn_choiche
+    global game_bezig
+    global aantal_knoppen
+    global game_progress
     global color_choiche
     client = mqtt.Client("rpi_client2") #this name should be unique
     client.on_publish = on_publish
@@ -112,6 +130,17 @@ def mqttrun():
     client.loop_start()
     while True:
         try:
+            if(power_off == 1):
+                print("enter")
+                msg ='led_uit'
+                pubMsg = client.publish(
+                    topic='rpi/broadcast',
+                    payload=msg.encode('utf-8'),
+                    qos=0,
+                    )
+                pubMsg.wait_for_publish()
+                print("game end - alles uit")
+                power_off = 0
             if(publish == 1):
                 print("enter")
                 msg ='led_uit'
@@ -122,8 +151,6 @@ def mqttrun():
                     )
                 pubMsg.wait_for_publish()
                 print("succes")
-                #hier komt normaal dan random esp kiezen en die aanzetten
-                #voorlopig gewoon delay en zelfde terug aan
                 msg =color_choiche
                 pubMsg = client.publish(
                     topic=f'esp32/kleur{btn_choiche}',
@@ -132,7 +159,12 @@ def mqttrun():
                     )
                 pubMsg.wait_for_publish()
                 print("succes2")
-                started = 0
+                game_progress = game_progress+1
+                if(aantal_knoppen==game_progress):
+                    game_bezig=0
+                    game_progress=0
+                    aantal_knoppen = 0
+                    color_choiche = ""
                 publish = 0
                 btn_choiche = 0
         
