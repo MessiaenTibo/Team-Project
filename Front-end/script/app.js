@@ -1,3 +1,6 @@
+const lanIP = `${window.location.hostname}:5000`; // ip van de webserver
+const socketio = io(lanIP);
+
 let gameStarted = false;
 
 const ResetScore = function()
@@ -144,6 +147,121 @@ const HomePage = function(){
     });
 }
 
+OneVSOnePage = function(){
+    btnColorSelector1.forEach(element => {
+        element.addEventListener('input', function(){
+            ColorSelectorSVGPlayer1.forEach(element => {
+                element.style.fill = this.value;
+            });
+        });
+    });
+    btnColorSelector1.forEach(element => {
+        element.addEventListener('change', function(){
+            console.log(this.value)
+            btnColorSelector1[0].value = this.value;
+            btnColorSelector1[1].value = this.value;
+            btnColorSelector1[2].value = this.value;
+            btnColorSelector1[3].value = this.value;
+        });
+    });
+    btnColorSelector2.forEach(element => {
+        element.addEventListener('input', function(){
+            ColorSelectorSVGPlayer2.forEach(element => {
+                element.style.fill = this.value;
+            });
+        });
+    });
+    btnColorSelector2.forEach(element => {
+        element.addEventListener('change', function(){
+            console.log(this.value)
+            btnColorSelector2[0].value = this.value;
+            btnColorSelector2[1].value = this.value;
+            btnColorSelector2[2].value = this.value;
+            btnColorSelector2[3].value = this.value;
+        });
+    });
+
+    ColorSelectorSVGPlayer1.forEach(element => {
+        element.addEventListener('click', function(){
+            btnColorSelector1.forEach(element2 => {
+                element2.click();
+            });
+        });
+    });
+    
+    ColorSelectorSVGPlayer2.forEach(element => {
+        element.addEventListener('click', function(){
+            btnColorSelector2.forEach(element2 => {
+                element2.click();
+            });
+        });
+    });
+    
+    // Setting the same value for all inputs
+    inputsUsername1.forEach(element => {
+        element.addEventListener('input', function(){
+            inputsUsername1.forEach(element2 => {
+                element2.value = this.value;
+            });
+        });
+    });
+
+    inputsUsername2.forEach(element => {
+        element.addEventListener('input', function(){
+            inputsUsername2.forEach(element2 => {
+                element2.value = this.value;
+            });
+        });
+    });
+
+    // Setting the same value for all inputs select (dropdown)
+    inputsTime.forEach(element => {
+        element.addEventListener('change', function(){
+            inputsTime.forEach(element2 => {
+                element2.value = this.value;
+            });
+        });
+    });
+
+
+
+    // var ele = document.getElementById("form1VS1");
+    // if(ele.addEventListener){
+    //     ele.addEventListener("submit", callback, false);  //Modern browsers
+    // }else if(ele.attachEvent){
+    //     ele.attachEvent('onsubmit', callback);            //Old IE
+    // }
+
+    var forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        form.addEventListener("submit", callback, false);
+    });
+}
+
+callback = function(event){
+    // socketio.emit('1vs1', 1);
+    // var jsonBody = {
+    //     message: 'test message'
+    // };
+
+    var jsonBody = {
+        player1: {
+            name: inputsUsername1[0].value,
+            color:  btnColorSelector1[0].value
+        },
+        player2: {
+            name: inputsUsername2[0].value,
+            color: btnColorSelector2[0].value
+        },
+        tijd: {
+            minutes: inputsTime[0].value,
+            seconds: 0
+        }
+    };
+    socketio.emit('1vs1', jsonBody);
+}
+
+
 
 
 const checkFavicon = function(){
@@ -167,12 +285,21 @@ const handleDataUI = function () {
     if(btnStart){
         listenToClickKnopen();
     }
+    if(document.URL.includes("1vs1"))
+    {
+        console.log("1vs1");
+        OneVSOnePage();
+    }
     toggleNav();
 };
 
 //#region ***  Init / DOMContentLoaded                  ***********
 const init = function () {
     console.log("DOM geladen");
+    //test socketio
+    socketio.emit('test');
+
+
     // Favicon
     checkFavicon();
 
@@ -217,6 +344,19 @@ const init = function () {
     scorePlayer3 = document.querySelector('.js-score-player3');
     scorePlayer4 = document.querySelector('.js-score-player4');
     placeHolderTimer = document.querySelector('.js-timer');
+
+    /*
+    Page: 1VS1
+    */
+    btnColorSelector1 = document.querySelectorAll('.js-btn-color-selector1');
+    btnColorSelector2 = document.querySelectorAll('.js-btn-color-selector2');
+    ColorSelectorSVGPlayer1 = document.querySelectorAll('.c-player-1__svg');
+    ColorSelectorSVGPlayer2 = document.querySelectorAll('.c-player-2__svg');
+
+    inputsUsername1 = document.querySelectorAll('.js-player-1-input');
+    inputsUsername2 = document.querySelectorAll('.js-player-2-input');
+
+    inputsTime = document.querySelectorAll('.js-time-input');
 
     // *** Handle User Interactions
     handleDataUI();
