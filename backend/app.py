@@ -11,6 +11,7 @@ import threading
 started = 0
 publish = 0
 btn_choiche = 0
+color_choiche = ""
 def on_publish(client, userdata, mid):
     #voorlopig niks
     pass 
@@ -73,10 +74,15 @@ def newOneVsOne(testvariabl):
 
 @socketio.on('Speedrun')
 def newSpeedrun(testvariabl):
+    global color_choiche
     print('Speedrun', testvariabl)
     #y = json.dumps(testvariabl)
     print(type(testvariabl))
-    print(testvariabl["name"])
+    print(testvariabl["color"])
+    temp = testvariabl["color"].replace("#", "")
+    temp = "0x" + temp
+    color_choiche = temp
+    print(temp)
 
 @socketio.on('test')
 def test():
@@ -86,6 +92,7 @@ def mqttrun():
     global started
     global publish
     global btn_choiche
+    global color_choiche
     client = mqtt.Client("rpi_client2") #this name should be unique
     client.on_publish = on_publish
     flag_connected = 0
@@ -117,7 +124,7 @@ def mqttrun():
                 print("succes")
                 #hier komt normaal dan random esp kiezen en die aanzetten
                 #voorlopig gewoon delay en zelfde terug aan
-                msg ='0x00FF00'
+                msg =color_choiche
                 pubMsg = client.publish(
                     topic=f'esp32/kleur{btn_choiche}',
                     payload=msg.encode('utf-8'),
