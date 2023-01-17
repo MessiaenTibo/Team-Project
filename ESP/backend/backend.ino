@@ -7,6 +7,7 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
 
+
 // Replace the SSID/Password details as per your wifi router
 const char* ssid = "interactieve palen";
 const char* password = "internet";
@@ -69,7 +70,7 @@ void connect_mqttServer() {
         //now attemt to connect to MQTT server
         Serial.print("Attempting MQTT connection...");
         // Attempt to connect
-        if (client.connect("ESP32_client1")) { // Change the name of client here if multiple ESP32 are connected
+        if (client.connect("ESP32_client2")) { // Change the name of client here if multiple ESP32 are connected
           //attempt successful
           Serial.println("connected");
           // Subscribe to topics here
@@ -136,7 +137,7 @@ void loop() {
   if (now - lastMsg > 4000) {
     lastMsg = now;
 
-    client.publish("esp32/sensor1", "88"); //topic name (to which this ESP32 publishes its data). 88 is the dummy value.
+    client.publish("esp32/sensor2", "84"); //topic name (to which this ESP32 publishes its data). 88 is the dummy value.
     
   }
   

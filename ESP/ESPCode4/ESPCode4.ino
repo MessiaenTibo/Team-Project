@@ -5,6 +5,9 @@
 #include <FastLED.h>
 #include <WiFi.h>
 #include <PubSubClient.h>
+#include <stdlib.h>
+#include<iostream>
+using namespace std;
 // How many leds in your strip?
 #define NUM_LEDS 9
 const char* ssid = "interactieve palen";
@@ -64,12 +67,12 @@ void connect_mqttServer() {
         //now attemt to connect to MQTT server
         Serial.print("Attempting MQTT connection...");
         // Attempt to connect
-        if (client.connect("ESP32_client5")) { // Change the name of client here if multiple ESP32 are connected
+        if (client.connect("ESP32_client4")) { // Change the name of client here if multiple ESP32 are connected
           //attempt successful
           Serial.println("connected");
           // Subscribe to topics here
           client.subscribe("rpi/broadcast");
-          client.subscribe("esp32/kleur5");
+          client.subscribe("esp32/kleur4");
           //client.subscribe("rpi/xyz"); //subscribe more topics here
           
         } 
@@ -89,7 +92,7 @@ void callback(char* topic, byte* message, unsigned int length) {
   Serial.print("Message arrived on topic: ");
   Serial.print(topic);
   Serial.print(". Message: ");
-  String messageTemp;
+  String messageTemp = "";
   
   for (int i = 0; i < length; i++) {
     Serial.print((char)message[i]);
@@ -107,12 +110,17 @@ void callback(char* topic, byte* message, unsigned int length) {
         }
         FastLED.show(); 
   }
-  if (String(topic) == "esp32/kleur5") {
+  if (String(topic) == "esp32/kleur4") {
       Serial.print("HIER aan");
       Serial.println(messageTemp);
+      const char* ccx = messageTemp.c_str();
+      cout << ccx;
+      //const char *hexstring = "0xabcdef";
+      int number = (int)strtol(ccx, NULL, 0);
+      Serial.println(number);
       for(int i =0;i<9;i++)
         {
-          leds[i] = CRGB::Red; 
+          leds[i] = number; 
         }
         FastLED.show();
   }
@@ -137,7 +145,7 @@ void loop() {
   currentState = digitalRead(BUTTON_PIN);
     if(lastState == LOW && currentState == HIGH)
     {
-      client.publish("esp32/sensor5", "gedrukt");
+      client.publish("esp32/sensor4", "gedrukt");
     }
   // save the last state
   lastState = currentState;
