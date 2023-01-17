@@ -5,6 +5,9 @@
 #include <FastLED.h>
 #include <WiFi.h>
 #include <PubSubClient.h>
+#include <stdlib.h>
+#include<iostream>
+using namespace std;
 // How many leds in your strip?
 #define NUM_LEDS 9
 const char* ssid = "interactieve palen";
@@ -89,7 +92,7 @@ void callback(char* topic, byte* message, unsigned int length) {
   Serial.print("Message arrived on topic: ");
   Serial.print(topic);
   Serial.print(". Message: ");
-  String messageTemp;
+  String messageTemp = "";
   
   for (int i = 0; i < length; i++) {
     Serial.print((char)message[i]);
@@ -110,9 +113,14 @@ void callback(char* topic, byte* message, unsigned int length) {
   if (String(topic) == "esp32/kleur5") {
       Serial.print("HIER aan");
       Serial.println(messageTemp);
+      const char* ccx = messageTemp.c_str();
+      cout << ccx;
+      //const char *hexstring = "0xabcdef";
+      int number = (int)strtol(ccx, NULL, 0);
+      Serial.println(number);
       for(int i =0;i<9;i++)
         {
-          leds[i] = CRGB::Red; 
+          leds[i] = number; 
         }
         FastLED.show();
   }
