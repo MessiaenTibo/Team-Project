@@ -22,6 +22,7 @@ h3{
     grid-template-columns: 1fr;
     grid-gap: 24px;
     margin-bottom: 24px;
+    padding: 0px;
 }
 
 
@@ -65,7 +66,7 @@ h3{
     font-size: 20px;
     font-weight: 600;
     font-family: 'Oxygen', sans-serif;
-    width: 100%;
+    width: 60%;
 }
 
 .c-card-player__Name::selection{
@@ -92,6 +93,14 @@ h3{
     align-items: center;
 }
 
+.u-center-horizontal
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
 input[type=color]{
     width: 200px;
     height: 60px;
@@ -107,6 +116,14 @@ input[type=color]{
 input[type=color]::-webkit-color-swatch{
     border-radius: 15px;
     border: none;
+}
+
+.c-edit-icon
+{
+    width: 28px;
+    height: 28px;
+    fill: white;
+    cursor: pointer;
 }
 
 .mobile{
