@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/screen.css">
+    <title>Interactive palen</title>
+    <!-- Favicon -->
+    <link rel="shortcute icon" type="image/png" href="img/favicon-dark.ico" id="faviconTag"/>
+    <link rel="icon" href="/pictures/icon.svg">
+    <script
+      src="https://cdn.socket.io/4.4.1/socket.io.min.js"
+      integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
+      crossorigin="anonymous"
+    ></script>
+    <script src="script/dataHandler.js"></script>
+    <script src="script/app.js"></script>
+</head>
+<body>
+    <div class="js-showermonitor-page"></div>
+    <header class="o-row">
+        <div class="o-container">
+            <div class="c-header">
+                <div class="c-header__logo">                      
+                    <a class="title" href="">
+                        <h1>
+                            Shuttle Run
+                        </h1>
+                    </a> 
+                </div>
+                <div class="c-header-nav__disappear">
+                    <div class="c-nav">
+                        <nav class="c-nav u-hide">
+                            <ul class="o-list c-nav__list">
+                                <li class="c-nav-item"><a class="c-nav__link" href="./index.html">Home</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="c-header__mobile-nav-trigger">
+                    <button class="o-button-reset c-nav-trigger js-toggle-nav">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 18">
+                            <path class="c-nav-trigger__svg" id="navbar_mobile" d="M3,24H27V21H3v3Zm0-7.5H27v-3H3v3ZM3,6V9H27V6Z" transform="translate(-3 -6)" fill="#0000ac" fill-rule="evenodd"/>
+                          </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div>
+            <div class="c-layout c-layout--gutter">
+                <header class="o-row">
+                    <div class="o-container" style="text-align: center;">
+                        <div style="text-align: left;">
+                            <br>
+                            <div class="c-players">
+                                <h2>Shuttle Run</h2>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+            </div>
+        </div>
+    </main>
+    <aside class="c-mobile-nav">
+        <div class="c-mobile-nav__bg"></div>
+        <div class="c-mobile-nav__body">
+            <div class="c-mobile-nav__header">            
+                <h1 class="c-mobile-nav-tile">
+                    Interactive palen
+                </h1>
+                <button class="o-button-reset c-nav-trigger js-toggle-nav">
+                    <svg class="c-nav-trigger__svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                    </svg>
+                </button>
+            </div>
+            <div class="c-mobile-nav__nav c-mobile-nav__nav--main">
+                <nav class="c-nav">
+                    <ul class="o-list c-nav__list">
+                        <li class="c-nav__item"><a href="../Front-end/index.html" class="c-nav__link">Home</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </aside>
+</body>
+</html>
