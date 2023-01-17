@@ -13,6 +13,7 @@ publish = 0
 power_off =0
 game_progress = 0
 btn_choiche = 0
+
 color_choiche = ""
 game_bezig = 0
 aantal_knoppen = 0
