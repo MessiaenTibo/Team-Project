@@ -37,7 +37,10 @@ def callback_esp32_sensor5(client, userdata, msg):
     if(game_bezig ==1):
         print('test succes')
         publish = 1
-        btn_choiche = random.randint(4,5)
+        temp = random.randint(4,6)
+        while(temp == btn_choiche):
+            temp = random.randint(4,6)
+        btn_choiche = temp
         print(btn_choiche)
     elif(game_bezig == 0):
         power_off = 1
@@ -121,6 +124,7 @@ def mqttrun():
     client.message_callback_add('esp32/sensor2', callback_esp32_sensor2)
     client.message_callback_add('esp32/sensor5', callback_esp32_sensor5)
     client.message_callback_add('esp32/sensor4', callback_esp32_sensor5)
+    client.message_callback_add('esp32/sensor6', callback_esp32_sensor5)
     client.message_callback_add('rpi/broadcast', callback_rpi_broadcast)
     client.message_callback_add('esp32/kleur5', callback_rpi_esp5)
     client.connect('127.0.0.1',1883)
@@ -167,7 +171,7 @@ def mqttrun():
                     aantal_knoppen = 0
                     color_choiche = ""
                 publish = 0
-                btn_choiche = 0
+                #btn_choiche = 0
         
         except Exception as e:
             print(e)
