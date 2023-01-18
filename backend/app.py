@@ -37,9 +37,9 @@ def callback_esp32_sensor5(client, userdata, msg):
     if(game_bezig ==1):
         print('test succes')
         publish = 1
-        temp = random.randint(4,6)
+        temp = random.randint(1,6)
         while(temp == btn_choiche):
-            temp = random.randint(4,6)
+            temp = random.randint(1,6)
         btn_choiche = temp
         print(btn_choiche)
     elif(game_bezig == 0):
@@ -125,6 +125,9 @@ def mqttrun():
     client.message_callback_add('esp32/sensor5', callback_esp32_sensor5)
     client.message_callback_add('esp32/sensor4', callback_esp32_sensor5)
     client.message_callback_add('esp32/sensor6', callback_esp32_sensor5)
+    client.message_callback_add('esp32/sensor3', callback_esp32_sensor5)
+    client.message_callback_add('esp32/sensor2', callback_esp32_sensor5)
+    client.message_callback_add('esp32/sensor1', callback_esp32_sensor5)
     client.message_callback_add('rpi/broadcast', callback_rpi_broadcast)
     client.message_callback_add('esp32/kleur5', callback_rpi_esp5)
     client.connect('127.0.0.1',1883)
