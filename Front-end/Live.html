@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style/screen.css">
+    <link rel="stylesheet" href="./style/live.CSS">
     <title>Interactive palen</title>
     <!-- Favicon -->
     <link rel="shortcute icon" type="image/png" href="img/favicon-dark.ico" id="faviconTag"/>
@@ -52,11 +53,55 @@
         <div>
             <div class="c-layout c-layout--gutter">
                 <header class="o-row">
-                    <div class="o-container" style="text-align: center;">
-                        <div style="text-align: left;">
-                            <br>
-                            <div class="c-players">
-                                <h2>Live</h2>
+                    <div class="o-container">
+                        <div class="c-grid-cards">
+                            <!-- Live cards -->
+                            <div class="c-card players">
+                                <div class="c-card__header">
+                                    <h2>Spelers</h2>
+                                </div>
+                                <div class="c-card__body">
+                                    <h3>Tibo</h3>
+                                    <h3>&</h3>
+                                    <h3>Tjörven</h3>
+                                </div>
+                            </div>
+                            <div class="c-card game">
+                                <div class="c-card__header">
+                                    <h2>Spel</h2>
+                                </div>
+                                <div class="c-card__body">
+                                    <svg class="c-card__svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="240" viewBox="0 0 240 240">
+                                        <defs>
+                                          <clipPath id="clip-Card-1vs1">
+                                            <rect width="240" height="240"/>
+                                          </clipPath>
+                                        </defs>
+                                        <g id="Card-1vs1" clip-path="url(#clip-Card-1vs1)">
+                                          <text id="_1_vs_1" data-name="1 vs 1" transform="translate(15 149)" font-size="80" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">1 vs 1</tspan></text>
+                                        </g>
+                                      </svg>
+                                </div>
+                            </div>
+                            <div class="c-card time">
+                                <div class="c-card__header">
+                                    <h2>Tijd</h2>
+                                </div>
+                                <div class="c-card__body">
+                                    <h3>01:23:76</h3>
+                                </div>
+                            </div>
+                            <div class="c-card score">
+                                <div class="c-card__header">
+                                    <h2>Score</h2>
+                                </div>
+                                <div class="c-card__body">
+                                    <h3>Tibo: 12</h3>
+                                    <h3>Tjörven: 10</h3>
+                                </div>
+                            </div>
+                            <div class="c-card u-grid-column-span-2 graph">
+
                             </div>
                         </div>
                     </div>
@@ -69,7 +114,7 @@
         <div class="c-mobile-nav__body">
             <div class="c-mobile-nav__header">            
                 <h1 class="c-mobile-nav-tile">
-                    Interactive palen
+                    Live
                 </h1>
                 <button class="o-button-reset c-nav-trigger js-toggle-nav">
                     <svg class="c-nav-trigger__svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
