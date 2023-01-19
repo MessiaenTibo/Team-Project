@@ -15,6 +15,8 @@
       integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
       crossorigin="anonymous"
     ></script>
+    <!-- ChartJs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <script src="script/dataHandler.js"></script>
     <script src="script/app.js"></script>
 </head>
@@ -92,7 +94,7 @@
                                 </div>
                             </div>
                             <div class="c-card score">
-                                <div class="c-card__header">
+                                <div class="c-card__header js-output-score__title">
                                     <h2>Score</h2>
                                 </div>
                                 <div class="c-card__body js-output-score">
@@ -101,7 +103,7 @@
                                 </div>
                             </div>
                             <div class="c-card u-grid-column-span-2 graph">
-
+                                <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
                             </div>
                         </div>
                     </div>
