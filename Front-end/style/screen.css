@@ -80,6 +80,7 @@ body{
     margin: 0;
     padding: 0;
     position: relative;
+    height: 100vh;
     padding: 0px 24px 0px;
 
     /*Background image*/
@@ -633,10 +634,13 @@ a:focus {
 
 .o-hide-accessible {
     position: absolute;
-    width: calc(1rem / var(--global-root-font-size));
-    height: calc(1rem / var(--global-root-font-size));
+    /* width: calc(1rem / var(--global-root-font-size)); */
+    width: 1px;
+    /* height: calc(1rem / var(--global-root-font-size)); */
+    height: 1px !important;
     padding: 0;
-    margin: calc(-1rem / var(--global-root-font-size));
+    /* margin: calc(-1rem / var(--global-root-font-size)); */
+    margin: -1px;
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
@@ -1361,38 +1365,67 @@ a:focus {
 */
 .c-grid-gamemodes{
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 140px 140px;
+    grid-template-rows: repeat(4, 140px);
     grid-gap: 24px;
     margin-bottom: 24px;
 }
 
 .c-card-gamemode{
     background-color: #fff;
-    height: 240px;
-    width: 240px;
 }
 
-.c-card-info{
+.c-card-score-bord{
     background-color: #fff;
-    height: 240px;
-    grid-column: span 1;
-    display: none;
+}
+
+.c-card-score-bord__content{
+    height: 90%;
+    padding: 26px 20px 0 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.c-card-score-bord__footer{
+    height: 10%;
+    background-color: var(--global-color-alpha);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
 @media (min-width: 768px) {
-    .c-grid-gamemodes {
-        grid-template-columns: 1fr 1fr;
+    .c-grid-gamemodes{
+        display: grid;
+        grid-template-columns: 160px 160px;
+        grid-template-rows: repeat(4, 160px);
+        grid-gap: 24px;
+        margin-bottom: 24px;
     }
 }
 
-@media (min-width: 1440px) {
-    .c-grid-gamemodes {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+@media (min-width: 1024px)
+{
+    .c-grid-gamemodes{
+        display: grid;
+        grid-template-columns: repeat(4, 200px);
+        grid-template-rows: 200px 200px;
+        grid-gap: 32px;
+        margin-bottom: 24px;
     }
-    .c-card-info{
-        display: block;
-        grid-column: span 2;
+
+}
+
+@media (min-width: 1440px) {
+    .c-grid-gamemodes{
+        display: grid;
+        grid-template-columns: repeat(4, 240px);
+        grid-template-rows: 240px 240px;
+        grid-gap: 48px;
+        margin-bottom: 24px;
     }
 }
 
@@ -1402,9 +1435,9 @@ a:focus {
     cvg's inside a card
 */
 .c-card-gamemode__svg{
-    height: 200px;
-    width: 240px;
-    display: block;
+    height: 80%;
+    display: flex;
+    margin: auto;
 }
 .c-card-gamemode__svg:hover {
     cursor: pointer;
@@ -1416,6 +1449,37 @@ a:focus {
     cursor: pointer;
 }
 
+.c-card-gamemode__title{
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+@media (min-width: 768px) {
+    .c-card-gamemode__title{
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+}
+
+@media (min-width: 1024px)
+{
+    .c-card-gamemode__title{
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .c-card-gamemode__title{
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+}
+
 
 /*
     Component: card gamemode info
@@ -1423,22 +1487,29 @@ a:focus {
     info about the gamemode
 */
 .c-card-gamemode-info__button{
-    height:34px;
-    width: 34px;
+    height:24px;
+    width: 24px;
     position: relative;
-    margin-bottom: -34px;
-    left: 206px;
+    margin-bottom: -26px;
+    left: 112px;
+    top: 4px;
     cursor: pointer;
 }
 
 .c-card-gamemode-info__content{
-    height: 200px;
-    width: 240px;
-    padding: 26px 20px 0 20px;
+    height: 80%;
+    margin: auto;
+    padding: 26px 16px 0px 16px;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.c-card-gamemode-info__content > p{
+    font-size: 8px;
+    font-weight: 600;
+    margin-bottom: 4px;
 }
 
 .c-card-gamemode-info__button:hover{
@@ -1451,6 +1522,68 @@ a:focus {
     width: 100%;
 }
 
+@media (min-width: 768px)
+{
+    .c-card-gamemode-info__button{
+        height:24px;
+        width: 24px;
+        position: relative;
+        margin-bottom: -26px;
+        left: 130px;
+        top: 4px;
+        cursor: pointer;
+    }
+
+    .c-card-gamemode-info__content > p{
+        font-size: 10px;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+
+}
+
+
+@media (min-width: 1024px)
+{
+    .c-card-gamemode-info__button{
+        height:32px;
+        width: 32px;
+        position: relative;
+        margin-bottom: -34px;
+        left: 160px;
+        top: 4px;
+        cursor: pointer;
+    }
+
+    .c-card-gamemode-info__content > p{
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+}
+
+@media (min-width: 1440px)
+{
+    .c-card-gamemode-info__button{
+        height:40px;
+        width: 40px;
+        position: relative;
+        margin-bottom: -40px;
+        left: 194px;
+        top: 6px;
+        cursor: pointer;
+    }
+
+    .c-card-gamemode-info__content{
+        padding: 40px 32px 0px 32px;
+    }
+
+    .c-card-gamemode-info__content > p{
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+}
 
 
 /*
@@ -1459,7 +1592,7 @@ a:focus {
     bottom of the card
 */
 .c-card-gamemode__footer{
-    height: 40px;
+    height: 20%;
     background-color: var(--global-background-footer-color);
     color: white;
     display: flex;
@@ -1517,11 +1650,27 @@ a:focus {
     display: none;
 }
 
+.u-grid-column-span-2{
+    grid-column: span 2;
+}
+
+.u-grid-row-span-2{
+    grid-row: span 2;
+}
+
 .c-card-info-2{
     background-color: #fff;
     height: 240px;
     grid-column: span 1;
     display: none;
+}
+
+@media (min-width: 1024px) {
+    .c-card-score-bord{
+        /* set this item in the third position */
+        grid-column: 3/5;
+        grid-row: 1/3;
+    }
 }
 
 @media (min-width: 1440px) {
