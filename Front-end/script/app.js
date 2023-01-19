@@ -253,26 +253,6 @@ LivePage = function(){
     LoadOneVSOneData(jsonDataTestOneVSOne);
 
 
-
-
-
-    // var options = {
-    //     chart: {
-    //       type: 'line'
-    //     },
-    //     series: [{
-    //       name: 'sales',
-    //       data: [30,40,35,50,49,60,70,91,125]
-    //     }],
-    //     xaxis: {
-    //       categories: [1991,1992,1993,1994,1995,1996,1997, 1998,1999]
-    //     }
-    //   }
-      
-    //   var chart = new ApexCharts(document.querySelector("#myChart"), options);
-      
-    //   chart.render();
-    
     showChart();
 }
 
@@ -280,12 +260,14 @@ LivePage = function(){
 
 
 showChart = function(){
+    console.log("showChart");
+
     var options = {
         series: [{
-          data: [0.1,0.2,0.4, 1, 2, 3, 6, 9, 10.8, 13.9, 14.3, 15, 16, 19, 22.4]
+          data: [0.000,0.829,1.624,3.681,4.482,5.291,7.102,7.911,8.722,9.131,9.342,10.651,11.962,12.171,12.582,13.391,14.646,15.411,15.822,17.631,17.842]
         }],
         chart: {
-          height: document.getElementById("myChart").parentElement.offsetHeight,
+          height: document.getElementById("myChart").parentElement.offsetHeight - 8,
           width: document.getElementById("myChart").parentElement.offsetWidth,
           type: 'line',
           zoom: {
@@ -296,14 +278,15 @@ showChart = function(){
           enabled: false
         },
         xaxis: {
-        //   categories: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
-        categories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-          tickAmount: 20  // optional tickAmount value
+            //   categories: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
+            categories: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+            tickAmount: 4  // optional tickAmount value
         }
       };
       
       var chart = new ApexCharts(document.querySelector("#myChart"), options);
       chart.render();
+
 }
 
 
