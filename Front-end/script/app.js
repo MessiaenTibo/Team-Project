@@ -223,6 +223,17 @@ SpeedrunPage = function(){
     });
 }
 
+
+LivePage = function(){
+
+    OutputUsernames.innerHTML = `<h3>Loading...</h3>`;
+    OutputGameMode.innerHTML = `<h3>Loading...</h3>`;
+    OutputScore.innerHTML = `<h3>Loading...</h3>`;
+    OutputTime.innerHTML = `<h3>Loading...</h3>`;
+
+
+}
+
 //#endregion
 
 
@@ -292,6 +303,11 @@ const handleDataUI = function () {
     }
     if(btnStart){
         listenToClickKnopen();
+    }
+    if(document.URL.includes("Live"))
+    {
+        console.log("Live");
+        LivePage();
     }
     if(document.URL.includes("1vs1"))
     {
@@ -381,6 +397,15 @@ const init = function () {
     */
     inputDifficulty = document.querySelectorAll('.js-difficulty-input');
     inputButtonGoal = document.querySelectorAll('.js-button-goal-input');
+
+
+    /*
+    Page: Live
+    */
+    OutputUsernames = document.querySelector('.js-output-username');
+    OutputGameMode = document.querySelector('.js-output-gamemode');
+    OutputScore = document.querySelector('.js-output-score');
+    OutputTime = document.querySelector('.js-output-time');
 
     // *** Handle User Interactions
     handleDataUI();
