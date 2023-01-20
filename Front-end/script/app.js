@@ -286,6 +286,67 @@ SimonSaysPage = function(){
 }
 
 
+ShuttleRunPage = function(){
+    btnColorSelector1.forEach(element => {
+        element.addEventListener('input', function(){
+            ColorSelectorSVGPlayer1.forEach(element => {
+                element.style.fill = this.value;
+            });
+        });
+    });
+    btnColorSelector1.forEach(element => {
+        element.addEventListener('change', function(){
+            console.log(this.value)
+            btnColorSelector1[0].value = this.value;
+            btnColorSelector1[1].value = this.value;
+            btnColorSelector1[2].value = this.value;
+        });
+    });
+
+
+    ColorSelectorSVGPlayer1.forEach(element => {
+        element.addEventListener('click', function(){
+            btnColorSelector1.forEach(element2 => {
+                element2.click();
+            });
+        });
+    });
+
+    
+    // Setting the same value for all inputs
+    inputsUsername1.forEach(element => {
+        element.addEventListener('input', function(){
+            inputsUsername1.forEach(element2 => {
+                element2.value = this.value;
+            });
+        });
+    });
+
+    // Setting the same value for all inputs select (dropdown)
+    inputDifficulty.forEach(element => {
+        element.addEventListener('change', function(){
+            inputDifficulty.forEach(element2 => {
+                element2.value = this.value;
+            });
+        });
+    });
+    inputButtonGoal.forEach(element => {
+        element.addEventListener('change', function(){
+            inputButtonGoal.forEach(element2 => {
+                element2.value = this.value;
+            });
+        });
+    });
+
+
+    // Callback for the form
+    var forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        form.addEventListener("submit", callbackShuttleRun, false);
+    });
+}
+
+
 
 LivePage = function(){
     OutputUsernames.innerHTML = `<h3>Loading...</h3>`;
@@ -404,6 +465,15 @@ callbackSimonSays = function(event){
     socketio.emit('SimonSays', jsonBody);
 }
 
+callbackShuttleRun = function(event){
+    var jsonBody = {
+        name: inputsUsername1[0].value,
+        color:  btnColorSelector1[0].value,
+        degree: inputDifficulty[0].value,
+    };
+    socketio.emit('ShuttleRun', jsonBody);
+}
+
 //#endregion
 
 
@@ -514,6 +584,11 @@ const handleDataUI = function () {
         console.log("Simon-Says");
         SimonSaysPage();
     }
+    if(document.URL.includes("Shuttle-Run"))
+    {
+        console.log("Shuttle-Run");
+        ShuttleRunPage();
+    }
     toggleNav();
 };
 
@@ -595,6 +670,12 @@ const init = function () {
     Page: Simon Says
     */
     inputStartButtons = document.querySelectorAll('.js-start-buttons-input');
+
+
+    /*
+    Page: Shuttle Run
+    */
+
 
     /*
     Page: Live
