@@ -64,6 +64,17 @@ h3{
     display: none;
 }
 
+.c-card-gamemode__svg{
+    height: 80%;
+    display: flex;
+    margin: auto;
+}
+
+.c-card-gamemode__svg:hover {
+    cursor: default;
+    padding: 0px;
+}
+
 @media (min-width: 768px) {
     .c-card{
         background-color: #fff;

@@ -252,6 +252,22 @@ LivePage = function(){
     }
     LoadOneVSOneData(jsonDataTestOneVSOne);
 
+    //Simulatie live data simonsays
+    var jsonDataTestSimonSays = {
+        Username: "Ibe",
+        GameMode: "SimonSays",
+        Score: 17,
+    }
+    LoadSimonSaysData(jsonDataTestSimonSays);
+
+    //Simulatie live data Shuttle Run
+    var jsonDataTestShuttleRun = {
+        Username: "Ibe",
+        GameMode: "ShuttleRun",
+        Score: 13,
+    }
+    LoadShuttleRunData(jsonDataTestShuttleRun);
+
 
     showChart();
 }
@@ -362,16 +378,7 @@ const listenToSocket = function(){
 //#region ***  Loading Live Data   ***********
 LoadSpeedrunData = function(jsonDataTest){
     OutputUsernames.innerHTML = `<h3>${jsonDataTest.Username}</h3>`;
-    OutputGameMode.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="240" viewBox="0 0 240 240">
-    <defs>
-      <clipPath id="clip-card-speedrun">
-        <rect width="240" height="240"/>
-      </clipPath>
-    </defs>
-    <g id="card-speedrun" clip-path="url(#clip-card-speedrun)">
-      <path id="noun-clock-5078124" d="M166.8,16.793a80,80,0,1,1-56.568,23.432A79.755,79.755,0,0,1,166.8,16.793Zm34,96.227a3.4,3.4,0,1,1-3.458,5.85l-32.27-19.151a3.4,3.4,0,0,1-1.668-2.925l-.008-53.321a3.405,3.405,0,0,1,6.81,0V94.863l30.6,18.156Zm5.5-77.859-2.525,4.373a3.39,3.39,0,1,1-5.878-3.378l2.532-4.388A72.8,72.8,0,0,0,170.2,23.681v5.044a3.405,3.405,0,1,1-6.81,0V23.681a72.775,72.775,0,0,0-30.223,8.086l2.532,4.388a3.39,3.39,0,0,1-5.878,3.378L127.3,35.16A73.593,73.593,0,0,0,105.161,57.3l4.37,2.523a3.39,3.39,0,1,1-3.378,5.878l-4.387-2.532a72.766,72.766,0,0,0-8.086,30.223h5.044a3.405,3.405,0,0,1,0,6.81H93.681a72.775,72.775,0,0,0,8.086,30.223l4.388-2.532a3.39,3.39,0,0,1,3.378,5.878l-4.373,2.525A73.593,73.593,0,0,0,127.3,158.427l2.523-4.37a3.39,3.39,0,1,1,5.878,3.378l-2.532,4.387a72.766,72.766,0,0,0,30.223,8.086v-5.042a3.405,3.405,0,1,1,6.81,0v5.042a72.812,72.812,0,0,0,30.223-8.086l-2.532-4.387a3.39,3.39,0,1,1,5.878-3.378l2.523,4.37a73.593,73.593,0,0,0,22.136-22.135l-4.373-2.525a3.39,3.39,0,0,1,3.378-5.878l4.388,2.532A72.8,72.8,0,0,0,239.9,100.2h-5.043a3.405,3.405,0,0,1,0-6.81H239.9a72.812,72.812,0,0,0-8.086-30.223L227.431,65.7a3.39,3.39,0,0,1-3.378-5.878l4.37-2.523a73.593,73.593,0,0,0-22.135-22.136Z" transform="translate(-46.796 23.207)"/>
-    </g>
-  </svg>`;
+    OutputGameMode.innerHTML = `<img class="c-card-gamemode__svg js-card-gamemode-svg-1vs1" src="./img/1VS1.svg" alt="1 tegen 1 afbeelding">`;
     OutputScore.innerHTML = `<h3>${jsonDataTest.ButtonsRemaining}</h3>`;
     OutputTime.innerHTML = `<h3>00:00:01</h3>`;
     scoreTitle.innerHTML = `<h2>Knoppen</h2>`;
@@ -379,18 +386,25 @@ LoadSpeedrunData = function(jsonDataTest){
 
 LoadOneVSOneData = function(jsonDataTest){
     OutputUsernames.innerHTML = `<h3>${jsonDataTest.Username1}</h3> <h3>VS</h3> <h3>${jsonDataTest.Username2}</h3>`;
-    OutputGameMode.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="240" viewBox="0 0 240 240">
-    <defs>
-      <clipPath id="clip-Card-1vs1">
-        <rect width="240" height="240"/>
-      </clipPath>
-    </defs>
-    <g id="Card-1vs1" clip-path="url(#clip-Card-1vs1)">
-      <text id="_1_vs_1" data-name="1 vs 1" transform="translate(15 149)" font-size="80" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">1 vs 1</tspan></text>
-    </g>
-  </svg>`;
+    OutputGameMode.innerHTML = `<img class="c-card-gamemode__svg js-card-gamemode-svg-speedrun" src="./img/Speedrun.svg" alt="Speedrun afbeelding">`;
     OutputScore.innerHTML = `<h3>${jsonDataTest.Username1}: ${jsonDataTest.Score1}</h3> <h3>${jsonDataTest.Username2}: ${jsonDataTest.Score2}</h3>`;
 
+}
+
+LoadSimonSaysData = function(jsonDataTest){
+    OutputUsernames.innerHTML = `<h3>${jsonDataTest.Username}</h3>`;
+    OutputGameMode.innerHTML = `<img class="c-card-gamemode__svg js-card-gamemode-svg-simon-says" src="./img/Simon-Says.svg"alt="afbeelding">`;
+    OutputScore.innerHTML = `<h3>${jsonDataTest.Score}</h3>`;
+    OutputTime.innerHTML = `<h3>00:00:01</h3>`;
+    scoreTitle.innerHTML = `<h2>Score</h2>`;
+}
+
+LoadShuttleRunData = function(jsonDataTest){
+    OutputUsernames.innerHTML = `<h3>${jsonDataTest.Username}</h3>`;
+    OutputGameMode.innerHTML = `<img class="c-card-gamemode__svg js-card-gamemode-svg-shuttle-run" src="./img/Shuttle-Run.svg" alt="afbeelding">`;
+    OutputScore.innerHTML = `<h3>${jsonDataTest.Score}</h3>`;
+    OutputTime.innerHTML = `<h3>00:00:01</h3>`;
+    scoreTitle.innerHTML = `<h2>Score</h2>`;
 }
 
 
