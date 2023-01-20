@@ -506,8 +506,10 @@ const listenToSocket = function(){
         socketio.emit("F2B_new_connection")
     });
     socketio.on("B2F_new_data_speedrun", function(jsonData){
-        console.log("Verbonden met socket webserver");
-        LoadSpeedrunData(jsonData);
+        console.log("speedrun data ontvangen");
+        x = JSON.parse(jsonData)
+        LoadSpeedrunData(x);
+        console.log(x);
 
     });
 
@@ -600,7 +602,7 @@ const handleDataUI = function () {
 //#region ***  Init / DOMContentLoaded                  ***********
 const init = function () {
     console.log("DOM geladen");
-
+    listenToSocket();
     // Favicon
     checkFavicon();
 
