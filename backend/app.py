@@ -92,6 +92,12 @@ def speedrun_next(client, userdata, msg):
             temp = random.randint(1,6)
         btn_choiche = temp
         print(btn_choiche)
+        data = {"Username": "tjorven", "GameMode": "Speedrun", "ButtonsRemaining": 8}
+        y = json.dumps(data)
+        socketio.emit('B2F_new_data_speedrun',y)
+        print("verzonden")
+        print(data)
+        print(y)
     elif(game_bezig == 0):
         power_off = 1
         game_bezig = 1
