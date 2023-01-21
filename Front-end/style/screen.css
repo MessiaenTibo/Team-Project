@@ -1442,6 +1442,15 @@ a:focus {
     .c-card-score-bord__footer{
         height: 10%;
     }
+    .c-card-score-bord-game-line{
+        margin-top: -120px;
+        width: 300px;
+    }
+    
+    .c-card-score-bord-game-line *{
+        width: 24px;
+        height: 24px;
+    }
 }
 
 @media (min-width: 1024px)
@@ -1453,7 +1462,15 @@ a:focus {
         grid-gap: 32px;
         margin-bottom: 24px;
     }
-
+    .c-card-score-bord-game-line{
+        margin-top: -150px;
+        width: 370px;
+    }
+    
+    .c-card-score-bord-game-line *{
+        width: 28px;
+        height: 28px;
+    }
 }
 
 @media (min-width: 1440px) {
@@ -1463,6 +1480,15 @@ a:focus {
         grid-template-rows: 240px 240px;
         grid-gap: 48px;
         margin-bottom: 24px;
+    }
+    .c-card-score-bord-game-line{
+        margin-top: -200px;
+        width: 460px;
+    }
+    
+    .c-card-score-bord-game-line *{
+        width: 32px;
+        height: 32px;
     }
 }
 
