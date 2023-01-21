@@ -68,6 +68,7 @@ const HomePage = function(){
         infoShuttleRun.classList.toggle('o-hide-accessible');
         btnSvgShuttleRun.classList.toggle('o-hide-accessible');
     });
+    ScoreBoard();
 }
 
 OneVSOnePage = function(){
@@ -520,7 +521,7 @@ const listenToSocket = function(){
 
 
 
-//#region ***  Loading Live Data   ***********
+//#region ***  Loading Data   ***********
 LoadSpeedrunData = function(jsonDataTest){
     OutputUsernames.innerHTML = `<h3>${jsonDataTest.Username}</h3>`;
     OutputGameMode.innerHTML = `<img class="c-card-gamemode__svg js-card-gamemode-svg-1vs1" src="./img/1VS1.svg" alt="1 tegen 1 afbeelding">`;
@@ -553,7 +554,85 @@ LoadShuttleRunData = function(jsonDataTest){
 }
 
 
+LoadScoreBoard = function(jsonDataTest){
+    //gamemode
+    scoreBordTitle.innerHTML = `Score bord ${jsonDataTest.gamemode}`;
+    //1
+    scoreBordFirstPlace.innerHTML = `${jsonDataTest.firstplace}`;
+    //2
+    scoreBordSecondPlace.innerHTML = `${jsonDataTest.secondplace}`;
+    //3
+    scoreBordThirdPlace.innerHTML = `${jsonDataTest.thirdplace}`;
+    //square
+    var gamemodeNumber = "";
+    if(jsonDataTest.gamemode == "1VS1"){
+        gamemodeNumber = "0";
+    }
+    else if(jsonDataTest.gamemode == "Simon Says"){
+        gamemodeNumber = "1";
+    }
+    else if(jsonDataTest.gamemode == "Speedrun"){
+        gamemodeNumber = "2";
+    }
+    else if(jsonDataTest.gamemode == "Shuttle Run"){
+        gamemodeNumber = "3";
+    }
+    gameSquares.forEach(function(square){
+        square.classList.remove("selected");
+    });
+    gameSquares[gamemodeNumber].classList.add("selected");
+
+}
+
+
 //#endregion
+
+
+
+
+
+//#region ***  methods  ***********
+ScoreBoard = function(){
+    //Test data 1VS1
+    jsonBody = {
+        firstplace: "Tibo",
+        secondplace: "Tjörven",
+        thirdplace: "Lander",
+        gamemode: "1VS1",
+    };
+    LoadScoreBoard(jsonBody);
+
+    //Test data Simon Says
+    jsonBody = {
+        firstplace: "Ibe",
+        secondplace: "Doran",
+        thirdplace: "Capser",
+        gamemode: "Simon Says",
+    };
+    LoadScoreBoard(jsonBody);
+
+    //Test data Speedrun
+    jsonBody = {
+        firstplace: "Niels",
+        secondplace: "Eric",
+        thirdplace: "Steve",
+        gamemode: "Speedrun",
+    };
+    LoadScoreBoard(jsonBody);
+
+    //Test data Shuttle Run
+    jsonBody = {
+        firstplace: "Herman",
+        secondplace: "Sofie",
+        thirdplace: "Milan",
+        gamemode: "Shuttle Run",
+    };
+    LoadScoreBoard(jsonBody);
+}
+
+//#endregion
+
+
 
 
 
@@ -632,6 +711,17 @@ const init = function () {
     infoSimonSays = document.querySelector('.js-card-gamemode-info-simon-says');
     infoSpeedrun = document.querySelector('.js-card-gamemode-info-speedrun');
     infoShuttleRun = document.querySelector('.js-card-gamemode-info-shuttle-run');
+
+    //Score bord
+    scoreBordTitle = document.querySelector('.js-score-bord-title');
+    scoreBordFirstPlace = document.querySelector('.js-throphy-gold__name');
+    scoreBordSecondPlace = document.querySelector('.js-throphy-silver__name');
+    scoreBordThirdPlace = document.querySelector('.js-throphy-bronze__name');
+    gameSquares = document.querySelectorAll('.js-game-square');
+
+
+
+
 
     /*
     Page: Game

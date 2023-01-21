@@ -1402,6 +1402,35 @@ a:focus {
 }
 
 
+.c-card-score-bord-game-line{
+    position: absolute;
+    margin-top: -50px;
+    width: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.c-card-score-bord-game-line *{
+    position: relative;
+    display: flex;
+    width: 16px;
+    height: 16px;
+    align-content: center;
+    justify-content: center;
+}
+
+.c-card-score-bord-game-line-square{
+    border: var(--global-color-alpha) 1px solid;
+}
+
+.selected{
+    background-color: var(--global-color-alpha);
+}
+
+
+
 @media (min-width: 768px) {
     .c-grid-gamemodes{
         display: grid;
@@ -1477,6 +1506,7 @@ a:focus {
 .c-throphy-gold__svg + div > h2{
     color: white;
     font-size: 20px;
+    margin: 0 4px;
 }
 
 .c-throphy-silver__svg{
@@ -1492,6 +1522,7 @@ a:focus {
 .c-throphy-silver__svg + div > h2{
     color: white;
     font-size: 16px;
+    margin: 0 4px;
 }
 
 .c-throphy-bronze__svg{
@@ -1507,6 +1538,7 @@ a:focus {
 .c-throphy-bronze__svg + div > h2{
     color: white;
     font-size: 16px;
+    margin: 0 4px;
 }
 
 @media (min-width: 768px) {
