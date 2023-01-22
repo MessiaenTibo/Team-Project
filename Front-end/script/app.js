@@ -1,6 +1,8 @@
 const lanIP = `${window.location.hostname}:5000`; // ip van de webserver
 const socketio = io(lanIP);
 
+let gamemodeNumber = 3;
+let pauseScroll = false;
 
 
 
@@ -68,7 +70,51 @@ const HomePage = function(){
         infoShuttleRun.classList.toggle('o-hide-accessible');
         btnSvgShuttleRun.classList.toggle('o-hide-accessible');
     });
-    ScoreBoard();
+    btnScoreBordArrowLeft.addEventListener('click', function(){
+        console.log("Scoreboard arrow left clicked");
+        gamemodeNumber = gamemodeNumber - 1;
+        if(gamemodeNumber < 0){
+            gamemodeNumber = 3;
+        }
+        ScoreBoard();
+    });
+    btnScoreBordArrowRight.addEventListener('click', function(){
+        console.log("Scoreboard arrow right clicked");
+        gamemodeNumber = gamemodeNumber + 1;
+        if(gamemodeNumber > 3){
+            gamemodeNumber = 0;
+        }
+        ScoreBoard();
+    });
+    btnScoreBordPlayButton.addEventListener('click', function(){
+        console.log("Scoreboard play button clicked");
+        if(pauseScroll == false){
+            pauseScroll = true;
+            btnScoreBordPlayButton.src = "./img/Play-Icon.svg";
+        }else{
+            pauseScroll = false;
+            btnScoreBordPlayButton.src = "./img/Pause-Icon.svg";
+        }
+    });
+    gameSquares.forEach(element => {
+        element.addEventListener('click', function(){
+            console.log("Game square clicked");
+            if(gameSquares[0] == this){
+                console.log("Game square 1 clicked");
+                GetScoreBordPodium1vs1();
+            }else if(gameSquares[1] == this){
+                console.log("Game square 2 clicked");
+                GetScoreBordPodiumSimonSays();
+            }else if(gameSquares[2] == this){
+                console.log("Game square 3 clicked");
+                GetScoreBordPodiumSpeedrun();
+            }else if(gameSquares[3] == this){
+                console.log("Game square 4 clicked");
+                GetScoreBordPodiumShuttleRun();
+            }
+        });
+    });
+    autoscrollScoreBoard();
 }
 
 OneVSOnePage = function(){
@@ -554,29 +600,61 @@ LoadShuttleRunData = function(jsonDataTest){
 }
 
 
-LoadScoreBoard = function(jsonDataTest){
-    //gamemode
-    scoreBordTitle.innerHTML = `Score bord ${jsonDataTest.gamemode}`;
-    //1
+LoadScoreBoardPodium1vs1 = function(jsonDataTest){
+    scoreBordTitle.innerHTML = `Score bord 1VS1`;
     scoreBordFirstPlace.innerHTML = `${jsonDataTest.firstplace}`;
-    //2
     scoreBordSecondPlace.innerHTML = `${jsonDataTest.secondplace}`;
-    //3
     scoreBordThirdPlace.innerHTML = `${jsonDataTest.thirdplace}`;
-    //square
-    var gamemodeNumber = "";
-    if(jsonDataTest.gamemode == "1VS1"){
-        gamemodeNumber = "0";
-    }
-    else if(jsonDataTest.gamemode == "Simon Says"){
-        gamemodeNumber = "1";
-    }
-    else if(jsonDataTest.gamemode == "Speedrun"){
-        gamemodeNumber = "2";
-    }
-    else if(jsonDataTest.gamemode == "Shuttle Run"){
-        gamemodeNumber = "3";
-    }
+
+    gamemodeNumber = 0;
+
+    gameSquares.forEach(function(square){
+        square.classList.remove("selected");
+    });
+    gameSquares[gamemodeNumber].classList.add("selected");
+
+}
+
+
+LoadScoreBoardPodiumSimonSays = function(jsonDataTest){
+    scoreBordTitle.innerHTML = `Score bord Simon Says`;
+    scoreBordFirstPlace.innerHTML = `${jsonDataTest.firstplace}`;
+    scoreBordSecondPlace.innerHTML = `${jsonDataTest.secondplace}`;
+    scoreBordThirdPlace.innerHTML = `${jsonDataTest.thirdplace}`;
+
+    gamemodeNumber = 1;
+
+    gameSquares.forEach(function(square){
+        square.classList.remove("selected");
+    });
+    gameSquares[gamemodeNumber].classList.add("selected");
+
+}
+
+LoadScoreBoardPodiumSpeedrun = function(jsonDataTest){
+    scoreBordTitle.innerHTML = `Score bord Speedrun`;
+    scoreBordFirstPlace.innerHTML = `${jsonDataTest.firstplace}`;
+    scoreBordSecondPlace.innerHTML = `${jsonDataTest.secondplace}`;
+    scoreBordThirdPlace.innerHTML = `${jsonDataTest.thirdplace}`;
+
+    gamemodeNumber = 2;
+
+    gameSquares.forEach(function(square){
+        square.classList.remove("selected");
+    });
+    gameSquares[gamemodeNumber].classList.add("selected");
+
+}
+
+
+LoadScoreBoardPodiumShuttleRun = function(jsonDataTest){
+    scoreBordTitle.innerHTML = `Score bord Shuttle Run`;
+    scoreBordFirstPlace.innerHTML = `${jsonDataTest.firstplace}`;
+    scoreBordSecondPlace.innerHTML = `${jsonDataTest.secondplace}`;
+    scoreBordThirdPlace.innerHTML = `${jsonDataTest.thirdplace}`;
+
+    gamemodeNumber = 3;
+
     gameSquares.forEach(function(square){
         square.classList.remove("selected");
     });
@@ -590,45 +668,79 @@ LoadScoreBoard = function(jsonDataTest){
 
 
 
-
-//#region ***  methods  ***********
-ScoreBoard = function(){
-    //Test data 1VS1
+//#region ***  get  ***********
+GetScoreBordPodium1vs1 = function(){
     jsonBody = {
         firstplace: "Tibo",
         secondplace: "Tjörven",
         thirdplace: "Lander",
-        gamemode: "1VS1",
     };
-    LoadScoreBoard(jsonBody);
+    LoadScoreBoardPodium1vs1(jsonBody);
+}
 
-    //Test data Simon Says
+GetScoreBordPodiumSimonSays = function(){
     jsonBody = {
         firstplace: "Ibe",
         secondplace: "Doran",
         thirdplace: "Capser",
-        gamemode: "Simon Says",
     };
-    LoadScoreBoard(jsonBody);
+    LoadScoreBoardPodiumSimonSays(jsonBody);
+}
 
-    //Test data Speedrun
+GetScoreBordPodiumSpeedrun = function(){
     jsonBody = {
         firstplace: "Niels",
         secondplace: "Eric",
         thirdplace: "Steve",
-        gamemode: "Speedrun",
     };
-    LoadScoreBoard(jsonBody);
-
-    //Test data Shuttle Run
-    jsonBody = {
-        firstplace: "Herman",
-        secondplace: "Sofie",
-        thirdplace: "Milan",
-        gamemode: "Shuttle Run",
-    };
-    LoadScoreBoard(jsonBody);
+    LoadScoreBoardPodiumSpeedrun(jsonBody);
 }
+
+GetScoreBordPodiumShuttleRun = function(){
+    jsonBody = {
+        firstplace: "Lander",
+        secondplace: "Tibo",
+        thirdplace: "Tjörven",
+    };
+    LoadScoreBoardPodiumShuttleRun(jsonBody);
+}
+
+
+//#endregion
+
+
+
+//#region ***  methods  ***********
+ScoreBoard = function(){
+    switch (gamemodeNumber) {
+        case 0:
+            GetScoreBordPodium1vs1();
+            break;
+        case 1:
+            GetScoreBordPodiumSimonSays();
+            break;
+        case 2:
+            GetScoreBordPodiumSpeedrun();
+            break;
+        case 3:
+            GetScoreBordPodiumShuttleRun();
+            break;
+        default:
+            break;
+    }
+}
+
+autoscrollScoreBoard = function(){
+    if(pauseScroll == false){
+        gamemodeNumber++;
+        if(gamemodeNumber > 3){
+            gamemodeNumber = 0;
+        }
+        ScoreBoard();
+    }
+    setTimeout(autoscrollScoreBoard, 2000);
+}
+
 
 //#endregion
 
@@ -718,7 +830,9 @@ const init = function () {
     scoreBordSecondPlace = document.querySelector('.js-throphy-silver__name');
     scoreBordThirdPlace = document.querySelector('.js-throphy-bronze__name');
     gameSquares = document.querySelectorAll('.js-game-square');
-
+    btnScoreBordArrowLeft = document.querySelector('.js-score-bord-arrow-left');
+    btnScoreBordArrowRight = document.querySelector('.js-score-bord-arrow-right');
+    btnScoreBordPlayButton = document.querySelector('.js-score-bord-play-btn');
 
 
 
