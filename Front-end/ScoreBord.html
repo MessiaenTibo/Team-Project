@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style/screen.css">
-    <link rel="stylesheet" href="./style/info.css">
     <title>Kyoku</title>
     <!-- Favicon -->
     <link rel="shortcute icon" type="image/png" href="img/favicon-dark.ico" id="faviconTag"/>
@@ -19,13 +18,14 @@
     <script src="script/app.js"></script>
 </head>
 <body>
+    <div class="js-showermonitor-page"></div>
     <header class="o-row">
         <div class="o-container">
             <div class="c-header">
                 <div class="c-header__logo">                      
                     <a class="title" href="">
                         <h1>
-                            Info
+                            History
                         </h1>
                     </a> 
                 </div>
@@ -34,8 +34,6 @@
                         <nav class="c-nav u-hide">
                             <ul class="o-list c-nav__list">
                                 <li class="c-nav-item"><a class="c-nav__link" href="./index.html">Home</a></li>
-                                <li class="c-nav-item"><a class="c-nav__link u-live" href="./Live.html">Live</a></li>
-                                <li class="c-nav-item"><a class="c-nav__link" href="./ScoreBord.html">Scorebord</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -51,47 +49,14 @@
         </div>
     </header>
     <main>
-        <div>
-            <div class="c-layout c-layout--gutter">
-                <header class="o-row">
-                    <div class="o-container">
-                        <div class="c-card-info">
-                            <h2>Info</h2>
-                            <div class="c-card-info--content">
-                                <div class="c-placeholder-info">
-                                    <div class="c-placeholder-parapraph">
-                                        <h3>Algemeen</h3>
-                                        <p>Deze website is ontworpen om verschillende spelletjes te starten. Een spel kan gestart worden wanneer de fysieke drukknop ingedrukt wordt. De vooruitgang van het spel kan gevolgd worden via de live pagina.</p>
-                                    </div>
-                                    <img src="./img/EmptyImage.png" alt="Image">
-                                </div>
-                                <div class="c-placeholder-info o-reverse">
-                                    <div class="c-placeholder-parapraph">
-                                        <h3>Spelletjes</h3>
-                                        <p>Alle spelletjes hebben hetzelfde doel, de spelers zo veel mogelijk laten bewegen tijdens het gebruik van de palen.</p>
-                                    </div>
-                                    <img src="./img/EmptyImage.png"  alt="Image">
-                                </div>
-                                <div class="c-placeholder-info">
-                                    <div class="c-placeholder-parapraph">
-                                        <h3>Live</h3>
-                                        <p>Als een persoon of groep aan het spelen is, kan de vooruitgang van het spel gevolgd worden op de live pagina. Op de live pagina kan er verschillende data bekeken worden.</p>
-                                    </div>
-                                    <img src="./img/EmptyImage.png"  alt="Image">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </header>
-            </div>
-        </div>
+        
     </main>
     <aside class="c-mobile-nav">
         <div class="c-mobile-nav__bg"></div>
         <div class="c-mobile-nav__body">
             <div class="c-mobile-nav__header">            
                 <h1 class="c-mobile-nav-tile">
-                    Info
+                    History
                 </h1>
                 <button class="o-button-reset c-nav-trigger js-toggle-nav">
                     <svg class="c-nav-trigger__svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -103,13 +68,13 @@
             <div class="c-mobile-nav__nav c-mobile-nav__nav--main">
                 <nav class="c-nav">
                     <ul class="o-list c-nav__list">
-                        <li class="c-nav-item"><a class="c-nav__link" href="./index.html">Home</a></li>
-                        <li class="c-nav-item"><a class="c-nav__link u-live" href="./Live.html">Live</a></li>
-                        <li class="c-nav-item"><a class="c-nav__link" href="./ScoreBord.html">Scorebord</a></li>
+                        <li class="c-nav__item"><a href="../Front-end/index.html" class="c-nav__link">Home</a></li>
+                        <li class="c-nav__item"><a href="../Front-end/Live.html" class="c-nav__link u-live">live</a></li>
+                      <li class="c-nav__item"><a href="../Front-end/Info.html" class="c-nav__link">Info</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
-      </aside>
+    </aside>
 </body>
 </html>

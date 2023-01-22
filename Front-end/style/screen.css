@@ -1518,6 +1518,10 @@ a:focus {
     margin-bottom: 4px;
 }
 
+.c-throphy-gold{
+    margin-bottom: 30px;
+}
+
 .c-throphy-gold__svg{
     width: 100%;
     height: 60px;
@@ -1526,7 +1530,6 @@ a:focus {
 .c-throphy-gold__svg + div{
     background-color: var(--global-color-alpha);
     height: 60px;
-    margin-bottom: 30px;
 }
 
 .c-throphy-gold__svg + div > h2{
@@ -1582,7 +1585,6 @@ a:focus {
     .c-throphy-gold__svg + div{
         background-color: var(--global-color-alpha);
         height: 60px;
-        margin-bottom: 30px;
     }
     
     .c-throphy-silver__svg{
@@ -1622,6 +1624,9 @@ a:focus {
     .c-throphy-gold__svg + div{
         background-color: var(--global-color-alpha);
         height: 80px;
+    }
+
+    .c-throphy-gold{
         margin-bottom: 40px;
     }
 
@@ -1677,7 +1682,6 @@ a:focus {
     .c-throphy-gold__svg + div{
         background-color: var(--global-color-alpha);
         height: 80px;
-        margin-bottom: 40px;
     }
     
     .c-throphy-silver__svg{
@@ -1851,6 +1855,10 @@ a:focus {
 
 .c-card-info__title{
     color:white;
+}
+
+.c-card-info__title:hover{
+    color: gold;
 }
 
 
