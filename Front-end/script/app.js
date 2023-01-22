@@ -601,7 +601,7 @@ LoadShuttleRunData = function(jsonDataTest){
 
 
 LoadScoreBoardPodium1vs1 = function(jsonDataTest){
-    scoreBordTitle.innerHTML = `Score bord 1VS1`;
+    scoreBordTitle.innerHTML = `Score bord <u>1VS1</u>`;
     scoreBordFirstPlace.innerHTML = `${jsonDataTest.firstplace}`;
     scoreBordSecondPlace.innerHTML = `${jsonDataTest.secondplace}`;
     scoreBordThirdPlace.innerHTML = `${jsonDataTest.thirdplace}`;
@@ -617,7 +617,7 @@ LoadScoreBoardPodium1vs1 = function(jsonDataTest){
 
 
 LoadScoreBoardPodiumSimonSays = function(jsonDataTest){
-    scoreBordTitle.innerHTML = `Score bord Simon Says`;
+    scoreBordTitle.innerHTML = `Score bord <u>Simon Says</u>`;
     scoreBordFirstPlace.innerHTML = `${jsonDataTest.firstplace}`;
     scoreBordSecondPlace.innerHTML = `${jsonDataTest.secondplace}`;
     scoreBordThirdPlace.innerHTML = `${jsonDataTest.thirdplace}`;
@@ -632,7 +632,7 @@ LoadScoreBoardPodiumSimonSays = function(jsonDataTest){
 }
 
 LoadScoreBoardPodiumSpeedrun = function(jsonDataTest){
-    scoreBordTitle.innerHTML = `Score bord Speedrun`;
+    scoreBordTitle.innerHTML = `Score bord <u>Speedrun</u>`;
     scoreBordFirstPlace.innerHTML = `${jsonDataTest.firstplace}`;
     scoreBordSecondPlace.innerHTML = `${jsonDataTest.secondplace}`;
     scoreBordThirdPlace.innerHTML = `${jsonDataTest.thirdplace}`;
@@ -648,7 +648,7 @@ LoadScoreBoardPodiumSpeedrun = function(jsonDataTest){
 
 
 LoadScoreBoardPodiumShuttleRun = function(jsonDataTest){
-    scoreBordTitle.innerHTML = `Score bord Shuttle Run`;
+    scoreBordTitle.innerHTML = `Score bord <u>Shuttle Run</u>`;
     scoreBordFirstPlace.innerHTML = `${jsonDataTest.firstplace}`;
     scoreBordSecondPlace.innerHTML = `${jsonDataTest.secondplace}`;
     scoreBordThirdPlace.innerHTML = `${jsonDataTest.thirdplace}`;
