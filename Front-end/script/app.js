@@ -396,6 +396,7 @@ ShuttleRunPage = function(){
 
 
 LivePage = function(){
+    listenToSocket();
     OutputUsernames.innerHTML = `<h3>Loading...</h3>`;
     OutputGameMode.innerHTML = `<h3>Loading...</h3>`;
     OutputScore.innerHTML = `<h3>Loading...</h3>`;
@@ -928,7 +929,6 @@ const handleDataUI = function () {
 //#region ***  Init / DOMContentLoaded                  ***********
 const init = function () {
     console.log("DOM geladen");
-    listenToSocket();
     // Favicon
     checkFavicon();
 
