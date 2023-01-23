@@ -216,7 +216,7 @@ color: var(--global-title-color);
 font-size: 20px;
 font-weight: 900;
 line-height: 32px;
-margin: 0 0 6px;
+margin: 16px 0 6px;
 }
 
 @media (min-width: 340px) {
