@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style/screen.css">
+    <link rel="stylesheet" href="./style/scorebord.CSS">
     <title>Kyoku</title>
     <!-- Favicon -->
     <link rel="shortcute icon" type="image/png" href="img/favicon-dark.ico" id="faviconTag"/>
@@ -49,7 +50,173 @@
         </div>
     </header>
     <main>
-        
+        <header class="o-row u-align-center">
+            <div class="c-card-scorebord">
+                <div class="c-header-gamemodes">
+                    <div class="c-header-gamemode selected">1VS1</div>
+                    <div class="c-header-gamemode">Simon Says</div>
+                    <div class="c-header-gamemode">Speedrun</div>
+                    <div class="c-header-gamemode">Shuttle Run</div>
+                </div>
+                <div>
+                    <div class="1vs1">
+                        <select name="category 1vs1" id="category 1vs1">
+                            <option value="5">05:00</option>
+                            <option value="6">06:00</option>
+                            <option value="7">07:00</option>
+                            <option value="8">08:00</option>
+                            <option value="9">09:00</option>
+                            <option value="10">10:00</option>
+                        </select>
+                    </div>
+                    <div class="simonsays u-hide">
+                        <select name="Difficulty" class="js-difficulty-input">
+                            <option value="1">Makkelijk</option>
+                            <option value="2">Normaal</option>
+                            <option value="3">Moeilijk</option>
+                        </select>
+                        <select name="Goal" class="js-start-buttons-input">
+                            <option value="2">2</option>
+                            <option value="4">4</option>
+                            <option value="6">6</option>
+                            <option value="8">8</option>
+                        </select>
+                    </div>
+                    <div class="speedrun u-hide">
+                        <select name="Difficulty" class="js-difficulty-input">
+                            <option value="1">Makkelijk</option>
+                            <option value="2">Normaal</option>
+                            <option value="3">Moeilijk</option>
+                        </select>
+                        <select name="Goal" class="js-button-goal-input">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                        </select>
+                    </div>
+                    <div class="shuttlerun u-hide">
+                        <select name="Difficulty" class="js-difficulty-input">
+                            <option value="1">Makkelijk</option>
+                            <option value="2">Normaal</option>
+                            <option value="3">Moeilijk</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="c-grid-players">
+                    <div class="c-player c-first-player">
+                        <div class="c-player-number">
+                            <img src="./img/first-place-icon.svg" alt="eerste plaats">
+                        </div>
+                        <div class="c-player-name">
+                            <h3>Tibo</h3>
+                        </div>
+                        <div class="c-plauyer-score">
+                            <h3>0</h3>
+                        </div>
+                    </div>
+                    <div class="c-player c-second-player">
+                        <div class="c-player-number">
+                            <img src="./img/second-place-icon.svg" alt="eerste plaats">
+                        </div>
+                        <div class="c-player-name">
+                            <h3>Ibe</h3>
+                        </div>
+                        <div class="c-plauyer-score">
+                            <h3>0</h3>
+                        </div>
+                    </div>
+                    <div class="c-player c-third-player">
+                        <div class="c-player-number">
+                            <img src="./img/third-place-icon.svg" alt="eerste plaats">
+                        </div>
+                        <div class="c-player-name">
+                            <h3>Tjörven</h3>
+                        </div>
+                        <div class="c-plauyer-score">
+                            <h3>0</h3>
+                        </div>
+                    </div>
+                    <div class="c-player">
+                        <div class="c-player-number">
+                            <h3>4</h3>
+                        </div>
+                        <div class="c-player-name">
+                            <h3>Lander</h3>
+                        </div>
+                        <div class="c-plauyer-score">
+                            <h3>0</h3>
+                        </div>
+                    </div>
+                    <div class="c-player">
+                        <div class="c-player-number">
+                            <h3>5</h3>
+                        </div>
+                        <div class="c-player-name">
+                            <h3>leeg</h3>
+                        </div>
+                        <div class="c-plauyer-score">
+                            <h3>0</h3>
+                        </div>
+                    </div>
+                    <div class="c-player">
+                        <div class="c-player-number">
+                            <h3>6</h3>
+                        </div>
+                        <div class="c-player-name">
+                            <h3>leeg</h3>
+                        </div>
+                        <div class="c-plauyer-score">
+                            <h3>0</h3>
+                        </div>
+                    </div>
+                    <div class="c-player">
+                        <div class="c-player-number">
+                            <h3>7</h3>
+                        </div>
+                        <div class="c-player-name">
+                            <h3>leeg</h3>
+                        </div>
+                        <div class="c-plauyer-score">
+                            <h3>0</h3>
+                        </div>
+                    </div>
+                    <div class="c-player">
+                        <div class="c-player-number">
+                            <h3>8</h3>
+                        </div>
+                        <div class="c-player-name">
+                            <h3>leeg</h3>
+                        </div>
+                        <div class="c-plauyer-score">
+                            <h3>0</h3>
+                        </div>
+                    </div>
+                    <div class="c-player">
+                        <div class="c-player-number">
+                            <h3>9</h3>
+                        </div>
+                        <div class="c-player-name">
+                            <h3>leeg</h3>
+                        </div>
+                        <div class="c-plauyer-score">
+                            <h3>0</h3>
+                        </div>
+                    </div>
+                    <div class="c-player">
+                        <div class="c-player-number">
+                            <h3>10</h3>
+                        </div>
+                        <div class="c-player-name">
+                            <h3>leeg</h3>
+                        </div>
+                        <div class="c-plauyer-score">
+                            <h3>0</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
     </main>
     <aside class="c-mobile-nav">
         <div class="c-mobile-nav__bg"></div>

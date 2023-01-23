@@ -9,6 +9,7 @@
 
 :root {
     --global-color-alpha: rgb(32, 34, 58);
+    --global-color-alpha-2: rgb(41, 45, 85);
     --global-color-white: rgb(255, 255, 255);
 
     --global-txt-color: rgb(75,76,96);

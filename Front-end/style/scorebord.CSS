@@ -1,0 +1,130 @@
+select{
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    font-size: 24px;
+    border-radius: 4px;
+}
+
+.c-card-scorebord{
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    margin-bottom: 20px;
+    padding: 15px;
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    height: 500px;
+    overflow-y: scroll;
+}
+
+.u-align-center{
+    display: flex;
+    justify-content: center;
+}
+
+.c-header-gamemodes{
+    overflow: auto;
+    white-space: nowrap;
+    margin-bottom: 12px;
+}
+
+.c-header-gamemode{
+    background-color: var(--global-color-alpha-2);
+    opacity: 0.9;
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 0 12px;
+    margin-right: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 600;
+    height: 20px;
+}
+
+.selected{
+    background-color: var(--global-color-alpha);
+    opacity: 1;
+}
+
+.u-hide{
+    display: none;
+}
+
+.c-grid-players{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 8px;
+    margin: 8px 0;
+}
+
+.c-player{
+    min-height: 40px;
+    background-color: rgb(237, 238, 250);
+    border-radius: 4px;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 8px;
+    align-items: center;
+
+}
+
+.c-player:hover{
+    opacity: 0.8;
+}
+
+.c-first-player{
+    background-color: rgb(216, 175, 55);
+}
+
+.c-second-player{
+    background-color: rgb(192, 192, 192);
+}
+
+.c-third-player{
+    background-color: rgb(176, 141, 87);
+}
+
+.c-player-number{
+    font-size: 24px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.c-player-name > h3{
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.c-player-number > img{
+    border-radius: 4px;
+}
+
+
+
+@media (min-width: 768px) {
+    .c-player{
+        min-height: 40px;
+        grid-template-columns: 1fr 8fr 1fr;
+    }
+    .c-header-gamemodes
+    {
+        display: flex;
+        justify-content: space-between;
+    }
+    .c-header-gamemode{
+        height: 32px;
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+    }
+    .c-card-scorebord{
+        height: 560px;
+    }
+}
