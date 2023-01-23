@@ -487,6 +487,33 @@ ScoreBordPage = function(){
         optionsSpeedrun.classList.remove("o-hide");
     }
     );
+    var jsonbody1 = {
+        place: 1,
+        username: "Tibo",
+        score: 15
+    };
+    var jsonbody2 = {
+        place: 2,
+        username: "Tjörven",
+        score: 12
+    };
+    var jsonbody3 = {
+        place: 3,
+        username: "Ibe",
+        score: 8
+    };
+    var jsonbody4 = {
+        place: 4,
+        username: "Lander",
+        score: 6
+    };
+    var jsonBody5 = {
+        place: 5,
+        username: "leeg",
+        score: 0
+    };
+    players = [jsonbody1, jsonbody2, jsonbody3, jsonbody4, jsonBody5];
+    LoadScoreBord(players);
 }
 
 
@@ -707,6 +734,62 @@ LoadScoreBoardPodiumShuttleRun = function(jsonDataTest){
     });
     gameSquares[gamemodeNumber].classList.add("selected");
 
+}
+
+
+LoadScoreBord = function(players){
+    // First place
+    placeHolderScoreBordPlayers.innerHTML = `<div class="c-player c-first-player">
+        <div class="c-player-number">
+            <img src="./img/first-place-icon.svg" alt="eerste plaats">
+        </div>
+        <div class="c-player-name">
+            <h3>${players[0].username}</h3>
+        </div>
+        <div class="c-player-score">
+            <h3>${players[0].score}</h3>
+        </div>
+    </div>`;
+    // Second place
+    placeHolderScoreBordPlayers.innerHTML += `<div class="c-player c-second-player">
+        <div class="c-player-number">
+            <img src="./img/second-place-icon.svg" alt="eerste plaats">
+        </div>
+        <div class="c-player-name">
+            <h3>${players[1].username}</h3>
+        </div>
+        <div class="c-player-score">
+            <h3>${players[1].score}</h3>
+        </div>
+    </div>`;
+    // Third place
+    placeHolderScoreBordPlayers.innerHTML += `<div class="c-player c-third-player">
+        <div class="c-player-number">
+            <img src="./img/third-place-icon.svg" alt="eerste plaats">
+        </div>
+        <div class="c-player-name">
+            <h3>${players[2].username}</h3>
+        </div>
+        <div class="c-player-score">
+            <h3>${players[2].score}</h3>
+        </div>
+    </div>`;
+    // Other places
+    players.forEach(player => {
+        if(player.place > 3)
+        {
+            placeHolderScoreBordPlayers.innerHTML += `<div class="c-player">
+            <div class="c-player-number">
+                <h3>${player.place}</h3>
+            </div>
+            <div class="c-player-name">
+                <h3>${player.username}</h3>
+            </div>
+            <div class="c-player-score">
+                <h3>${player.score}</h3>
+            </div>`;
+        }
+    });
 }
 
 
@@ -955,6 +1038,10 @@ const init = function () {
     optionsSimonSays = document.querySelector('.js-options-simon-says');
     optionsSpeedrun = document.querySelector('.js-options-speedrun');
     optionsShuttleRun = document.querySelector('.js-options-shuttle-run');
+    placeHolderScoreBordPlayers = document.querySelector('.js-grid-players');
+
+
+
 
 
     scoreTitle = document.querySelector('.js-output-score__title');
