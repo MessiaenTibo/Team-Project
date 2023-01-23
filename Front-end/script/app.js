@@ -456,6 +456,7 @@ ScoreBordPage = function(){
         optionsSimonSays.classList.add("o-hide");
         optionsShuttleRun.classList.add("o-hide");
         optionsSpeedrun.classList.add("o-hide");
+        LoadScoreBord("1VS1");
     });
     btnGameModeSelecterSimonSays.addEventListener('click', function(){
         btnGameModeSelecter1vs1.classList.remove("active");
@@ -466,6 +467,7 @@ ScoreBordPage = function(){
         optionsSimonSays.classList.remove("o-hide");
         optionsShuttleRun.classList.add("o-hide");
         optionsSpeedrun.classList.add("o-hide");
+        LoadScoreBord("SimonSays");
     });
     btnGameModeSelecterShuttleRun.addEventListener('click', function(){
         btnGameModeSelecter1vs1.classList.remove("active");
@@ -476,6 +478,7 @@ ScoreBordPage = function(){
         optionsSimonSays.classList.add("o-hide");
         optionsShuttleRun.classList.remove("o-hide");
         optionsSpeedrun.classList.add("o-hide");
+        LoadScoreBord("ShuttleRun");
     });
     btnGameModeSelecterSpeedrun.addEventListener('click', function(){
         btnGameModeSelecter1vs1.classList.remove("active");
@@ -486,35 +489,15 @@ ScoreBordPage = function(){
         optionsSimonSays.classList.add("o-hide");
         optionsShuttleRun.classList.add("o-hide");
         optionsSpeedrun.classList.remove("o-hide");
+        LoadScoreBord("Speedrun");
     }
     );
-    var jsonbody1 = {
-        place: 1,
-        username: "Tibo",
-        score: 15
-    };
-    var jsonbody2 = {
-        place: 2,
-        username: "Tjörven",
-        score: 12
-    };
-    var jsonbody3 = {
-        place: 3,
-        username: "Ibe",
-        score: 8
-    };
-    var jsonbody4 = {
-        place: 4,
-        username: "Lander",
-        score: 6
-    };
-    var jsonBody5 = {
-        place: 5,
-        username: "leeg",
-        score: 0
-    };
-    players = [jsonbody1, jsonbody2, jsonbody3, jsonbody4, jsonBody5];
-    LoadScoreBord(players);
+    document.querySelectorAll('.js-dropdown').forEach(element => {
+        element.addEventListener('change', function(){
+            console.log(this.value);
+        });
+    });
+    LoadScoreBord();
 }
 
 
@@ -738,7 +721,225 @@ LoadScoreBoardPodiumShuttleRun = function(jsonDataTest){
 }
 
 
-LoadScoreBord = function(players){
+LoadScoreBord = function(gamemode = "1VS1"){
+    //getPlayers(gamemode);
+    if(gamemode == "1VS1"){
+        //test data
+        var jsonbody1 = {
+            place: 1,
+            username: "Tibo",
+            score: 11
+        };
+        var jsonbody2 = {
+            place: 2,
+            username: "Tjörven",
+            score: 6
+        };
+        var jsonbody3 = {
+            place: 3,
+            username: "Ibe",
+            score: 4
+        };
+        var jsonbody4 = {
+            place: 4,
+            username: "Lander",
+            score: 3
+        };
+        var jsonBody5 = {
+            place: 5,
+            username: "Leeg",
+            score: 0
+        };
+        var jsonBody6 = {
+            place: 6,
+            username: "Leeg",
+            score: 0
+        };
+        var jsonBody7 = {
+            place: 7,
+            username: "Leeg",
+            score: 0
+        };
+        var jsonBody8 = {
+            place: 8,
+            username: "leeg",
+            score: 0
+        };
+        var jsonBody9 = {
+            place: 9,
+            username: "leeg",
+            score: 0
+        };
+        var jsonBody10 = {
+            place: 10,
+            username: "leeg",
+            score: 0
+        };
+        players = [jsonbody1, jsonbody2, jsonbody3, jsonbody4, jsonBody5, jsonBody6, jsonBody7, jsonBody8, jsonBody9, jsonBody10];
+    }
+    else if(gamemode == "SimonSays"){
+        //test data
+        var jsonbody1 = {
+            place: 1,
+            username: "Kevin",
+            score: 18
+        };
+        var jsonbody2 = {
+            place: 2,
+            username: "Leopold",
+            score: 16
+        };
+        var jsonbody3 = {
+            place: 3,
+            username: "Herman",
+            score: 8
+        };
+        var jsonbody4 = {
+            place: 4,
+            username: "Lander",
+            score: 7
+        };
+        var jsonBody5 = {
+            place: 5,
+            username: "Leeg",
+            score: 0
+        };
+        var jsonBody6 = {
+            place: 6,
+            username: "Leeg",
+            score: 0
+        };
+        var jsonBody7 = {
+            place: 7,
+            username: "Leeg",
+            score: 0
+        };
+        var jsonBody8 = {
+            place: 8,
+            username: "leeg",
+            score: 0
+        };
+        var jsonBody9 = {
+            place: 9,
+            username: "leeg",
+            score: 0
+        };
+        var jsonBody10 = {
+            place: 10,
+            username: "leeg",
+            score: 0
+        };
+        players = [jsonbody1, jsonbody2, jsonbody3, jsonbody4, jsonBody5, jsonBody6, jsonBody7, jsonBody8, jsonBody9, jsonBody10];
+    }
+    else if(gamemode == "Speedrun"){
+        //test data
+        var jsonbody1 = {
+            place: 1,
+            username: "Milan",
+            score: 15
+        };
+        var jsonbody2 = {
+            place: 2,
+            username: "Mohamed",
+            score: 12
+        };
+        var jsonbody3 = {
+            place: 3,
+            username: "Zoe",
+            score: 8
+        };
+        var jsonbody4 = {
+            place: 4,
+            username: "Maarten",
+            score: 6
+        };
+        var jsonBody5 = {
+            place: 5,
+            username: "Steven",
+            score: 4
+        };
+        var jsonBody6 = {
+            place: 6,
+            username: "Leeg",
+            score: 0
+        };
+        var jsonBody7 = {
+            place: 7,
+            username: "Leeg",
+            score: 0
+        };
+        var jsonBody8 = {
+            place: 8,
+            username: "leeg",
+            score: 0
+        };
+        var jsonBody9 = {
+            place: 9,
+            username: "leeg",
+            score: 0
+        };
+        var jsonBody10 = {
+            place: 10,
+            username: "leeg",
+            score: 0
+        };
+        players = [jsonbody1, jsonbody2, jsonbody3, jsonbody4, jsonBody5, jsonBody6, jsonBody7, jsonBody8, jsonBody9, jsonBody10];
+    }
+    else if(gamemode == "ShuttleRun"){
+        //test data
+        var jsonbody1 = {
+            place: 1,
+            username: "Niels",
+            score: 25
+        };
+        var jsonbody2 = {
+            place: 2,
+            username: "Casper",
+            score: 19
+        };
+        var jsonbody3 = {
+            place: 3,
+            username: "Cato",
+            score: 12
+        };
+        var jsonbody4 = {
+            place: 4,
+            username: "Doran",
+            score: 4
+        };
+        var jsonBody5 = {
+            place: 5,
+            username: "Leeg",
+            score: 0
+        };
+        var jsonBody6 = {
+            place: 6,
+            username: "Leeg",
+            score: 0
+        };
+        var jsonBody7 = {
+            place: 7,
+            username: "Leeg",
+            score: 0
+        };
+        var jsonBody8 = {
+            place: 8,
+            username: "leeg",
+            score: 0
+        };
+        var jsonBody9 = {
+            place: 9,
+            username: "leeg",
+            score: 0
+        };
+        var jsonBody10 = {
+            place: 10,
+            username: "leeg",
+            score: 0
+        };
+        players = [jsonbody1, jsonbody2, jsonbody3, jsonbody4, jsonBody5, jsonBody6, jsonBody7, jsonBody8, jsonBody9, jsonBody10];
+    }
+
     // First place
     placeHolderScoreBordPlayers.innerHTML = `<div class="c-player c-first-player">
         <div class="c-player-number">
