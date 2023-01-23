@@ -443,6 +443,53 @@ LivePage = function(){
     showChart();
 }
 
+
+
+ScoreBordPage = function(){
+    btnGameModeSelecter1vs1.addEventListener('click', function(){
+        btnGameModeSelecter1vs1.classList.add("active");
+        btnGameModeSelecterSimonSays.classList.remove("active");
+        btnGameModeSelecterShuttleRun.classList.remove("active");
+        btnGameModeSelecterSpeedrun.classList.remove("active");
+        options1vs1.classList.remove("o-hide");
+        optionsSimonSays.classList.add("o-hide");
+        optionsShuttleRun.classList.add("o-hide");
+        optionsSpeedrun.classList.add("o-hide");
+    });
+    btnGameModeSelecterSimonSays.addEventListener('click', function(){
+        btnGameModeSelecter1vs1.classList.remove("active");
+        btnGameModeSelecterSimonSays.classList.add("active");
+        btnGameModeSelecterShuttleRun.classList.remove("active");
+        btnGameModeSelecterSpeedrun.classList.remove("active");
+        options1vs1.classList.add("o-hide");
+        optionsSimonSays.classList.remove("o-hide");
+        optionsShuttleRun.classList.add("o-hide");
+        optionsSpeedrun.classList.add("o-hide");
+    });
+    btnGameModeSelecterShuttleRun.addEventListener('click', function(){
+        btnGameModeSelecter1vs1.classList.remove("active");
+        btnGameModeSelecterSimonSays.classList.remove("active");
+        btnGameModeSelecterShuttleRun.classList.add("active");
+        btnGameModeSelecterSpeedrun.classList.remove("active");
+        options1vs1.classList.add("o-hide");
+        optionsSimonSays.classList.add("o-hide");
+        optionsShuttleRun.classList.remove("o-hide");
+        optionsSpeedrun.classList.add("o-hide");
+    });
+    btnGameModeSelecterSpeedrun.addEventListener('click', function(){
+        btnGameModeSelecter1vs1.classList.remove("active");
+        btnGameModeSelecterSimonSays.classList.remove("active");
+        btnGameModeSelecterShuttleRun.classList.remove("active");
+        btnGameModeSelecterSpeedrun.classList.add("active");
+        options1vs1.classList.add("o-hide");
+        optionsSimonSays.classList.add("o-hide");
+        optionsShuttleRun.classList.add("o-hide");
+        optionsSpeedrun.classList.remove("o-hide");
+    }
+    );
+}
+
+
 //#endregion
 
 
@@ -782,6 +829,11 @@ const handleDataUI = function () {
         console.log("Shuttle-Run");
         ShuttleRunPage();
     }
+    if(document.URL.includes("ScoreBord"))
+    {
+        console.log("ScoreBord");
+        ScoreBordPage();
+    }
     toggleNav();
 };
 
@@ -890,6 +942,20 @@ const init = function () {
     OutputGameMode = document.querySelector('.js-output-gamemode');
     OutputScore = document.querySelector('.js-output-score');
     OutputTime = document.querySelector('.js-output-time');
+
+
+    /*
+    Page: ScoreBord
+    */
+    btnGameModeSelecter1vs1 = document.querySelector('.js-btn-gamemode-selecter-1vs1');
+    btnGameModeSelecterSimonSays = document.querySelector('.js-btn-gamemode-selecter-simon-says');
+    btnGameModeSelecterSpeedrun = document.querySelector('.js-btn-gamemode-selecter-speedrun');
+    btnGameModeSelecterShuttleRun = document.querySelector('.js-btn-gamemode-selecter-shuttle-run');
+    options1vs1 = document.querySelector('.js-options-1vs1');
+    optionsSimonSays = document.querySelector('.js-options-simon-says');
+    optionsSpeedrun = document.querySelector('.js-options-speedrun');
+    optionsShuttleRun = document.querySelector('.js-options-shuttle-run');
+
 
     scoreTitle = document.querySelector('.js-output-score__title');
 

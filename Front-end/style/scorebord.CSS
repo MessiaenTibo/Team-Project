@@ -4,6 +4,7 @@ select{
     text-align: center;
     font-size: 24px;
     border-radius: 4px;
+    margin-bottom: 12px;
 }
 
 .c-card-scorebord{
@@ -45,9 +46,14 @@ select{
     line-height: 20px;
     font-weight: 600;
     height: 20px;
+    cursor: pointer;
 }
 
-.selected{
+.c-header-gamemode:hover{
+    opacity: 0.8;
+}
+
+.active{
     background-color: var(--global-color-alpha);
     opacity: 1;
 }
@@ -60,7 +66,6 @@ select{
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 8px;
-    margin: 8px 0;
 }
 
 .c-player{

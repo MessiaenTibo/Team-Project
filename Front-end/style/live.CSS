@@ -2,6 +2,10 @@ body{
     font-family: 'Oxygen', sans-serif;
 }
 
+h2{
+    margin-top: 12px;
+}
+
 .c-grid-cards{
     display: grid;
     grid-template-columns: 1fr 1fr;
