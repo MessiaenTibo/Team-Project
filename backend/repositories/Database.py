@@ -1,6 +1,5 @@
 from mysql import connector  # pip install mysql-connector-python
 import os
-from repositories.DataRepository import DataRepository
 
 
 class Database:
