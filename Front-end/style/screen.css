@@ -96,6 +96,55 @@ aside{
     background-color: var(--global-background-color);
 }
 
+.pinguin{
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    margin: 8px;
+}
+
+.pinguin-1{
+    margin-top: -80px;
+}
+
+.pinguin-2{
+    /* horizontaly reverse image */
+    transform: scaleX(-1);
+    /* make the pinguin slide over the title when hovered */
+    transition: margin-left 0s;
+    margin-left: -30px;
+    margin-top: -30px;
+    opacity: 0;
+}
+
+.pinguin-2:hover{
+    transition: margin-left 1s;
+    margin-left: 100px;
+    opacity: 1;
+}
+
+@media (min-width: 768px) {
+    .pinguin{
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .pinguin{
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .pinguin{
+        width: 100px;
+        height: 100px;
+    }
+}
+
+
 *,
 *:before,
 *:after {
