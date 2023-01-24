@@ -1,0 +1,1 @@
+insert into spel (spelNaam, spelers, naam1, aantalPalen, winnaar, score, moeilijkheidsgraad) VALUES ('Simon Says', 1, 'Lander', 10, 'Lander', 11, 2)
