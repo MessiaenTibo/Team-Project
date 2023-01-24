@@ -573,7 +573,7 @@ callbackOneVSOne = function(event){
 callbackSpeedrun = function(event){
     var jsonBody = {
         name1: inputsUsername1[0].value,
-        color:  btnColorSelector1[0].value,
+        color1:  btnColorSelector1[0].value,
         degree: inputDifficulty[0].value,
         buttonGoal: inputButtonGoal[0].value,
     };
@@ -583,7 +583,7 @@ callbackSpeedrun = function(event){
 callbackSimonSays = function(event){
     var jsonBody = {
         name1: inputsUsername1[0].value,
-        color:  btnColorSelector1[0].value,
+        color1:  btnColorSelector1[0].value,
         degree: inputDifficulty[0].value,
         StartButtons: inputStartButtons[0].value,
     };
@@ -593,7 +593,7 @@ callbackSimonSays = function(event){
 callbackShuttleRun = function(event){
     var jsonBody = {
         name1: inputsUsername1[0].value,
-        color:  btnColorSelector1[0].value,
+        color1:  btnColorSelector1[0].value,
         degree: inputDifficulty[0].value,
     };
     socketio.emit('ShuttleRun', jsonBody);
