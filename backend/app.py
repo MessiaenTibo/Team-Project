@@ -8,15 +8,23 @@ import time
 import paho.mqtt.client as mqtt
 import random
 import threading
+from datetime import datetime
+from repositories.DataRepository import DataRepository
 started = 0
+tijd = datetime.now()
 publish = 0
 power_off =0
 game_progress = 0
 btn_choiche = 0
-
+name1, name2, color, degree, buttonGoal = "", "", "", "", ""
 color_choiche = ""
 game_bezig = 0
 aantal_knoppen = 0
+
+# Custom endpoint
+endpoint = '/api/v1'
+
+
 def on_publish(client, userdata, mid):
     #voorlopig niks
     pass 
@@ -76,6 +84,10 @@ def on_disconnect(client, userdata, rc):
    global flag_connected
    flag_connected = 0
    print("Disconnected from MQTT server")
+def colorconvert(value):
+    temp = value["color"].replace("#", "")
+    temp = "0x" + temp
+    return temp
 def speedrun_next(client, userdata, msg):
     global started
     global publish
@@ -113,6 +125,26 @@ CORS(app)
 
 
 
+
+#region **** ROUTES ****
+@app.route('/')
+def hallo():
+    print('start')
+    return "Server is running, er zijn momenteel geen API endpoints beschikbaar."
+
+
+@app.route(endpoint + '/1vs1/<time>/', methods=['GET'])
+def devices(time):
+    if request.method == 'GET':
+        print(time)
+        data = DataRepository.read_1vs1_data_by_time(time)
+        return jsonify(data), 200
+
+#endregion
+
+
+
+
 # SOCKET.IO EVENTS
 @socketio.on('connect')
 def initial_connection():
@@ -124,26 +156,21 @@ def newOneVsOne(testvariabl):
     #y = json.dumps(testvariabl)
     print(type(testvariabl))
     print(testvariabl["name1"])
-
+#difficulty is datie na x sec nie drukt vanzelf naar volgende gaat ma dan zonder punt te geven.
 @socketio.on('Speedrun')
 def newSpeedrun(testvariabl):
-    global game_bezig
-    global aantal_knoppen
-    global color_choiche
-    global game_progress
-    global started
+    global game_bezig, aantal_knoppen, color_choiche, game_progress, started, name1, name2, color, degree, buttonGoal, tijd
     print('Speedrun', testvariabl)
     #y = json.dumps(testvariabl)
-    print(type(testvariabl))
-    print(testvariabl["color"])
-    temp = testvariabl["color"].replace("#", "")
-    temp = "0x" + temp
-    color_choiche = temp
+    color_choiche = colorconvert(testvariabl)
     aantal_knoppen = int(testvariabl["buttonGoal"])
+    buttonGoal = int(testvariabl["buttonGoal"])
+    name1 = testvariabl["name1"]
+    color = testvariabl["color"]
+    degree = testvariabl["degree"]
     game_bezig = 1
     started = 1
     game_progress = 0
-    print(temp)
 
 @socketio.on('test')
 def test():
@@ -223,6 +250,14 @@ def mqttrun():
 if __name__ == '__main__':
     try:
         print("in de try")
+        print("\n\n1VS1 data:")
+        print(DataRepository.read_1vs1_data_by_time(300))
+        print("\n\nspeedrun data:")
+        print(DataRepository.read_speedrun_data_by_difficulty_and_buttons(1,5))
+        print("\n\nSimon says data:")
+        print(DataRepository.read_simonsays_data_by_difficulty_and_start_buttons(1,5))
+        print("\n\nShuttle run data:")
+        print(DataRepository.read_shuttlerun_data_by_difficulty(2))
         thread = threading.Thread(target=mqttrun, args=(), daemon=True)
         thread.start()
         print("thread gestart")
