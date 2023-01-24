@@ -11,6 +11,21 @@ const get_data_1vs1 = function(time){
     handleData(url, LoadScoreBord)
   }
 
+const get_data_speedrun = function(difficulty, buttons){
+    const url = `http://${lanIP}/api/v1/speedrun/${difficulty}/${buttons}/`
+    handleData(url, LoadScoreBord)
+}
+
+const get_data_simon_says = function(difficulty, startButtons){
+    const url = `http://${lanIP}/api/v1/simon_says/${difficulty}/${startButtons}/`
+    handleData(url, LoadScoreBord)
+}
+
+const get_data_shuttle_run = function(difficulty){
+    const url = `http://${lanIP}/api/v1/shuttle_run/${difficulty}/`
+    handleData(url, LoadScoreBord)
+}
+
 
 //#region ***  Navigation ***
 const toggleNav = function() {
@@ -461,7 +476,7 @@ ScoreBordPage = function(){
         optionsSimonSays.classList.add("o-hide");
         optionsShuttleRun.classList.add("o-hide");
         optionsSpeedrun.classList.add("o-hide");
-        get_data_1vs1(5);
+        get_data_1vs1(300);
     });
     btnGameModeSelecterSimonSays.addEventListener('click', function(){
         btnGameModeSelecter1vs1.classList.remove("active");
@@ -494,7 +509,7 @@ ScoreBordPage = function(){
         optionsSimonSays.classList.add("o-hide");
         optionsShuttleRun.classList.add("o-hide");
         optionsSpeedrun.classList.remove("o-hide");
-        LoadScoreBord("Speedrun");
+        get_data_speedrun(1,5);
     }
     );
     document.querySelectorAll('.js-dropdown').forEach(element => {
@@ -502,7 +517,7 @@ ScoreBordPage = function(){
             console.log(this.value);
         });
     });
-    get_data_1vs1(5);
+    get_data_1vs1(300);
 }
 
 
@@ -764,13 +779,14 @@ LoadScoreBord = function(players){
             <h3>${players[2].score}</h3>
         </div>
     </div>`;
-    // Other places    
+    // Other places
+    var place = 1;
     players.forEach(player => {
-        if(player.place > 3)
+        if(place > 3)
         {
             placeHolderScoreBordPlayers.innerHTML += `<div class="c-player">
             <div class="c-player-number">
-                <h3>${player.place}</h3>
+                <h3>${place}</h3>
             </div>
             <div class="c-player-name">
                 <h3>${player.winnaar}</h3>
@@ -779,6 +795,7 @@ LoadScoreBord = function(players){
                 <h3>${player.score}</h3>
             </div>`;
         }
+        place++;
     });
 }
 

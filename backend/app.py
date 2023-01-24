@@ -12,6 +12,7 @@ from datetime import datetime
 from repositories.DataRepository import DataRepository
 started = 0
 tijd = datetime.now()
+tijd_start = datetime.now()
 publish = 0
 power_off =0
 game_progress = 0
@@ -134,10 +135,18 @@ def hallo():
 
 
 @app.route(endpoint + '/1vs1/<time>/', methods=['GET'])
-def devices(time):
+def OneVsOne(time):
     if request.method == 'GET':
         print(time)
         data = DataRepository.read_1vs1_data_by_time(time)
+        return jsonify(data), 200
+
+@app.route(endpoint + '/speedrun/<difficulty>/<buttons>/', methods=['GET'])
+def Speedrun(difficulty, buttons):
+    if request.method == 'GET':
+        print(difficulty)
+        print(buttons)
+        data = DataRepository.read_speedrun_data_by_difficulty_and_buttons(difficulty, buttons)
         return jsonify(data), 200
 
 #endregion
@@ -159,7 +168,7 @@ def newOneVsOne(testvariabl):
 #difficulty is datie na x sec nie drukt vanzelf naar volgende gaat ma dan zonder punt te geven.
 @socketio.on('Speedrun')
 def newSpeedrun(testvariabl):
-    global game_bezig, aantal_knoppen, color_choiche, game_progress, started, name1, name2, color, degree, buttonGoal, tijd
+    global game_bezig, aantal_knoppen, color_choiche, game_progress, started, name1, name2, color, degree, buttonGoal, tijd_start
     print('Speedrun', testvariabl)
     #y = json.dumps(testvariabl)
     color_choiche = colorconvert(testvariabl)
@@ -168,6 +177,7 @@ def newSpeedrun(testvariabl):
     name1 = testvariabl["name1"]
     color = testvariabl["color"]
     degree = testvariabl["degree"]
+    tijd_start = datetime.now()
     game_bezig = 1
     started = 1
     game_progress = 0
@@ -177,14 +187,7 @@ def test():
     print('test')
 
 def mqttrun():
-    global started
-    global publish
-    global power_off
-    global btn_choiche
-    global game_bezig
-    global aantal_knoppen
-    global game_progress
-    global color_choiche
+    global started, publish, power_off, btn_choiche, game_bezig, aantal_knoppen, game_progress, color_choiche, tijd, tijd_start
     client = mqtt.Client("rpi_client2") #this name should be unique
     client.on_publish = on_publish
     flag_connected = 0
@@ -216,6 +219,8 @@ def mqttrun():
                     )
                 pubMsg.wait_for_publish()
                 print("game end - alles uit")
+                tijd = datetime.now() - tijd_start
+                print(tijd)
                 power_off = 0
             if(publish == 1):
                 print("enter")
