@@ -3,6 +3,7 @@ const socketio = io(lanIP);
 
 let gamemodeNumber = 3;
 let pauseScroll = false;
+let countdownTime = "4000";
 
 
 //**** get_ ****
@@ -44,6 +45,13 @@ const toggleNav = function() {
 
 
 //#region ***  Pages         ***
+const countdownPage = function(){
+    console.log("countdownPage");
+    setTimeout(function(){
+        window.location.replace("http://10.3.141.1:8080/Front-end/Live.html");
+    }, "4000")
+}
+
 
 const HomePage = function(){
     btn1VS1.addEventListener('click', function(){
@@ -224,11 +232,11 @@ OneVSOnePage = function(){
 
     var forms = document.querySelectorAll('form');
     forms.forEach(form => {
-        form.addEventListener("submit", callbackOneVSOne, false);
+        form.addEventListener("submit", function(){
+            callbackOneVSOne();
+        }, false);
     });
 }
-
-
 
 SpeedrunPage = function(){
     btnColorSelector1.forEach(element => {
@@ -286,7 +294,9 @@ SpeedrunPage = function(){
     // Callback for the form
     var forms = document.querySelectorAll('form');
     forms.forEach(form => {
-        form.addEventListener("submit", callbackSpeedrun, false);
+        form.addEventListener("submit", function(){
+            callbackSpeedrun();
+        }, false);
     });
 }
 
@@ -348,7 +358,9 @@ SimonSaysPage = function(){
     // Callback for the form
     var forms = document.querySelectorAll('form');
     forms.forEach(form => {
-        form.addEventListener("submit", callbackSimonSays, false);
+        form.addEventListener("submit", function(){
+            callbackSimonSays();
+        }, false);
     });
 }
 
@@ -409,7 +421,9 @@ ShuttleRunPage = function(){
     // Callback for the form
     var forms = document.querySelectorAll('form');
     forms.forEach(form => {
-        form.addEventListener("submit", callbackShuttleRun, false);
+        form.addEventListener("submit", function(){
+            callbackShuttleRun();
+        }, false);
     });
 }
 
@@ -424,7 +438,7 @@ LivePage = function(){
 
     setTimeout(() => {
         document.querySelector('.js-lottie-player').style.display = "none";
-      }, "4000")
+      }, countdownTime)
 
 
     // *** Tests
@@ -945,6 +959,11 @@ const handleDataUI = function () {
     {
         console.log("ScoreBord");
         ScoreBordPage();
+    }
+    if(document.URL.includes("countdown"))
+    {
+        console.log("CountdownPage");
+        countdownPage();
     }
     toggleNav();
 };
