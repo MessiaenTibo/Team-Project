@@ -493,7 +493,7 @@ ScoreBordPage = function(){
         optionsSimonSays.classList.add("o-hide");
         optionsShuttleRun.classList.add("o-hide");
         optionsSpeedrun.classList.add("o-hide");
-        get_data_1vs1(300);
+        get_data_1vs1(document.querySelector('.js-1vs1-time').value * 60);
     });
     btnGameModeSelecterSimonSays.addEventListener('click', function(){
         btnGameModeSelecter1vs1.classList.remove("active");
@@ -529,6 +529,9 @@ ScoreBordPage = function(){
         get_data_speedrun(1,5);
     }
     );
+    document.querySelector('.js-1vs1-time').addEventListener('change', function(){
+        get_data_1vs1(this.value * 60);
+    });
     document.querySelectorAll('.js-dropdown').forEach(element => {
         element.addEventListener('change', function(){
             console.log(this.value);
@@ -780,6 +783,7 @@ LoadScoreBoardPodiumShuttleRun = function(jsonDataTest){
 LoadScoreBord = function(players){
     console.log(players)
     // First place
+    if(players.length > 0){
     placeHolderScoreBordPlayers.innerHTML = `<div class="c-player c-first-player">
         <div class="c-player-number">
             <img src="./img/first-place-icon.svg" alt="eerste plaats">
@@ -791,7 +795,9 @@ LoadScoreBord = function(players){
             <h3>${players[0].score}</h3>
         </div>
     </div>`;
+    }
     // Second place
+    if(players.length > 1){
     placeHolderScoreBordPlayers.innerHTML += `<div class="c-player c-second-player">
         <div class="c-player-number">
             <img src="./img/second-place-icon.svg" alt="eerste plaats">
@@ -803,7 +809,9 @@ LoadScoreBord = function(players){
             <h3>${players[1].score}</h3>
         </div>
     </div>`;
+    }
     // Third place
+    if(players.length > 2){
     placeHolderScoreBordPlayers.innerHTML += `<div class="c-player c-third-player">
         <div class="c-player-number">
             <img src="./img/third-place-icon.svg" alt="eerste plaats">
@@ -815,6 +823,7 @@ LoadScoreBord = function(players){
             <h3>${players[2].score}</h3>
         </div>
     </div>`;
+    }
     // Other places
     var place = 1;
     players.forEach(player => {
@@ -833,6 +842,19 @@ LoadScoreBord = function(players){
         }
         place++;
     });
+    while(place <= 10){
+        placeHolderScoreBordPlayers.innerHTML += `<div class="c-player">
+        <div class="c-player-number">
+            <h3>${place}</h3>
+        </div>
+        <div class="c-player-name">
+            <h3>Leeg</h3>
+        </div>
+        <div class="c-player-score">
+            <h3></h3>
+        </div>`;
+        place++;
+    }
 }
 
 
