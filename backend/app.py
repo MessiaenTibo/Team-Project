@@ -45,13 +45,15 @@ def callback_esp32_sensor1(client, userdata, msg):
             started = 0
     elif(selected_gamemode == 2):
         if(started==1):
-            multiplayer_next(client, userdata, msg)
+            multiplayer_init(client, userdata, msg)
             started = 0
-        elif(started==0 and btn_choiche1 == 1):
+        if(started==0 and btn_choiche1 == 1):
             score1_oud = score1
+            score2_oud = score2
             score1 = score1+1
             multiplayer_next(client, userdata, msg)
-        elif(started==0 and btn_choiche2 == 1):
+        if(started==0 and btn_choiche2 == 1):
+            score1_oud = score1
             score2_oud = score2
             score2 = score2+1
             multiplayer_next(client, userdata, msg)
@@ -64,13 +66,15 @@ def callback_esp32_sensor2(client, userdata, msg):
             started = 0
     elif(selected_gamemode == 2):
         if(started==1):
-            multiplayer_next(client, userdata, msg)
+            multiplayer_init(client, userdata, msg)
             started = 0
-        elif(started==0 and btn_choiche1 == 2):
+        if(started==0 and btn_choiche1 == 2):
             score1_oud = score1
+            score2_oud = score2
             score1 = score1+1
             multiplayer_next(client, userdata, msg)
-        elif(started==0 and btn_choiche2 == 2):
+        if(started==0 and btn_choiche2 == 2):
+            score1_oud = score1
             score2_oud = score2
             score2 = score2+1
             multiplayer_next(client, userdata, msg)
@@ -83,13 +87,15 @@ def callback_esp32_sensor3(client, userdata, msg):
             started = 0
     elif(selected_gamemode == 2):
         if(started==1):
-            multiplayer_next(client, userdata, msg)
+            multiplayer_init(client, userdata, msg)
             started = 0
-        elif(started==0 and btn_choiche1 == 3):
+        if(started==0 and btn_choiche1 == 3):
             score1_oud = score1
+            score2_oud = score2
             score1 = score1+1
             multiplayer_next(client, userdata, msg)
-        elif(started==0 and btn_choiche2 == 3):
+        if(started==0 and btn_choiche2 == 3):
+            score1_oud = score1
             score2_oud = score2
             score2 = score2+1
             multiplayer_next(client, userdata, msg)
@@ -102,13 +108,15 @@ def callback_esp32_sensor4(client, userdata, msg):
             started = 0
     elif(selected_gamemode == 2):
         if(started==1):
-            multiplayer_next(client, userdata, msg)
+            multiplayer_init(client, userdata, msg)
             started = 0
-        elif(started==0 and btn_choiche1 == 4):
+        if(started==0 and btn_choiche1 == 4):
             score1_oud = score1
+            score2_oud = score2
             score1 = score1+1
             multiplayer_next(client, userdata, msg)
-        elif(started==0 and btn_choiche2 == 4):
+        if(started==0 and btn_choiche2 == 4):
+            score1_oud = score1
             score2_oud = score2
             score2 = score2+1
             multiplayer_next(client, userdata, msg)
@@ -121,13 +129,15 @@ def callback_esp32_sensor5(client, userdata, msg):
             started = 0
     elif(selected_gamemode == 2):
         if(started==1):
-            multiplayer_next(client, userdata, msg)
+            multiplayer_init(client, userdata, msg)
             started = 0
-        elif(started==0 and btn_choiche1 == 5):
+        if(started==0 and btn_choiche1 == 5):
             score1_oud = score1
+            score2_oud = score2
             score1 = score1+1
             multiplayer_next(client, userdata, msg)
-        elif(started==0 and btn_choiche2 == 5):
+        if(started==0 and btn_choiche2 == 5):
+            score1_oud = score1
             score2_oud = score2
             score2 = score2+1
             multiplayer_next(client, userdata, msg)
@@ -140,13 +150,15 @@ def callback_esp32_sensor6(client, userdata, msg):
             started = 0
     elif(selected_gamemode == 2):
         if(started==1):
-            multiplayer_next(client, userdata, msg)
+            multiplayer_init(client, userdata, msg)
             started = 0
-        elif(started==0 and btn_choiche1 == 6):
+        if(started==0 and btn_choiche1 == 6):
             score1_oud = score1
+            score2_oud = score2
             score1 = score1+1
             multiplayer_next(client, userdata, msg)
-        elif(started==0 and btn_choiche2 == 6):
+        if(started==0 and btn_choiche2 == 6):
+            score1_oud = score1
             score2_oud = score2
             score2 = score2+1
             multiplayer_next(client, userdata, msg)
@@ -195,11 +207,36 @@ def speedrun_next(client, userdata, msg):
     elif(game_bezig == 0):
         power_off = 1
         game_bezig = 1
-
+def multiplayer_init(client,userdate, msg):
+    print('verwerken:', str(msg.payload.decode('utf-8')))
+    global started, publish, power_off, btn_choiche1, game_bezig, aantal_knoppen, game_progress, name1, btn_choiche2, score1, score1_oud, score2, score2_oud
+    print('niks gebeurd')
+    if(game_bezig ==1):
+        print('big successsss')
+        #print('test succes')
+        publish = 1
+        ##voor de initial one moeje ze 1 keer alle 2 analeggen en dan de rest laten verlopen via dit
+        temp = random.randint(1,6)
+        while(temp == btn_choiche1):
+            temp = random.randint(1,6)
+        btn_choiche1 = temp
+        print(btn_choiche1)
+        temp = random.randint(1,6)
+        while(temp==btn_choiche1 or temp == btn_choiche2):
+            temp = random.randint(1,6)
+        btn_choiche2= temp
 def multiplayer_next(client, userdata, msg):
     global started, publish, power_off, btn_choiche1, game_bezig, aantal_knoppen, game_progress, name1, btn_choiche2, score1, score1_oud, score2, score2_oud
     print('verwerken:', str(msg.payload.decode('utf-8')))
     if(game_bezig ==1):
+        print('score1')
+        print(score1)
+        print('score2')
+        print(score2)
+        print('score1_oud')
+        print(score1_oud)
+        print('score2_oud')
+        print(score2_oud)
         #print('test succes')
         publish = 1
         ##voor de initial one moeje ze 1 keer alle 2 analeggen en dan de rest laten verlopen via dit
