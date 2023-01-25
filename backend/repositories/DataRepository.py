@@ -32,7 +32,7 @@ class DataRepository:
 
     @staticmethod
     def read_simonsays_data_by_difficulty_and_start_buttons(difficulty, start_buttons):
-        sql = "SELECT idSpel, spelNaam, naam1, winnaar, tijd, aantalPalen, moeilijkheidsgraad, score FROM spel where spelNaam = 'Simon Says' and moeilijkheidsgraad = '%s' and aantalPalen = '%s' order by score desc"
+        sql = "SELECT idSpel, spelNaam, naam1, winnaar, tijd, aantalPalen, moeilijkheidsgraad, score FROM spel where spelNaam = 'Simon Says' and moeilijkheidsgraad = %s and aantalPalen = %s order by score desc"
         params = [difficulty, start_buttons]
         result = Database.get_rows(sql, params)
         return result
@@ -46,7 +46,7 @@ class DataRepository:
 
     @staticmethod
     def read_shuttlerun_data_by_difficulty(difficulty):
-        sql = "SELECT idSpel, spelNaam, naam1, winnaar, moeilijkheidsgraad, score FROM spel where spelNaam = 'Shuttle Run' and moeilijkheidsgraad = '%s' order by score desc"
+        sql = "SELECT idSpel, spelNaam, naam1, winnaar, moeilijkheidsgraad, score FROM spel where spelNaam = 'Shuttle Run' and moeilijkheidsgraad = %s order by score desc"
         params = [difficulty]
         result = Database.get_rows(sql, params)
         return result

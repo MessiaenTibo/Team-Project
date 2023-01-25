@@ -422,9 +422,12 @@ LivePage = function(){
     OutputScore.innerHTML = `<h3>Loading...</h3>`;
     OutputTime.innerHTML = `<h3>Loading...</h3>`;
 
+    setTimeout(() => {
+        document.querySelector('.js-lottie-player').style.display = "none";
+      }, "4000")
 
 
-        // *** Tests
+    // *** Tests
     //Simulatie live data Speedrun
     
     var jsonDataTestSpeedrun = {
@@ -461,7 +464,7 @@ LivePage = function(){
     LoadShuttleRunData(jsonDataTestShuttleRun);
 
 
-    showChart();
+    //showChart();
 }
 
 
@@ -487,7 +490,7 @@ ScoreBordPage = function(){
         optionsSimonSays.classList.remove("o-hide");
         optionsShuttleRun.classList.add("o-hide");
         optionsSpeedrun.classList.add("o-hide");
-        LoadScoreBord("SimonSays");
+        get_data_simon_says(1,2);
     });
     btnGameModeSelecterShuttleRun.addEventListener('click', function(){
         btnGameModeSelecter1vs1.classList.remove("active");
@@ -498,7 +501,7 @@ ScoreBordPage = function(){
         optionsSimonSays.classList.add("o-hide");
         optionsShuttleRun.classList.remove("o-hide");
         optionsSpeedrun.classList.add("o-hide");
-        LoadScoreBord("ShuttleRun");
+        get_data_shuttle_run(1);
     });
     btnGameModeSelecterSpeedrun.addEventListener('click', function(){
         btnGameModeSelecter1vs1.classList.remove("active");
@@ -570,6 +573,7 @@ callbackOneVSOne = function(event){
     socketio.emit('1vs1', jsonBody);
 }
 
+
 callbackSpeedrun = function(event){
     var jsonBody = {
         name1: inputsUsername1[0].value,
@@ -636,6 +640,24 @@ const listenToSocket = function(){
         LoadSpeedrunData(x);
         console.log(x);
 
+    });
+    socketio.on("B2F_new_data_1vs1", function(jsonData){
+        console.log("1vs1 data ontvangen");
+        x = JSON.parse(jsonData)
+        LoadOneVSOneData(x);
+        console.log(x);
+    });
+    socketio.on("B2F_new_data_shuttle_run", function(jsonData){
+        console.log("Shuttle run data ontvangen");
+        x = JSON.parse(jsonData)
+        LoadShuttleRunData(x);
+        console.log(x);
+    });
+    socketio.on("B2F_new_data_simon_says", function(jsonData){
+        console.log("Simon says data ontvangen");
+        x = JSON.parse(jsonData)
+        LoadSimonSaysData(x);
+        console.log(x);
     });
 
 };
