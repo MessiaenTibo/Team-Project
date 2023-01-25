@@ -8,13 +8,15 @@ import time
 import paho.mqtt.client as mqtt
 import random
 import threading
-from datetime import datetime
+from datetime import datetime, timedelta
 from repositories.DataRepository import DataRepository
 from repositories.Database import Database
 #region **** variables ****
 started = 0
 tijd = datetime.now()
 tijd_start = datetime.now()
+tijd_end = datetime.now()
+tijd_set=0
 publish = 0
 power_off =0
 game_progress = 0
@@ -23,9 +25,9 @@ btn_choiche2=0
 name1, name2, color1,color2, degree, buttonGoal,minutes = "","", "", "", "", "",""
 score1,score2=0,0
 score1_oud, score2_oud = 0,0
+timerstart=0
 color_choiche = ""
 game_bezig = 0
-tijd_set=0
 aantal_knoppen = 0
 selected_gamemode = 0 # 1 = speedrun, 2 = 1v1, 3 = simon says, 4 = shuttle run
 #endregion
@@ -209,8 +211,13 @@ def speedrun_next(client, userdata, msg):
         game_bezig = 1
 def multiplayer_init(client,userdate, msg):
     print('verwerken:', str(msg.payload.decode('utf-8')))
-    global started, publish, power_off, btn_choiche1, game_bezig, aantal_knoppen, game_progress, name1, btn_choiche2, score1, score1_oud, score2, score2_oud
-    print('niks gebeurd')
+    global timerstart,started, publish, power_off, btn_choiche1, game_bezig, aantal_knoppen, game_progress, name1, btn_choiche2, score1, score1_oud, score2, score2_oud,tijd_start,tijd_set,tijd_end,tijd
+    tijd_start = datetime.now()
+    tijd_end = tijd_start + timedelta(seconds=int(tijd_set))
+    timerstart = 1
+    print('timergestart')
+    print(tijd_start)
+    print(tijd_end)
     if(game_bezig ==1):
         print('big successsss')
         #print('test succes')
@@ -229,20 +236,20 @@ def multiplayer_next(client, userdata, msg):
     global started, publish, power_off, btn_choiche1, game_bezig, aantal_knoppen, game_progress, name1, btn_choiche2, score1, score1_oud, score2, score2_oud
     print('verwerken:', str(msg.payload.decode('utf-8')))
     if(game_bezig ==1):
-        print('score1')
-        print(score1)
-        print('score2')
-        print(score2)
-        print('score1_oud')
-        print(score1_oud)
-        print('score2_oud')
-        print(score2_oud)
+        # print('score1')
+        # print(score1)
+        # print('score2')
+        # print(score2)
+        # print('score1_oud')
+        # print(score1_oud)
+        # print('score2_oud')
+        # print(score2_oud)
         #print('test succes')
         publish = 1
         ##voor de initial one moeje ze 1 keer alle 2 analeggen en dan de rest laten verlopen via dit
         if(score1_oud != score1):
             temp = random.randint(1,6)
-            while(temp == btn_choiche1):
+            while(temp == btn_choiche1 or temp == btn_choiche2):
                 temp = random.randint(1,6)
             btn_choiche1 = temp
             print(btn_choiche1)
@@ -333,7 +340,7 @@ def newOneVsOne(testvariabl):
     name1 = testvariabl["name1"]
     name2 = testvariabl["name2"]
     minutes = testvariabl["minutes"]
-    tijd_set = minutes*60
+    tijd_set = int(minutes)*60
     selected_gamemode = 2
     game_bezig = 1
     started=1
@@ -365,7 +372,7 @@ def test():
     print('test')
 
 def mqttrun():
-    global started, publish, power_off, btn_choiche1,btn_choiche2, game_bezig, aantal_knoppen, game_progress, color_choiche, tijd, tijd_start, name1, name2, color1,color2, degree, buttonGoal,selected_gamemode
+    global timerstart, started, publish, power_off, btn_choiche1,btn_choiche2, game_bezig, aantal_knoppen, game_progress, color_choiche, tijd, tijd_start, name1, name2, color1,color2, degree, buttonGoal,selected_gamemode, tijd_end, tijd_set
     client = mqtt.Client("rpi_client2") #this name should be unique
     client.on_publish = on_publish
     flag_connected = 0
@@ -430,13 +437,13 @@ def mqttrun():
                 #btn_choiche = 0
             if(publish==1 and selected_gamemode==2):
                 print('1v1 dingen doen')
-                msg ='led_uit'
-                pubMsg = client.publish(
-                    topic='rpi/broadcast',
-                    payload=msg.encode('utf-8'),
-                    qos=0,
-                    )
-                pubMsg.wait_for_publish()
+                # msg ='led_uit'
+                # pubMsg = client.publish(
+                #     topic='rpi/broadcast',
+                #     payload=msg.encode('utf-8'),
+                #     qos=0,
+                #     )
+                # pubMsg.wait_for_publish()
                 #kijken of ik color_choiche instel of hier kijk naar welk team :/
                 #aan einde gamemode wss niet hier color choiche op "" zetten
 
@@ -444,6 +451,19 @@ def mqttrun():
                 print("2 dingen aanzetten")
                 print(color1)
                 print(color2)
+                numbers = [1,2,3,4,5,6]
+                temp = [btn_choiche1,btn_choiche2]
+                for i  in numbers:
+                    print(i)
+                    if(i not in temp):
+                        print(i)
+                        msg =""
+                        pubMsg = client.publish(
+                            topic=f'esp32/kleur{i}',
+                            payload=msg.encode('utf-8'),
+                            qos=0,
+                            )
+                        pubMsg.wait_for_publish()
                 msg =colorconvert(color1)
                 pubMsg = client.publish(
                     topic=f'esp32/kleur{btn_choiche1}',
@@ -460,6 +480,10 @@ def mqttrun():
                 pubMsg.wait_for_publish()
                 print("succes3")
                 publish=0
+            #hier tijdstart + ingestelde tijd (in seconden fzo erbij tellen)
+            if( datetime.now()>tijd_end and selected_gamemode==2 and timerstart==1):
+                print("game gedaan game gedaan")
+                timerstart=0
         
         except Exception as e:
             print(e)
