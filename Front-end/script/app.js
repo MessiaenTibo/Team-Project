@@ -5,6 +5,9 @@ let gamemodeNumber = 3;
 let pauseScroll = false;
 let countdownTime = "4000";
 
+var stopGame = false;
+var TimeLiveGame = null;
+
 
 //**** get_ ****
 const get_data_1vs1 = function(time){
@@ -431,14 +434,15 @@ ShuttleRunPage = function(){
 
 LivePage = function(){
     listenToSocket();
+    socketio.emit('getLiveGameData');
     OutputUsernames.innerHTML = `<h3>Loading...</h3>`;
     OutputGameMode.innerHTML = `<h3>Loading...</h3>`;
     OutputScore.innerHTML = `<h3>Loading...</h3>`;
     OutputTime.innerHTML = `<h3>Loading...</h3>`;
 
-    setTimeout(() => {
-        document.querySelector('.js-lottie-player').style.display = "none";
-      }, countdownTime)
+    // setTimeout(() => {
+    //     document.querySelector('.js-lottie-player').style.display = "none";
+    //   }, countdownTime)
 
 
     // *** Tests
@@ -529,9 +533,29 @@ ScoreBordPage = function(){
         get_data_speedrun(1,5);
     }
     );
+    // 1VS1
     document.querySelector('.js-1vs1-time').addEventListener('change', function(){
         get_data_1vs1(this.value * 60);
     });
+    // Simon Says
+    document.querySelector('.js-simon-says-difficulty').addEventListener('change', function(){
+        get_data_simon_says(this.value, document.querySelector('.js-simon-says-buttons').value);
+    });
+    document.querySelector('.js-simon-says-buttons').addEventListener('change', function(){
+        get_data_simon_says(document.querySelector('.js-simon-says-difficulty').value, this.value);
+    });
+    // Speedrun
+    document.querySelector('.js-speedrun-difficulty').addEventListener('change', function(){
+        get_data_speedrun(this.value, document.querySelector('.js-speedrun-buttons').value);
+    });
+    document.querySelector('.js-speedrun-buttons').addEventListener('change', function(){
+        get_data_speedrun(document.querySelector('.js-speedrun-difficulty').value, this.value);
+    });
+    // Shuttle Run
+    document.querySelector('.js-shuttle-run-difficulty').addEventListener('change', function(){
+        get_data_shuttle_run(this.value);
+    });
+
     document.querySelectorAll('.js-dropdown').forEach(element => {
         element.addEventListener('change', function(){
             console.log(this.value);
@@ -676,6 +700,16 @@ const listenToSocket = function(){
         LoadSimonSaysData(x);
         console.log(x);
     });
+    socketio.on("Start", function(unix_timestamp){
+        console.log("Start");
+        var date = new Date(unix_timestamp * 1000);
+        console.log(date);
+        StartGame(date);
+    });
+    socketio.on("Stop", function(){
+        console.log("Stop");
+        StopGame();
+    });
 
 };
 
@@ -687,24 +721,24 @@ const listenToSocket = function(){
 //#region ***  Loading Data   ***********
 LoadSpeedrunData = function(jsonDataTest){
     OutputUsernames.innerHTML = `<h3>${jsonDataTest.Username}</h3>`;
-    OutputGameMode.innerHTML = `<img class="c-card-gamemode__svg js-card-gamemode-svg-1vs1" src="./img/1VS1.svg" alt="1 tegen 1 afbeelding">`;
+    OutputGameMode.innerHTML = `<img class="c-card-gamemode__svg js-card-gamemode-svg-speedrun" src="./img/Speedrun.svg" alt="speedrun afbeelding">`;
     OutputScore.innerHTML = `<h3>${jsonDataTest.ButtonsRemaining}</h3>`;
-    OutputTime.innerHTML = `<h3>00:00:01</h3>`;
+    OutputTime.innerHTML = `<h3>${TimeLiveGame}</h3>`;
     scoreTitle.innerHTML = `<h2>Knoppen</h2>`;
 }
 
 LoadOneVSOneData = function(jsonDataTest){
     OutputUsernames.innerHTML = `<h3>${jsonDataTest.Username1}</h3> <h3>VS</h3> <h3>${jsonDataTest.Username2}</h3>`;
-    OutputGameMode.innerHTML = `<img class="c-card-gamemode__svg js-card-gamemode-svg-speedrun" src="./img/Speedrun.svg" alt="Speedrun afbeelding">`;
+    OutputGameMode.innerHTML = `<img class="c-card-gamemode__svg js-card-gamemode-svg-1vs1" src="./img/1VS1.svg" alt="1 tegen 1 afbeelding">`;
     OutputScore.innerHTML = `<h3>${jsonDataTest.Username1}: ${jsonDataTest.Score1}</h3> <h3>${jsonDataTest.Username2}: ${jsonDataTest.Score2}</h3>`;
-
+    OutputTime.innerHTML = `<h2>${TimeLiveGame}</h2>`;
 }
 
 LoadSimonSaysData = function(jsonDataTest){
     OutputUsernames.innerHTML = `<h3>${jsonDataTest.Username}</h3>`;
     OutputGameMode.innerHTML = `<img class="c-card-gamemode__svg js-card-gamemode-svg-simon-says" src="./img/Simon-Says.svg"alt="afbeelding">`;
     OutputScore.innerHTML = `<h3>${jsonDataTest.Score}</h3>`;
-    OutputTime.innerHTML = `<h3>00:00:01</h3>`;
+    OutputTime.innerHTML = `<h3>${TimeLiveGame}</h3>`;
     scoreTitle.innerHTML = `<h2>Score</h2>`;
 }
 
@@ -712,7 +746,7 @@ LoadShuttleRunData = function(jsonDataTest){
     OutputUsernames.innerHTML = `<h3>${jsonDataTest.Username}</h3>`;
     OutputGameMode.innerHTML = `<img class="c-card-gamemode__svg js-card-gamemode-svg-shuttle-run" src="./img/Shuttle-Run.svg" alt="afbeelding">`;
     OutputScore.innerHTML = `<h3>${jsonDataTest.Score}</h3>`;
-    OutputTime.innerHTML = `<h3>00:00:01</h3>`;
+    OutputTime.innerHTML = `<h3>${TimeLiveGame}</h3>`;
     scoreTitle.innerHTML = `<h2>Score</h2>`;
 }
 
@@ -783,6 +817,7 @@ LoadScoreBoardPodiumShuttleRun = function(jsonDataTest){
 LoadScoreBord = function(players){
     console.log(players)
     // First place
+    placeHolderScoreBordPlayers.innerHTML = "";
     if(players.length > 0){
     placeHolderScoreBordPlayers.innerHTML = `<div class="c-player c-first-player">
         <div class="c-player-number">
@@ -934,6 +969,30 @@ autoscrollScoreBoard = function(){
         ScoreBoard();
     }
     setTimeout(autoscrollScoreBoard, 2000);
+}
+
+
+StartGame = function(date){
+    var liveTime = setInterval(() => {
+        if(stopGame == true)
+        {
+            clearInterval(liveTime);
+        }
+        else{
+            time = new Date((Date.now() - date));
+            // Minutes part from the timestamp
+            var minutes = "0" + time.getMinutes();
+            // Seconds part from the timestamp
+            var seconds = "0" + time.getSeconds();
+            TimeLiveGame = `${minutes.substr(-2)}:${seconds.substr(-2)}`;
+            OutputTime.innerHTML = `<h3>${TimeLiveGame}</h3>`;
+        }
+    }, 200);
+}
+
+
+StopGame = function(){
+    stopGame = true;
 }
 
 
