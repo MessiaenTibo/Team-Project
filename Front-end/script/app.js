@@ -8,8 +8,13 @@ let countdownTime = "4000";
 var stopGame = false;
 var TimeLiveGame = null;
 
+var startGameOnce = false;
+
+var date = null;
+
 
 //**** get_ ****
+//1VS1
 const get_data_1vs1 = function(time){
     const url = `http://${lanIP}/api/v1/1vs1/${time}/`
     handleData(url, LoadScoreBord)
@@ -20,19 +25,36 @@ const get_data_1vs1_podium = function(time){
     handleData(url, LoadScoreBoardPodium1vs1)
 }
 
+//speedrun
 const get_data_speedrun = function(difficulty, buttons){
     const url = `http://${lanIP}/api/v1/speedrun/${difficulty}/${buttons}/`
     handleData(url, LoadScoreBord)
 }
 
+const get_data_speedrun_podium = function(difficulty, buttons){
+    const url = `http://${lanIP}/api/v1/speedrun/${difficulty}/${buttons}/`
+    handleData(url, LoadScoreBoardPodiumSpeedrun)
+}
+
+//simon says
 const get_data_simon_says = function(difficulty, startButtons){
     const url = `http://${lanIP}/api/v1/simon_says/${difficulty}/${startButtons}/`
     handleData(url, LoadScoreBord)
 }
+const get_data_simon_says_podium = function(difficulty, startButtons){
+    const url = `http://${lanIP}/api/v1/simon_says/${difficulty}/${startButtons}/`
+    handleData(url, LoadScoreBoardPodiumSimonSays)
+}
 
+//shuttle run
 const get_data_shuttle_run = function(difficulty){
     const url = `http://${lanIP}/api/v1/shuttle_run/${difficulty}/`
     handleData(url, LoadScoreBord)
+}
+
+const get_data_shuttle_run_podium = function(difficulty){
+    const url = `http://${lanIP}/api/v1/shuttle_run/${difficulty}/`
+    handleData(url, LoadScoreBoardPodiumShuttleRun)
 }
 
 
@@ -137,16 +159,16 @@ const HomePage = function(){
             console.log("Game square clicked");
             if(gameSquares[0] == this){
                 console.log("Game square 1 clicked");
-                GetScoreBordPodium1vs1();
+                get_data_1vs1_podium(300);
             }else if(gameSquares[1] == this){
                 console.log("Game square 2 clicked");
-                GetScoreBordPodiumSimonSays();
+                get_data_simon_says_podium(1,2);
             }else if(gameSquares[2] == this){
                 console.log("Game square 3 clicked");
-                GetScoreBordPodiumSpeedrun();
+                get_data_speedrun_podium(1,5);
             }else if(gameSquares[3] == this){
                 console.log("Game square 4 clicked");
-                GetScoreBordPodiumShuttleRun();
+                get_data_shuttle_run_podium(1);
             }
         });
     });
@@ -453,38 +475,38 @@ LivePage = function(){
     // *** Tests
     //Simulatie live data Speedrun
     
-    var jsonDataTestSpeedrun = {
-        Username: "Ibe",
-        GameMode: "Speedrun",
-        ButtonsRemaining: 8,
-    }
+    // var jsonDataTestSpeedrun = {
+    //     Username: "Ibe",
+    //     GameMode: "Speedrun",
+    //     ButtonsRemaining: 8,
+    // }
 
-    LoadSpeedrunData(jsonDataTestSpeedrun);
+    // LoadSpeedrunData(jsonDataTestSpeedrun);
 
-    //Simulatie live data 1vs1
-    var jsonDataTestOneVSOne = {
-        Username1: "Ibe",
-        Username2: "Lander",
-        Score1: 10,
-        Score2: 12,
-    }
-    LoadOneVSOneData(jsonDataTestOneVSOne);
+    // //Simulatie live data 1vs1
+    // var jsonDataTestOneVSOne = {
+    //     Username1: "Ibe",
+    //     Username2: "Lander",
+    //     Score1: 10,
+    //     Score2: 12,
+    // }
+    // LoadOneVSOneData(jsonDataTestOneVSOne);
 
-    //Simulatie live data simonsays
-    var jsonDataTestSimonSays = {
-        Username: "Ibe",
-        GameMode: "SimonSays",
-        Score: 17,
-    }
-    LoadSimonSaysData(jsonDataTestSimonSays);
+    // //Simulatie live data simonsays
+    // var jsonDataTestSimonSays = {
+    //     Username: "Ibe",
+    //     GameMode: "SimonSays",
+    //     Score: 17,
+    // }
+    // LoadSimonSaysData(jsonDataTestSimonSays);
 
-    //Simulatie live data Shuttle Run
-    var jsonDataTestShuttleRun = {
-        Username: "Ibe",
-        GameMode: "ShuttleRun",
-        Score: 13,
-    }
-    LoadShuttleRunData(jsonDataTestShuttleRun);
+    // //Simulatie live data Shuttle Run
+    // var jsonDataTestShuttleRun = {
+    //     Username: "Ibe",
+    //     GameMode: "ShuttleRun",
+    //     Score: 13,
+    // }
+    // LoadShuttleRunData(jsonDataTestShuttleRun);
 
 
     //showChart();
@@ -707,9 +729,42 @@ const listenToSocket = function(){
     });
     socketio.on("Start", function(unix_timestamp){
         console.log("Start");
-        var date = new Date(unix_timestamp * 1000);
+        stopGame = false;
+        var date2 = new Date(unix_timestamp * 1000);
+        date = date2;
         console.log(date);
-        StartGame(date);
+
+        if(startGameOnce == false)
+        {
+            StartGame(date);
+            startGameOnce = true;
+        }
+    });
+    socketio.on("Reload", function(jsonBody){
+        console.log("Reload");
+        console.log(jsonBody);
+        x = JSON.parse(jsonBody);
+        console.log(x);
+        if(x.GameMode == "Speedrun"){
+            LoadSpeedrunData(x);
+        }
+        if(x.GameMode == "OnevsOne"){
+            console.log("OnevsOne")
+            LoadOneVSOneData(x);
+        }
+        if(x.GameMode == "ShuttleRun"){
+            LoadShuttleRunData(x);
+        }
+        if(x.GameMode == "SimonSays"){
+            LoadSimonSaysData(x);
+        }
+        //Time
+        time = new Date(x.Tijd * 1000);
+        var minutes = "0" + time.getMinutes();
+        var seconds = "0" + time.getSeconds();
+        TimeLiveGame = `${minutes.substr(-2)}:${seconds.substr(-2)}`;
+        OutputTime.innerHTML = `<h3>${TimeLiveGame}</h3>`;
+
     });
     socketio.on("Stop", function(){
         console.log("Stop");
@@ -733,6 +788,8 @@ LoadSpeedrunData = function(jsonDataTest){
 }
 
 LoadOneVSOneData = function(jsonDataTest){
+    console.log("debug:")
+    console.log(jsonDataTest);
     OutputUsernames.innerHTML = `<h3>${jsonDataTest.Username1}</h3> <h3>VS</h3> <h3>${jsonDataTest.Username2}</h3>`;
     OutputGameMode.innerHTML = `<img class="c-card-gamemode__svg js-card-gamemode-svg-1vs1" src="./img/1VS1.svg" alt="1 tegen 1 afbeelding">`;
     OutputScore.innerHTML = `<h3>${jsonDataTest.Username1}: ${jsonDataTest.Score1}</h3> <h3>${jsonDataTest.Username2}: ${jsonDataTest.Score2}</h3>`;
@@ -772,11 +829,11 @@ LoadScoreBoardPodium1vs1 = function(players){
 }
 
 
-LoadScoreBoardPodiumSimonSays = function(jsonDataTest){
+LoadScoreBoardPodiumSimonSays = function(players){
     scoreBordTitle.innerHTML = `Scorebord <u>Simon Says</u>`;
-    scoreBordFirstPlace.innerHTML = `${jsonDataTest.firstplace}`;
-    scoreBordSecondPlace.innerHTML = `${jsonDataTest.secondplace}`;
-    scoreBordThirdPlace.innerHTML = `${jsonDataTest.thirdplace}`;
+    scoreBordFirstPlace.innerHTML = `${players[0].winnaar}`;
+    scoreBordSecondPlace.innerHTML = `${players[1].winnaar}`;
+    scoreBordThirdPlace.innerHTML = `${players[2].winnaar}`;
 
     gamemodeNumber = 1;
 
@@ -787,11 +844,11 @@ LoadScoreBoardPodiumSimonSays = function(jsonDataTest){
 
 }
 
-LoadScoreBoardPodiumSpeedrun = function(jsonDataTest){
+LoadScoreBoardPodiumSpeedrun = function(players){
     scoreBordTitle.innerHTML = `Scorebord <u>Speedrun</u>`;
-    scoreBordFirstPlace.innerHTML = `${jsonDataTest.firstplace}`;
-    scoreBordSecondPlace.innerHTML = `${jsonDataTest.secondplace}`;
-    scoreBordThirdPlace.innerHTML = `${jsonDataTest.thirdplace}`;
+    scoreBordFirstPlace.innerHTML = `${players[0].winnaar}`;
+    scoreBordSecondPlace.innerHTML = `${players[1].winnaar}`;
+    scoreBordThirdPlace.innerHTML = `${players[2].winnaar}`;
 
     gamemodeNumber = 2;
 
@@ -803,11 +860,11 @@ LoadScoreBoardPodiumSpeedrun = function(jsonDataTest){
 }
 
 
-LoadScoreBoardPodiumShuttleRun = function(jsonDataTest){
+LoadScoreBoardPodiumShuttleRun = function(players){
     scoreBordTitle.innerHTML = `Scorebord <u>Shuttle Run</u>`;
-    scoreBordFirstPlace.innerHTML = `${jsonDataTest.firstplace}`;
-    scoreBordSecondPlace.innerHTML = `${jsonDataTest.secondplace}`;
-    scoreBordThirdPlace.innerHTML = `${jsonDataTest.thirdplace}`;
+    scoreBordFirstPlace.innerHTML = `${players[0].winnaar}`;
+    scoreBordSecondPlace.innerHTML = `${players[1].winnaar}`;
+    scoreBordThirdPlace.innerHTML = `${players[2].winnaar}`;
 
     gamemodeNumber = 3;
 
@@ -949,16 +1006,16 @@ GetScoreBordPodiumShuttleRun = function(){
 ScoreBoard = function(){
     switch (gamemodeNumber) {
         case 0:
-            GetScoreBordPodium1vs1();
+            get_data_1vs1_podium(300);
             break;
         case 1:
-            GetScoreBordPodiumSimonSays();
+            get_data_simon_says_podium(1,2);
             break;
         case 2:
-            GetScoreBordPodiumSpeedrun();
+            get_data_speedrun_podium(1,5);
             break;
         case 3:
-            GetScoreBordPodiumShuttleRun();
+            get_data_shuttle_run_podium(1);
             break;
         default:
             break;
@@ -977,11 +1034,11 @@ autoscrollScoreBoard = function(){
 }
 
 
-StartGame = function(date){
+StartGame = function(){
     var liveTime = setInterval(() => {
         if(stopGame == true)
         {
-            clearInterval(liveTime);
+            // clearInterval(liveTime);
         }
         else{
             time = new Date((Date.now() - date));
