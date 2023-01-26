@@ -190,10 +190,13 @@ def colorconvert(value):
 
 #region **** game logic steps ****
 def speedrun_next(client, userdata, msg):
-    global started, publish, power_off, btn_choiche1, game_bezig, aantal_knoppen, game_progress, name1
+    global started, publish, power_off, btn_choiche1, game_bezig, aantal_knoppen, game_progress, name1, tijd_start
     print('verwerken:', str(msg.payload.decode('utf-8')))
     if(game_bezig ==1):
         #print('test succes')
+        if(game_progress == 0):
+            print("unix_timestamp => ",(time.mktime(tijd_start.timetuple())))
+            socketio.emit("Start",time.mktime(tijd_start.timetuple()))
         publish = 1
         temp = random.randint(1,6)
         while(temp == btn_choiche1):
@@ -330,7 +333,31 @@ def Simonsays(difficulty, startbuttons):
 @socketio.on('connect')
 def initial_connection():
     print('A new client connect')
-
+@socketio.on('getLiveGameData')
+def PageReload():
+    global game_bezig, aantal_knoppen, game_progress, name1, name2, color1, color2, selected_gamemode, score1, score2, started, tijd_start
+    print('getLiveGameData')
+    if(game_bezig == 1):
+        data = {"Username": name1, "GameMode": "Speedrun", "ButtonsRemaining": aantal_knoppen-game_progress}
+        y = json.dumps(data)
+        socketio.emit('B2F_new_data_speedrun',y)
+        print("verzonden")
+        print(data)
+        print(y)
+        socketio.emit("Start",time.mktime(tijd_start.timetuple()))
+    # elif(game_bezig == 2):
+    #     data = {"Username": name1, "GameMode": selected_gamemode, "ButtonsRemaining": aantal_knoppen-game_progress, "Color": color1, "Score": score1, "Started": started}
+    #     y = json.dumps(data)
+    #     socketio.emit('B2F_new_data_1vs1',y)
+    #     print("verzonden")
+    #     print(data)
+    #     print(y)
+    #     data = {"Username": name2, "GameMode": selected_gamemode, "ButtonsRemaining": aantal_knoppen-game_progress, "Color": color2, "Score": score2, "Started": started}
+    #     y = json.dumps(data)
+    #     socketio.emit('B2F_new_data_1vs1',y)
+    #     print("verzonden")
+    #     print(data)
+    #     print(y)
 @socketio.on('1vs1')
 def newOneVsOne(testvariabl):
     global name1, name2, color1,color2, degree, buttonGoal,minutes,game_bezig,aantal_knoppen,color_choiche,game_progress,started,tijd_set,selected_gamemode,score1,score2
@@ -340,7 +367,10 @@ def newOneVsOne(testvariabl):
     name1 = testvariabl["name1"]
     name2 = testvariabl["name2"]
     minutes = testvariabl["minutes"]
-    tijd_set = int(minutes)*60
+    #tijd_set = int(minutes)*60
+    ###tijd is hardcoded op 30 sec
+    ####ding hierboven is het juiste
+    tijd_set = 30
     selected_gamemode = 2
     game_bezig = 1
     started=1
@@ -404,10 +434,16 @@ def mqttrun():
                     )
                 pubMsg.wait_for_publish()
                 print("game end - alles uit")
-                tijd = datetime.now() - tijd_start
-                tijd = round(tijd.total_seconds())
-                print (tijd)
-                add_speedrun("Speedrun",1,tijd,name1,buttonGoal,name1,degree)
+                socketio.emit('Stop')
+                if(selected_gamemode==1):
+                    tijd = datetime.now() - tijd_start
+                    tijd = round(tijd.total_seconds())
+                    print (tijd)
+                    add_speedrun("Speedrun",1,tijd,name1,buttonGoal,name1,degree)
+                    selected_gamemode=0
+                if(selected_gamemode==2):
+                    print('hier nog database entry doen')
+                    selected_gamemode=0
                 power_off = 0
             if(publish == 1 and selected_gamemode==1):
                 print("enter")
@@ -483,6 +519,7 @@ def mqttrun():
             #hier tijdstart + ingestelde tijd (in seconden fzo erbij tellen)
             if( datetime.now()>tijd_end and selected_gamemode==2 and timerstart==1):
                 print("game gedaan game gedaan")
+                power_off = 1
                 timerstart=0
         
         except Exception as e:
