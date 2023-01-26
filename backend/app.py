@@ -29,6 +29,7 @@ timerstart=0
 color_choiche = ""
 game_bezig = 0
 aantal_knoppen = 0
+selected_gamemode_old=0
 selected_gamemode = 0 # 1 = speedrun, 2 = 1v1, 3 = simon says, 4 = shuttle run
 #endregion
 # Custom endpoint
@@ -235,19 +236,16 @@ def multiplayer_init(client,userdate, msg):
         while(temp==btn_choiche1 or temp == btn_choiche2):
             temp = random.randint(1,6)
         btn_choiche2= temp
+    data = {"Username1": name1, "GameMode": "Speedrun", "Username2":name2,"Score1":score1, "Score2":score2}
+    y = json.dumps(data)
+    socketio.emit('B2F_new_data_1vs1',y)
+    print("unix_timestamp => ",(time.mktime(tijd_start.timetuple())))
+    socketio.emit("Start",time.mktime(tijd_start.timetuple()))
+    
 def multiplayer_next(client, userdata, msg):
     global started, publish, power_off, btn_choiche1, game_bezig, aantal_knoppen, game_progress, name1, btn_choiche2, score1, score1_oud, score2, score2_oud
     print('verwerken:', str(msg.payload.decode('utf-8')))
     if(game_bezig ==1):
-        # print('score1')
-        # print(score1)
-        # print('score2')
-        # print(score2)
-        # print('score1_oud')
-        # print(score1_oud)
-        # print('score2_oud')
-        # print(score2_oud)
-        #print('test succes')
         publish = 1
         ##voor de initial one moeje ze 1 keer alle 2 analeggen en dan de rest laten verlopen via dit
         if(score1_oud != score1):
@@ -261,9 +259,9 @@ def multiplayer_next(client, userdata, msg):
             while(temp==btn_choiche1 or temp == btn_choiche2):
                 temp = random.randint(1,6)
             btn_choiche2= temp
-        #data = {"Username": name1, "GameMode": "Speedrun", "ButtonsRemaining": aantal_knoppen-game_progress}
-        #y = json.dumps(data)
-        #socketio.emit('B2F_new_data_1vs1',y)
+        data = {"Username1": name1, "GameMode": "Speedrun", "Username2":name2,"Score1":score1, "Score2":score2}
+        y = json.dumps(data)
+        socketio.emit('B2F_new_data_1vs1',y)
         #print("verzonden")
         #print(data)
         #print(y)
@@ -297,7 +295,7 @@ def hallo():
 @app.route(endpoint + '/1vs1/<time>/', methods=['GET'])
 def OneVsOne(time):
     if request.method == 'GET':
-        print(time)
+        print('1vs1 database ophalen')
         data = DataRepository.read_1vs1_data_by_time(time)
         return jsonify(data), 200
 
@@ -335,32 +333,35 @@ def initial_connection():
     print('A new client connect')
 @socketio.on('getLiveGameData')
 def PageReload():
-    global game_bezig, aantal_knoppen, game_progress, name1, name2, color1, color2, selected_gamemode, score1, score2, started, tijd_start
+    global game_bezig, aantal_knoppen, game_progress, name1, name2, color1, color2, selected_gamemode, score1, score2, started, tijd_start, tijd, timerstart, selected_gamemode_old
     print('getLiveGameData')
-    if(game_bezig == 1):
+    if(selected_gamemode == 1):
         data = {"Username": name1, "GameMode": "Speedrun", "ButtonsRemaining": aantal_knoppen-game_progress}
         y = json.dumps(data)
         socketio.emit('B2F_new_data_speedrun',y)
         print("verzonden")
         print(data)
         print(y)
-        socketio.emit("Start",time.mktime(tijd_start.timetuple()))
-    # elif(game_bezig == 2):
-    #     data = {"Username": name1, "GameMode": selected_gamemode, "ButtonsRemaining": aantal_knoppen-game_progress, "Color": color1, "Score": score1, "Started": started}
-    #     y = json.dumps(data)
-    #     socketio.emit('B2F_new_data_1vs1',y)
-    #     print("verzonden")
-    #     print(data)
-    #     print(y)
-    #     data = {"Username": name2, "GameMode": selected_gamemode, "ButtonsRemaining": aantal_knoppen-game_progress, "Color": color2, "Score": score2, "Started": started}
-    #     y = json.dumps(data)
-    #     socketio.emit('B2F_new_data_1vs1',y)
-    #     print("verzonden")
-    #     print(data)
-    #     print(y)
+        socketio.emit('Start',time.mktime(tijd_start.timetuple()))
+    elif(selected_gamemode == 2):
+        print('socketio tis met 1v1 te doen')
+        if(timerstart == 1):
+            #print("unix_timestamp => ",(time.mktime(tijd_start.timetuple())))
+            data = {"Username1": name1, "GameMode": "OnevsOne", "Username2":name2,"Score1":score1, "Score2":score2}
+            y = json.dumps(data)
+            socketio.emit('B2F_new_data_1vs1',y)
+            socketio.emit("Start",time.mktime(tijd_start.timetuple()))
+    elif(selected_gamemode == 0 and selected_gamemode_old == 1):
+        data = {"Username": name1, "GameMode": "Speedrun", "ButtonsRemaining": aantal_knoppen-game_progress, "Tijd": tijd}
+        y = json.dumps(data)
+        socketio.emit('Reload',y)
+    elif(selected_gamemode == 0 and selected_gamemode_old == 2):
+        data = {"Username1": name1, "GameMode": "OnevsOne", "Username2":name2,"Score1":score1, "Score2":score2, "Tijd": tijd}
+        y = json.dumps(data)
+        socketio.emit('Reload',y)
 @socketio.on('1vs1')
 def newOneVsOne(testvariabl):
-    global name1, name2, color1,color2, degree, buttonGoal,minutes,game_bezig,aantal_knoppen,color_choiche,game_progress,started,tijd_set,selected_gamemode,score1,score2
+    global name1, name2, color1,color2, degree, buttonGoal,minutes,game_bezig,aantal_knoppen,color_choiche,game_progress,started,tijd_set,selected_gamemode,score1,score2,timerstart
     print('1vs1', testvariabl)
     color1 = testvariabl["color1"]
     color2 = testvariabl["color2"]
@@ -372,6 +373,7 @@ def newOneVsOne(testvariabl):
     ####ding hierboven is het juiste
     tijd_set = 30
     selected_gamemode = 2
+    timerstart = 0
     game_bezig = 1
     started=1
     score1=0
@@ -402,7 +404,7 @@ def test():
     print('test')
 
 def mqttrun():
-    global timerstart, started, publish, power_off, btn_choiche1,btn_choiche2, game_bezig, aantal_knoppen, game_progress, color_choiche, tijd, tijd_start, name1, name2, color1,color2, degree, buttonGoal,selected_gamemode, tijd_end, tijd_set
+    global timerstart,selected_gamemode_old, started, publish, power_off, btn_choiche1,btn_choiche2, game_bezig, aantal_knoppen, game_progress, color_choiche, tijd, tijd_start, name1, name2, color1,color2, degree, buttonGoal,selected_gamemode, tijd_end, tijd_set
     client = mqtt.Client("rpi_client2") #this name should be unique
     client.on_publish = on_publish
     flag_connected = 0
@@ -440,11 +442,16 @@ def mqttrun():
                     tijd = round(tijd.total_seconds())
                     print (tijd)
                     add_speedrun("Speedrun",1,tijd,name1,buttonGoal,name1,degree)
+                    selected_gamemode_old=selected_gamemode
                     selected_gamemode=0
                 if(selected_gamemode==2):
                     print('hier nog database entry doen')
+                    tijd = datetime.now() - tijd_start
+                    tijd = round(tijd.total_seconds())
+                    selected_gamemode_old=selected_gamemode
                     selected_gamemode=0
                 power_off = 0
+                selected_gamemode = 0
             if(publish == 1 and selected_gamemode==1):
                 print("enter")
                 msg ='led_uit'
@@ -490,9 +497,9 @@ def mqttrun():
                 numbers = [1,2,3,4,5,6]
                 temp = [btn_choiche1,btn_choiche2]
                 for i  in numbers:
-                    print(i)
+                    #print(i)
                     if(i not in temp):
-                        print(i)
+                        #print(i)
                         msg =""
                         pubMsg = client.publish(
                             topic=f'esp32/kleur{i}',

@@ -189,3 +189,38 @@ h3{
         font-weight: 400;
     }
 }
+
+
+.c-grid-palen{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 0px;
+    margin: 0px;
+    padding: 0px;
+    width: 292px;
+}
+
+.c-grid-palen > img{
+    width: 200%;
+    height: auto;
+    object-fit: cover;
+}
+
+
+@media (min-width: 768px) {
+    .c-grid-palen{
+        width: 372px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .c-grid-palen{
+        width: 512px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .c-grid-palen{
+        width: 592px;
+    }
+}
