@@ -15,6 +15,11 @@ const get_data_1vs1 = function(time){
     handleData(url, LoadScoreBord)
   }
 
+const get_data_1vs1_podium = function(time){
+    const url = `http://${lanIP}/api/v1/1vs1/${time}/`
+    handleData(url, LoadScoreBoardPodium1vs1)
+}
+
 const get_data_speedrun = function(difficulty, buttons){
     const url = `http://${lanIP}/api/v1/speedrun/${difficulty}/${buttons}/`
     handleData(url, LoadScoreBord)
@@ -751,11 +756,11 @@ LoadShuttleRunData = function(jsonDataTest){
 }
 
 
-LoadScoreBoardPodium1vs1 = function(jsonDataTest){
+LoadScoreBoardPodium1vs1 = function(players){
     scoreBordTitle.innerHTML = `Scorebord <u>1VS1</u>`;
-    scoreBordFirstPlace.innerHTML = `${jsonDataTest.firstplace}`;
-    scoreBordSecondPlace.innerHTML = `${jsonDataTest.secondplace}`;
-    scoreBordThirdPlace.innerHTML = `${jsonDataTest.thirdplace}`;
+    scoreBordFirstPlace.innerHTML = `${players[0].winnaar}`;
+    scoreBordSecondPlace.innerHTML = `${players[1].winnaar}`;
+    scoreBordThirdPlace.innerHTML = `${players[2].winnaar}`;
 
     gamemodeNumber = 0;
 
