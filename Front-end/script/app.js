@@ -28,7 +28,7 @@ const get_data_1vs1_podium = function(time){
 //speedrun
 const get_data_speedrun = function(difficulty, buttons){
     const url = `http://${lanIP}/api/v1/speedrun/${difficulty}/${buttons}/`
-    handleData(url, LoadScoreBord)
+    handleData(url, LoadScoreBordSpeedrun)
 }
 
 const get_data_speedrun_podium = function(difficulty, buttons){
@@ -729,6 +729,9 @@ const listenToSocket = function(){
     });
     socketio.on("Stop", function(){
         console.log("Stop");
+        if(scoreTitle.innerHTML == `<h2>Knoppen</h2>`){
+            OutputScore.innerHTML = `<h3>0</h3>`;
+        }
         StopGame();
     });
 
@@ -953,6 +956,124 @@ LoadScoreBord = function(players){
     }
 }
 
+LoadScoreBordSpeedrun = function(players){
+    console.log(players)
+    // First place
+    placeHolderScoreBordPlayers.innerHTML = "";
+    if(players.length > 0){
+        var seconds = players[0].score;
+        // convert seconds to minutes and seconds
+        var minutes = Math.floor(seconds / 60);
+        seconds = seconds % 60;
+        // add leading zero if seconds less than 10
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        // add leading zero if minutes less than 1
+        minutes = minutes < 1 ? '0' + minutes : minutes;
+        players[0].score = minutes + ":" + seconds;
+
+        
+        placeHolderScoreBordPlayers.innerHTML = `<div class="c-player c-first-player">
+            <div class="c-player-number">
+                <img src="./img/first-place-icon.svg" alt="eerste plaats">
+            </div>
+            <div class="c-player-name">
+                <h3>${players[0].winnaar}</h3>
+            </div>
+            <div class="c-player-score">
+                <h3>${players[0].score}</h3>
+            </div>
+        </div>`;
+    }
+    // Second place
+    if(players.length > 1){
+        var seconds = players[1].score;
+        // convert seconds to minutes and seconds
+        var minutes = Math.floor(seconds / 60);
+        seconds = seconds % 60;
+        // add leading zero if seconds less than 10
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        // add leading zero if minutes less than 1
+        minutes = minutes < 1 ? '0' + minutes : minutes;
+        players[1].score = minutes + ":" + seconds;
+
+        placeHolderScoreBordPlayers.innerHTML += `<div class="c-player c-second-player">
+            <div class="c-player-number">
+                <img src="./img/second-place-icon.svg" alt="eerste plaats">
+            </div>
+            <div class="c-player-name">
+                <h3>${players[1].winnaar}</h3>
+            </div>
+            <div class="c-player-score">
+                <h3>${players[1].score}</h3>
+            </div>
+        </div>`;
+    }
+    // Third place
+    if(players.length > 2){
+        var seconds = players[2].score;
+        // convert seconds to minutes and seconds
+        var minutes = Math.floor(seconds / 60);
+        seconds = seconds % 60;
+        // add leading zero if seconds less than 10
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        // add leading zero if minutes less than 1
+        minutes = minutes < 1 ? '0' + minutes : minutes;
+        players[2].score = minutes + ":" + seconds;
+
+        placeHolderScoreBordPlayers.innerHTML += `<div class="c-player c-third-player">
+            <div class="c-player-number">
+                <img src="./img/third-place-icon.svg" alt="eerste plaats">
+            </div>
+            <div class="c-player-name">
+                <h3>${players[2].winnaar}</h3>
+            </div>
+            <div class="c-player-score">
+                <h3>${players[2].score}</h3>
+            </div>
+        </div>`;
+    }
+    // Other places
+    var place = 1;
+    players.forEach(player => {
+        var seconds = player.score;
+        // convert seconds to minutes and seconds
+        var minutes = Math.floor(seconds / 60);
+        seconds = seconds % 60;
+        // add leading zero if seconds less than 10
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        // add leading zero if minutes less than 1
+        minutes = minutes < 1 ? '0' + minutes : minutes;
+        player.score = minutes + ":" + seconds;
+
+        if(place > 3)
+        {
+            placeHolderScoreBordPlayers.innerHTML += `<div class="c-player">
+            <div class="c-player-number">
+                <h3>${place}</h3>
+            </div>
+            <div class="c-player-name">
+                <h3>${player.winnaar}</h3>
+            </div>
+            <div class="c-player-score">
+                <h3>${player.score}</h3>
+            </div>`;
+        }
+        place++;
+    });
+    while(place <= 10){
+        placeHolderScoreBordPlayers.innerHTML += `<div class="c-player">
+        <div class="c-player-number">
+            <h3>${place}</h3>
+        </div>
+        <div class="c-player-name">
+            <h3>Leeg</h3>
+        </div>
+        <div class="c-player-score">
+            <h3></h3>
+        </div>`;
+        place++;
+    }
+}
 
 //#endregion
 
