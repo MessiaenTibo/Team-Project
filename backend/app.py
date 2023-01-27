@@ -505,10 +505,11 @@ def newSpeedrun(testvariabl):
     selected_gamemode = 1
     started = 1
     game_progress = 0
+    
 
 @socketio.on('ShuttleRun')
 def newSpeedrun(testvariabl):
-    global game_bezig, aantal_knoppen, color_choiche, game_progress, started, name1, name2, color1, degree, buttonGoal, tijd_start, selected_gamemode,tijd_set, score1
+    global game_bezig, aantal_knoppen, color_choiche, game_progress, started, name1, name2, color1, degree, buttonGoal, tijd_start, selected_gamemode,tijd_set, score1, timerstart,started, publish, power_off, btn_choiche1, game_bezig, aantal_knoppen, game_progress, name1, btn_choiche2, score1, score1_oud, score2, score2_oud,tijd_start,tijd_set,tijd_end,tijd
     print('Shuttlerun', testvariabl)
     name1 = testvariabl["name1"]
     color1 = testvariabl["color1"]
@@ -521,6 +522,22 @@ def newSpeedrun(testvariabl):
     started = 1
     score1 = 0
     game_progress = 0
+    time.sleep(4)
+    game_progress = 0
+    tijd_start = datetime.now()
+    tijd_end = tijd_start + timedelta(seconds=int(tijd_set))
+    temp = random.randint(1,6)
+    while(temp == btn_choiche1):
+        temp = random.randint(1,6)
+    btn_choiche1 = temp
+    print(btn_choiche1)
+    publish = 1
+    timerstart = 1
+    data = {"Username": name1, "GameMode": "ShuttleRun","Score":score1}
+    y = json.dumps(data)
+    socketio.emit('B2F_new_data_shuttle_run',y)
+    print("unix_timestamp => ",(time.mktime(tijd_start.timetuple())))
+    socketio.emit("Start",time.mktime(tijd_start.timetuple()))
     print('Shuttlerun aangemaakt')
 
 def mqttrun():
