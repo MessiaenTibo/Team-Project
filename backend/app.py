@@ -41,7 +41,7 @@ def on_publish(client, userdata, mid):
     pass 
 #region **** ESPcallback ****
 def callback_esp32_sensor1(client, userdata, msg):
-    global btn_choiche1, btn_choiche2, score1, score2,started , selected_gamemode,score1_oud, score2_oud
+    global btn_choiche1, btn_choiche2, score1, score2,started , selected_gamemode,score1_oud, score2_oud,game_progress
     if(selected_gamemode == 1):
         if(started==1 or btn_choiche1 == 1):
             speedrun_next(client, userdata, msg)
@@ -60,9 +60,18 @@ def callback_esp32_sensor1(client, userdata, msg):
             score2_oud = score2
             score2 = score2+1
             multiplayer_next(client, userdata, msg)
+    elif(selected_gamemode == 3):
+        if(started == 1):
+            shuttlerun_init(client, userdata, msg)
+            print("init")
+            started = 0
+        if(started == 0 and btn_choiche1 == 1):
+            print("next")
+            game_progress = game_progress+1
+            shuttlerun_next(client, userdata, msg)
     print("knop 1")
 def callback_esp32_sensor2(client, userdata, msg):
-    global btn_choiche1, btn_choiche2, score1, score2,started , selected_gamemode,score1_oud, score2_oud
+    global btn_choiche1, btn_choiche2, score1, score2,started , selected_gamemode,score1_oud, score2_oud,game_progress
     if(selected_gamemode == 1):
         if(started==1 or btn_choiche1 == 2):
             speedrun_next(client, userdata, msg)
@@ -81,9 +90,16 @@ def callback_esp32_sensor2(client, userdata, msg):
             score2_oud = score2
             score2 = score2+1
             multiplayer_next(client, userdata, msg)
+    elif(selected_gamemode == 3):
+        if(started == 1):
+            shuttlerun_init(client, userdata, msg)
+            started = 0
+        if(started == 0 and btn_choiche1 == 2):
+            game_progress = game_progress+1
+            shuttlerun_next(client, userdata, msg)
     print("knop 2")
 def callback_esp32_sensor3(client, userdata, msg):
-    global btn_choiche1, btn_choiche2, score1, score2,started , selected_gamemode,score1_oud, score2_oud
+    global btn_choiche1, btn_choiche2, score1, score2,started , selected_gamemode,score1_oud, score2_oud,game_progress
     if(selected_gamemode == 1):
         if(started == 1 or btn_choiche1 == 3):
             speedrun_next(client, userdata, msg)
@@ -102,9 +118,16 @@ def callback_esp32_sensor3(client, userdata, msg):
             score2_oud = score2
             score2 = score2+1
             multiplayer_next(client, userdata, msg)
+    elif(selected_gamemode == 3):
+        if(started == 1):
+            shuttlerun_init(client, userdata, msg)
+            started = 0
+        if(started == 0 and btn_choiche1 == 3):
+            game_progress = game_progress+1
+            shuttlerun_next(client, userdata, msg)
     print("knop 3")
 def callback_esp32_sensor4(client, userdata, msg):
-    global btn_choiche1, btn_choiche2, score1, score2,started , selected_gamemode,score1_oud, score2_oud
+    global btn_choiche1, btn_choiche2, score1, score2,started , selected_gamemode,score1_oud, score2_oud,game_progress
     if(selected_gamemode == 1):
         if(started ==1 or btn_choiche1 == 4):
             speedrun_next(client, userdata, msg)
@@ -123,9 +146,16 @@ def callback_esp32_sensor4(client, userdata, msg):
             score2_oud = score2
             score2 = score2+1
             multiplayer_next(client, userdata, msg)
+    elif(selected_gamemode == 3):
+        if(started == 1):
+            shuttlerun_init(client, userdata, msg)
+            started = 0
+        if(started == 0 and btn_choiche1 == 4):
+            game_progress = game_progress+1
+            shuttlerun_next(client, userdata, msg)
     print("knop 4")
 def callback_esp32_sensor5(client, userdata, msg):
-    global btn_choiche1, btn_choiche2, score1, score2,started , selected_gamemode,score1_oud, score2_oud
+    global btn_choiche1, btn_choiche2, score1, score2,started , selected_gamemode,score1_oud, score2_oud,game_progress
     if(selected_gamemode == 1):
         if(started == 1 or btn_choiche1 == 5):
             speedrun_next(client, userdata, msg)
@@ -144,9 +174,16 @@ def callback_esp32_sensor5(client, userdata, msg):
             score2_oud = score2
             score2 = score2+1
             multiplayer_next(client, userdata, msg)
+    elif(selected_gamemode == 3):
+        if(started == 1):
+            shuttlerun_init(client, userdata, msg)
+            started = 0
+        if(started == 0 and btn_choiche1 == 5):
+            game_progress = game_progress+1
+            shuttlerun_next(client, userdata, msg)
     print("knop 5")
 def callback_esp32_sensor6(client, userdata, msg):
-    global btn_choiche1, btn_choiche2, score1, score2,started , selected_gamemode,score1_oud, score2_oud
+    global btn_choiche1, btn_choiche2, score1, score2,started , selected_gamemode,score1_oud, score2_oud,game_progress
     if(selected_gamemode == 1):
         if(started == 1 or btn_choiche1 == 6):
             speedrun_next(client, userdata, msg)
@@ -165,6 +202,13 @@ def callback_esp32_sensor6(client, userdata, msg):
             score2_oud = score2
             score2 = score2+1
             multiplayer_next(client, userdata, msg)
+    elif(selected_gamemode == 3):
+        if(started == 1):
+            shuttlerun_init(client, userdata, msg)
+            started = 0
+        if(started == 0 and btn_choiche1 == 6):
+            game_progress = game_progress + 1
+            shuttlerun_next(client, userdata, msg)
     print("knop 6")
 #endregion
 
@@ -268,6 +312,26 @@ def multiplayer_next(client, userdata, msg):
     elif(game_bezig == 0):
         power_off = 1
         game_bezig = 1
+def shuttlerun_init(client,userdate, msg):
+    global timerstart,started, publish, power_off, btn_choiche1, game_bezig, aantal_knoppen, game_progress, name1, btn_choiche2, score1, score1_oud, score2, score2_oud,tijd_start,tijd_set,tijd_end,tijd
+    game_progress = 0
+    tijd_start = datetime.now()
+    tijd_end = tijd_start + timedelta(seconds=int(tijd_set))
+    temp = random.randint(1,6)
+    while(temp == btn_choiche1):
+        temp = random.randint(1,6)
+    btn_choiche1 = temp
+    print(btn_choiche1)
+    publish = 1
+    timerstart = 1
+
+def shuttlerun_next(client,userdate, msg):
+    global timerstart,started, publish, power_off, btn_choiche1, game_bezig, aantal_knoppen, game_progress, name1, btn_choiche2, score1, score1_oud, score2, score2_oud,tijd_start,tijd_set,tijd_end,tijd
+    tijd_start = datetime.now()
+    tijd_set= tijd_set*0.99
+    tijd_end = tijd_start + timedelta(seconds=int(tijd_set))
+
+
 #endregion
 #region **** INIT ****
 # Start app
@@ -401,20 +465,19 @@ def newSpeedrun(testvariabl):
 
 @socketio.on('ShuttleRun')
 def newSpeedrun(testvariabl):
-    global game_bezig, aantal_knoppen, color_choiche, game_progress, started, name1, name2, color1, degree, buttonGoal, tijd_start, selected_gamemode
+    global game_bezig, aantal_knoppen, color_choiche, game_progress, started, name1, name2, color1, degree, buttonGoal, tijd_start, selected_gamemode,tijd_set
     print('Shuttlerun', testvariabl)
-    #y = json.dumps(testvariabl)
-    # aantal_knoppen = int(testvariabl["buttonGoal"])
-    # buttonGoal = int(testvariabl["buttonGoal"])
-    # name1 = testvariabl["name1"]
-    # color1 = testvariabl["color1"]
-    # degree = testvariabl["degree"]
-    # tijd_start = datetime.now()
-    # color_choiche=colorconvert(color1)
+    name1 = testvariabl["name1"]
+    color1 = testvariabl["color1"]
+    degree = testvariabl["degree"]
+    color_choiche=colorconvert(color1)
+    #tijd set moet afafhankelijk zijn van de degree maar idk :)
+    tijd_set = 30
     game_bezig = 1
-    selected_gamemode = 1
+    selected_gamemode = 3
     started = 1
     game_progress = 0
+    print
 
 def mqttrun():
     global timerstart,selected_gamemode_old, started, publish, power_off, btn_choiche1,btn_choiche2, game_bezig, aantal_knoppen, game_progress, color_choiche, tijd, tijd_start, name1, name2, color1,color2, degree, buttonGoal,selected_gamemode, tijd_end, tijd_set

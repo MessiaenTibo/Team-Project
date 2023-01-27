@@ -544,7 +544,7 @@ ScoreBordPage = function(){
             console.log(this.value);
         });
     });
-    get_data_1vs1(300);
+    get_data_1vs1(60);
 }
 
 
