@@ -466,50 +466,6 @@ LivePage = function(){
     OutputGameMode.innerHTML = `<h3>Loading...</h3>`;
     OutputScore.innerHTML = `<h3>Loading...</h3>`;
     OutputTime.innerHTML = `<h3>Loading...</h3>`;
-
-    // setTimeout(() => {
-    //     document.querySelector('.js-lottie-player').style.display = "none";
-    //   }, countdownTime)
-
-
-    // *** Tests
-    //Simulatie live data Speedrun
-    
-    // var jsonDataTestSpeedrun = {
-    //     Username: "Ibe",
-    //     GameMode: "Speedrun",
-    //     ButtonsRemaining: 8,
-    // }
-
-    // LoadSpeedrunData(jsonDataTestSpeedrun);
-
-    // //Simulatie live data 1vs1
-    // var jsonDataTestOneVSOne = {
-    //     Username1: "Ibe",
-    //     Username2: "Lander",
-    //     Score1: 10,
-    //     Score2: 12,
-    // }
-    // LoadOneVSOneData(jsonDataTestOneVSOne);
-
-    // //Simulatie live data simonsays
-    // var jsonDataTestSimonSays = {
-    //     Username: "Ibe",
-    //     GameMode: "SimonSays",
-    //     Score: 17,
-    // }
-    // LoadSimonSaysData(jsonDataTestSimonSays);
-
-    // //Simulatie live data Shuttle Run
-    // var jsonDataTestShuttleRun = {
-    //     Username: "Ibe",
-    //     GameMode: "ShuttleRun",
-    //     Score: 13,
-    // }
-    // LoadShuttleRunData(jsonDataTestShuttleRun);
-
-
-    //showChart();
 }
 
 
@@ -726,6 +682,12 @@ const listenToSocket = function(){
         x = JSON.parse(jsonData)
         LoadSimonSaysData(x);
         console.log(x);
+    });
+    socketio.on("knop_aan", function(jsonBody){
+        console.log("knop aan");
+        console.log(jsonBody);
+        x = JSON.parse(jsonBody);
+        knopAan(x);
     });
     socketio.on("Start", function(unix_timestamp){
         console.log("Start");
@@ -1057,6 +1019,73 @@ StopGame = function(){
     stopGame = true;
 }
 
+knopAan = function(jsonBody){
+    Paal1.src = "./img/Paal.png";
+    Paal1.style.opacity = "0.7";
+    Paal2.src = "./img/Paal.png";
+    Paal2.style.opacity = "0.7";
+    Paal3.src = "./img/Paal.png";
+    Paal3.style.opacity = "0.7";
+    Paal4.src = "./img/Paal.png";
+    Paal4.style.opacity = "0.7";
+    Paal5.src = "./img/Paal.png";
+    Paal5.style.opacity = "0.7";
+    Paal6.src = "./img/Paal.png";
+    Paal6.style.opacity = "0.7";
+    switch (jsonBody.knop1) {
+        case 1:
+            Paal1.src = "./img/Paal-light.png";
+            Paal1.style.opacity = "1";
+            break;
+        case 2:
+            Paal2.src = "./img/Paal-light.png";
+            Paal2.style.opacity = "1";
+            break;
+        case 3:
+            Paal3.src = "./img/Paal-light.png";
+            Paal3.style.opacity = "1";
+            break;
+        case 4:
+            Paal4.src = "./img/Paal-light.png";
+            Paal4.style.opacity = "1";
+            break;
+        case 5:
+            Paal5.src = "./img/Paal-light.png";
+            Paal5.style.opacity = "1";
+            break;
+        case 6:
+            Paal6.src = "./img/Paal-light.png";
+            Paal6.style.opacity = "1";
+            break;
+    }
+    switch (jsonBody.knop2) {
+        case 1:
+            Paal1.src = "./img/Paal-light.png";
+            Paal1.style.opacity = "1";
+            break;
+        case 2:
+            Paal2.src = "./img/Paal-light.png";
+            Paal2.style.opacity = "1";
+            break;
+        case 3:
+            Paal3.src = "./img/Paal-light.png";
+            Paal3.style.opacity = "1";
+            break;
+        case 4:
+            Paal4.src = "./img/Paal-light.png";
+            Paal4.style.opacity = "1";
+            break;
+        case 5:
+            Paal5.src = "./img/Paal-light.png";
+            Paal5.style.opacity = "1";
+            break;
+        case 6:
+            Paal6.src = "./img/Paal-light.png";
+            Paal6.style.opacity = "1";
+            break;
+    }
+}
+
 
 //#endregion
 
@@ -1215,6 +1244,15 @@ const init = function () {
     OutputGameMode = document.querySelector('.js-output-gamemode');
     OutputScore = document.querySelector('.js-output-score');
     OutputTime = document.querySelector('.js-output-time');
+
+    //palen
+    Paal1 = document.querySelector('.js-knop-1');
+    Paal2 = document.querySelector('.js-knop-2');
+    Paal3 = document.querySelector('.js-knop-3');
+    Paal4 = document.querySelector('.js-knop-4');
+    Paal5 = document.querySelector('.js-knop-5');
+    Paal6 = document.querySelector('.js-knop-6');
+
 
 
     /*

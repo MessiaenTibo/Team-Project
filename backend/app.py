@@ -399,9 +399,22 @@ def newSpeedrun(testvariabl):
     started = 1
     game_progress = 0
 
-@socketio.on('test')
-def test():
-    print('test')
+@socketio.on('ShuttleRun')
+def newSpeedrun(testvariabl):
+    global game_bezig, aantal_knoppen, color_choiche, game_progress, started, name1, name2, color1, degree, buttonGoal, tijd_start, selected_gamemode
+    print('Shuttlerun', testvariabl)
+    #y = json.dumps(testvariabl)
+    # aantal_knoppen = int(testvariabl["buttonGoal"])
+    # buttonGoal = int(testvariabl["buttonGoal"])
+    # name1 = testvariabl["name1"]
+    # color1 = testvariabl["color1"]
+    # degree = testvariabl["degree"]
+    # tijd_start = datetime.now()
+    # color_choiche=colorconvert(color1)
+    game_bezig = 1
+    selected_gamemode = 1
+    started = 1
+    game_progress = 0
 
 def mqttrun():
     global timerstart,selected_gamemode_old, started, publish, power_off, btn_choiche1,btn_choiche2, game_bezig, aantal_knoppen, game_progress, color_choiche, tijd, tijd_start, name1, name2, color1,color2, degree, buttonGoal,selected_gamemode, tijd_end, tijd_set
@@ -480,18 +493,6 @@ def mqttrun():
                 #btn_choiche = 0
             if(publish==1 and selected_gamemode==2):
                 print('1v1 dingen doen')
-                # msg ='led_uit'
-                # pubMsg = client.publish(
-                #     topic='rpi/broadcast',
-                #     payload=msg.encode('utf-8'),
-                #     qos=0,
-                #     )
-                # pubMsg.wait_for_publish()
-                #kijken of ik color_choiche instel of hier kijk naar welk team :/
-                #aan einde gamemode wss niet hier color choiche op "" zetten
-
-                ##de 1 en 2 btnchoiche1 en btnchoucke2 maken xx
-                print("2 dingen aanzetten")
                 print(color1)
                 print(color2)
                 numbers = [1,2,3,4,5,6]
