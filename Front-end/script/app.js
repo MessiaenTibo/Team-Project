@@ -6,7 +6,7 @@ let pauseScroll = false;
 let countdownTime = "4000";
 
 var stopGame = false;
-var TimeLiveGame = null;
+var TimeLiveGame = "00:00";
 
 var startGameOnce = false;
 
@@ -686,8 +686,7 @@ const listenToSocket = function(){
     socketio.on("knop_aan", function(jsonBody){
         console.log("knop aan");
         console.log(jsonBody);
-        x = JSON.parse(jsonBody);
-        knopAan(x);
+        knopAan(jsonBody);
     });
     socketio.on("Start", function(unix_timestamp){
         console.log("Start");
@@ -747,15 +746,15 @@ LoadSpeedrunData = function(jsonDataTest){
     OutputScore.innerHTML = `<h3>${jsonDataTest.ButtonsRemaining}</h3>`;
     OutputTime.innerHTML = `<h3>${TimeLiveGame}</h3>`;
     scoreTitle.innerHTML = `<h2>Knoppen</h2>`;
+    playersTitle.innerHTML = `<h2>Speler</h2>`;
 }
 
 LoadOneVSOneData = function(jsonDataTest){
-    console.log("debug:")
-    console.log(jsonDataTest);
     OutputUsernames.innerHTML = `<h3>${jsonDataTest.Username1}</h3> <h3>VS</h3> <h3>${jsonDataTest.Username2}</h3>`;
     OutputGameMode.innerHTML = `<img class="c-card-gamemode__svg js-card-gamemode-svg-1vs1" src="./img/1VS1.svg" alt="1 tegen 1 afbeelding">`;
     OutputScore.innerHTML = `<h3>${jsonDataTest.Username1}: ${jsonDataTest.Score1}</h3> <h3>${jsonDataTest.Username2}: ${jsonDataTest.Score2}</h3>`;
-    OutputTime.innerHTML = `<h2>${TimeLiveGame}</h2>`;
+    OutputTime.innerHTML = `<h3>${TimeLiveGame}</h3>`;
+    playersTitle.innerHTML = `<h2>Spelers</h2>`;
 }
 
 LoadSimonSaysData = function(jsonDataTest){
@@ -764,6 +763,7 @@ LoadSimonSaysData = function(jsonDataTest){
     OutputScore.innerHTML = `<h3>${jsonDataTest.Score}</h3>`;
     OutputTime.innerHTML = `<h3>${TimeLiveGame}</h3>`;
     scoreTitle.innerHTML = `<h2>Score</h2>`;
+    playersTitle.innerHTML = `<h2>Speler</h2>`;
 }
 
 LoadShuttleRunData = function(jsonDataTest){
@@ -772,6 +772,7 @@ LoadShuttleRunData = function(jsonDataTest){
     OutputScore.innerHTML = `<h3>${jsonDataTest.Score}</h3>`;
     OutputTime.innerHTML = `<h3>${TimeLiveGame}</h3>`;
     scoreTitle.innerHTML = `<h2>Score</h2>`;
+    playersTitle.innerHTML = `<h2>Speler</h2>`;
 }
 
 
@@ -1244,6 +1245,8 @@ const init = function () {
     OutputGameMode = document.querySelector('.js-output-gamemode');
     OutputScore = document.querySelector('.js-output-score');
     OutputTime = document.querySelector('.js-output-time');
+    scoreTitle = document.querySelector('.js-output-score__title');
+    playersTitle = document.querySelector('.js-output-players__title');
 
     //palen
     Paal1 = document.querySelector('.js-knop-1');
@@ -1268,11 +1271,6 @@ const init = function () {
     optionsShuttleRun = document.querySelector('.js-options-shuttle-run');
     placeHolderScoreBordPlayers = document.querySelector('.js-grid-players');
 
-
-
-
-
-    scoreTitle = document.querySelector('.js-output-score__title');
 
     // *** Handle User Interactions
     handleDataUI();
