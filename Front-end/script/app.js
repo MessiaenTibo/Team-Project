@@ -778,9 +778,18 @@ LoadShuttleRunData = function(jsonDataTest){
 
 LoadScoreBoardPodium1vs1 = function(players){
     scoreBordTitle.innerHTML = `Scorebord <u>1VS1</u>`;
-    scoreBordFirstPlace.innerHTML = `${players[0].winnaar}`;
-    scoreBordSecondPlace.innerHTML = `${players[1].winnaar}`;
-    scoreBordThirdPlace.innerHTML = `${players[2].winnaar}`;
+    scoreBordFirstPlace.innerHTML = "Leeg";
+    scoreBordSecondPlace.innerHTML = "Leeg";
+    scoreBordThirdPlace.innerHTML = "Leeg";
+    if(players[0] != undefined){
+        scoreBordFirstPlace.innerHTML = `${players[0].winnaar}`;
+    }
+    if(players[1] != undefined){
+        scoreBordSecondPlace.innerHTML = `${players[1].winnaar}`;
+    }
+    if(players[2] != undefined){
+        scoreBordThirdPlace.innerHTML = `${players[2].winnaar}`;
+    }
 
     gamemodeNumber = 0;
 
@@ -794,9 +803,18 @@ LoadScoreBoardPodium1vs1 = function(players){
 
 LoadScoreBoardPodiumSimonSays = function(players){
     scoreBordTitle.innerHTML = `Scorebord <u>Simon Says</u>`;
-    scoreBordFirstPlace.innerHTML = `${players[0].winnaar}`;
-    scoreBordSecondPlace.innerHTML = `${players[1].winnaar}`;
-    scoreBordThirdPlace.innerHTML = `${players[2].winnaar}`;
+    scoreBordFirstPlace.innerHTML = "Leeg";
+    scoreBordSecondPlace.innerHTML = "Leeg";
+    scoreBordThirdPlace.innerHTML = "Leeg";
+    if(players[0] != undefined){
+        scoreBordFirstPlace.innerHTML = `${players[0].winnaar}`;
+    }
+    if(players[1] != undefined){
+        scoreBordSecondPlace.innerHTML = `${players[1].winnaar}`;
+    }
+    if(players[2] != undefined){
+        scoreBordThirdPlace.innerHTML = `${players[2].winnaar}`;
+    }
 
     gamemodeNumber = 1;
 
@@ -809,9 +827,18 @@ LoadScoreBoardPodiumSimonSays = function(players){
 
 LoadScoreBoardPodiumSpeedrun = function(players){
     scoreBordTitle.innerHTML = `Scorebord <u>Speedrun</u>`;
-    scoreBordFirstPlace.innerHTML = `${players[0].winnaar}`;
-    scoreBordSecondPlace.innerHTML = `${players[1].winnaar}`;
-    scoreBordThirdPlace.innerHTML = `${players[2].winnaar}`;
+    scoreBordFirstPlace.innerHTML = "Leeg";
+    scoreBordSecondPlace.innerHTML = "Leeg";
+    scoreBordThirdPlace.innerHTML = "Leeg";
+    if(players[0] != undefined){
+        scoreBordFirstPlace.innerHTML = `${players[0].winnaar}`;
+    }
+    if(players[1] != undefined){
+        scoreBordSecondPlace.innerHTML = `${players[1].winnaar}`;
+    }
+    if(players[2] != undefined){
+        scoreBordThirdPlace.innerHTML = `${players[2].winnaar}`;
+    }
 
     gamemodeNumber = 2;
 
@@ -825,9 +852,18 @@ LoadScoreBoardPodiumSpeedrun = function(players){
 
 LoadScoreBoardPodiumShuttleRun = function(players){
     scoreBordTitle.innerHTML = `Scorebord <u>Shuttle Run</u>`;
-    scoreBordFirstPlace.innerHTML = `${players[0].winnaar}`;
-    scoreBordSecondPlace.innerHTML = `${players[1].winnaar}`;
-    scoreBordThirdPlace.innerHTML = `${players[2].winnaar}`;
+    scoreBordFirstPlace.innerHTML = "Leeg";
+    scoreBordSecondPlace.innerHTML = "Leeg";
+    scoreBordThirdPlace.innerHTML = "Leeg";
+    if(players[0] != undefined){
+        scoreBordFirstPlace.innerHTML = `${players[0].winnaar}`;
+    }
+    if(players[1] != undefined){
+        scoreBordSecondPlace.innerHTML = `${players[1].winnaar}`;
+    }
+    if(players[2] != undefined){
+        scoreBordThirdPlace.innerHTML = `${players[2].winnaar}`;
+    }
 
     gamemodeNumber = 3;
 
