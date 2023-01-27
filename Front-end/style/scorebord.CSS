@@ -77,7 +77,7 @@ select{
     grid-template-rows: 1fr;
     gap: 8px;
     align-items: center;
-
+    padding-right: 8px;
 }
 
 .c-player:hover{
@@ -109,6 +109,10 @@ select{
 
 .c-player-number > img{
     border-radius: 4px;
+}
+
+.c-player-score{
+    text-align: center;
 }
 
 
