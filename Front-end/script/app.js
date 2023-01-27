@@ -159,7 +159,7 @@ const HomePage = function(){
             console.log("Game square clicked");
             if(gameSquares[0] == this){
                 console.log("Game square 1 clicked");
-                get_data_1vs1_podium(300);
+                get_data_1vs1_podium(60);
             }else if(gameSquares[1] == this){
                 console.log("Game square 2 clicked");
                 get_data_simon_says_podium(1,2);
@@ -969,7 +969,7 @@ GetScoreBordPodiumShuttleRun = function(){
 ScoreBoard = function(){
     switch (gamemodeNumber) {
         case 0:
-            get_data_1vs1_podium(300);
+            get_data_1vs1_podium(60);
             break;
         case 1:
             get_data_simon_says_podium(1,2);
