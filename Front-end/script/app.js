@@ -321,6 +321,17 @@ SpeedrunPage = function(){
     });
 
 
+    var popup = document.querySelectorAll(".popup");
+    popup.forEach(element => {
+        element.addEventListener('click', function(){
+            console.log("click");
+            document.querySelectorAll('.myPopup').forEach(element2 => {
+                element2.classList.toggle("show");
+            });
+        });
+    });
+
+
     // Callback for the form
     var forms = document.querySelectorAll('form');
     forms.forEach(form => {
