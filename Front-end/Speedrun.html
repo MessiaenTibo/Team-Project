@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Import fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style/screen.css">
     <link rel="stylesheet" href="./style/speedrun.CSS">
-    <title>Interactive palen</title>
+    <title>Kyoku</title>
     <!-- Favicon -->
     <link rel="shortcute icon" type="image/png" href="img/favicon-dark.ico" id="faviconTag"/>
     <link rel="icon" href="/pictures/icon.svg">
@@ -15,7 +19,7 @@
       integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
       crossorigin="anonymous"
     ></script>
-    <script src="script/dataHandler.js"></script>
+    <script src="script/datahandler.js"></script>
     <script src="script/app.js"></script>
 </head>
 <body>
@@ -24,7 +28,7 @@
         <div class="o-container">
             <div class="c-header">
                 <div class="c-header__logo">                      
-                    <a class="title" href="">
+                    <a class="title" href="./index.html">
                         <h1>
                             Speedrun
                         </h1>
@@ -35,6 +39,9 @@
                         <nav class="c-nav u-hide">
                             <ul class="o-list c-nav__list">
                                 <li class="c-nav-item"><a class="c-nav__link" href="./index.html">Home</a></li>
+                                <li class="c-nav-item"><a class="c-nav__link u-live" href="./Live.html">Live</a></li>
+                                <li class="c-nav-item"><a class="c-nav__link" href="./ScoreBord.html">Scorebord</a></li>
+                                <li class="c-nav-item"><a class="c-nav__link" href="./Info.html">Info</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -52,7 +59,7 @@
     <main>
         <section class="o-row">
             <div class="o-container u-align-content-center">
-                <form action="index.html" class="mobile">
+                <form action="countdown.html" class="mobile">
                     <!-- Player -->
                     <div class="c-card-player">
                         <svg class="c-card-player__svg c-player-1__svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="240" viewBox="0 0 240 240">
@@ -73,20 +80,7 @@
                         <div class="u-center-horizontal">
                             <input type="text" name="Username1" class="c-card-player__Name js-player-1-input" placeholder="Speler" maxlength="10" id="input-1.0" required></input>
                             <label for="input-1.0">
-                            <svg class="c-edit-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="240" viewBox="0 0 240 240">
-                                <defs>
-                                <clipPath id="clip-Edit-Icon">
-                                    <rect width="240" height="240"/>
-                                </clipPath>
-                                </defs>
-                                <g id="Edit-Icon" clip-path="url(#clip-Edit-Icon)">
-                                <g id="noun-edit-5412991" transform="translate(-84.644 -14.829)">
-                                    <path id="Path_26" data-name="Path 26" d="M125.029,401.8l32.4,32.4-35.728,11.864h0a8.428,8.428,0,0,1-2.169.339,6.779,6.779,0,0,1-6.44-8.948Z" transform="translate(0 -219.783)"/>
-                                    <path id="Path_27" data-name="Path 27" d="M164.72,200.077,273.767,91.03l35.863,35.863L200.583,235.94Z" transform="translate(-31.843 -29.403)"/>
-                                    <path id="Path_28" data-name="Path 28" d="M516.026,70.293a20.041,20.041,0,0,1-5.965,14.373l-3.187,3.253L471.011,52.057,474.2,48.8a20.784,20.784,0,0,1,28.745,0l7.118,7.118a20.144,20.144,0,0,1,5.965,14.372Z" transform="translate(-219.479)"/>
-                                </g>
-                                </g>
-                            </svg>
+                                <img class="c-edit-icon" src="./img/Pencil.svg" alt="Edit icon">
                             </label>
                         </div>
                         </div>
@@ -110,7 +104,7 @@
                         <button>Spel aanmaken</button>
                     </div>
                 </form>
-                <form action="index.html" class="tabledVertical">
+                <form action="countdown.html" class="tabledVertical">
                     <!-- Player 1 -->
                     <div class="c-card-player">
                         <div class="c-card-player-left">
@@ -118,20 +112,7 @@
                             <div class="u-center-horizontal">
                               <input type="text" name="Username1" class="c-card-player__Name js-player-1-input" placeholder="Speler" maxlength="10" id="input-1.1" required></input>
                               <label for="input-1.1">
-                                <svg class="c-edit-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="240" viewBox="0 0 240 240">
-                                  <defs>
-                                    <clipPath id="clip-Edit-Icon">
-                                      <rect width="240" height="240"/>
-                                    </clipPath>
-                                  </defs>
-                                  <g id="Edit-Icon" clip-path="url(#clip-Edit-Icon)">
-                                    <g id="noun-edit-5412991" transform="translate(-84.644 -14.829)">
-                                      <path id="Path_26" data-name="Path 26" d="M125.029,401.8l32.4,32.4-35.728,11.864h0a8.428,8.428,0,0,1-2.169.339,6.779,6.779,0,0,1-6.44-8.948Z" transform="translate(0 -219.783)"/>
-                                      <path id="Path_27" data-name="Path 27" d="M164.72,200.077,273.767,91.03l35.863,35.863L200.583,235.94Z" transform="translate(-31.843 -29.403)"/>
-                                      <path id="Path_28" data-name="Path 28" d="M516.026,70.293a20.041,20.041,0,0,1-5.965,14.373l-3.187,3.253L471.011,52.057,474.2,48.8a20.784,20.784,0,0,1,28.745,0l7.118,7.118a20.144,20.144,0,0,1,5.965,14.372Z" transform="translate(-219.479)"/>
-                                    </g>
-                                  </g>
-                                </svg>
+                                <img class="c-edit-icon" src="./img/Pencil.svg" alt="Edit icon">
                               </label>
                             </div>
                             <h2>Kleur</h2>
@@ -176,7 +157,7 @@
                         <button>Spel aanmaken</button>
                     </div>
                 </form>
-                <form action="index.html">
+                <form action="countdown.html">
                     <div class="c-cards-row tabledHorizontal">
                         <!-- Player 1 -->
                         <div class="c-card-player">
@@ -185,20 +166,7 @@
                                 <div class="u-center-horizontal">
                                 <input type="text" name="Username1" class="c-card-player__Name js-player-1-input" placeholder="Speler" maxlength="10" id="input-1.2" required></input>
                                 <label for="input-1.2">
-                                    <svg class="c-edit-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="240" viewBox="0 0 240 240">
-                                    <defs>
-                                        <clipPath id="clip-Edit-Icon">
-                                        <rect width="240" height="240"/>
-                                        </clipPath>
-                                    </defs>
-                                    <g id="Edit-Icon" clip-path="url(#clip-Edit-Icon)">
-                                        <g id="noun-edit-5412991" transform="translate(-84.644 -14.829)">
-                                        <path id="Path_26" data-name="Path 26" d="M125.029,401.8l32.4,32.4-35.728,11.864h0a8.428,8.428,0,0,1-2.169.339,6.779,6.779,0,0,1-6.44-8.948Z" transform="translate(0 -219.783)"/>
-                                        <path id="Path_27" data-name="Path 27" d="M164.72,200.077,273.767,91.03l35.863,35.863L200.583,235.94Z" transform="translate(-31.843 -29.403)"/>
-                                        <path id="Path_28" data-name="Path 28" d="M516.026,70.293a20.041,20.041,0,0,1-5.965,14.373l-3.187,3.253L471.011,52.057,474.2,48.8a20.784,20.784,0,0,1,28.745,0l7.118,7.118a20.144,20.144,0,0,1,5.965,14.372Z" transform="translate(-219.479)"/>
-                                        </g>
-                                    </g>
-                                    </svg>
+                                    <img class="c-edit-icon" src="./img/Pencil.svg" alt="Edit icon">
                                 </label>
                                 </div>
                                 <h2>Kleur</h2>
@@ -222,7 +190,7 @@
                         </div>
                         <!-- Player 2 -->
                         <div class="c-card-player">
-
+                            <img src="./img/map-speedrun.png" alt="map speedrun">
                         </div>
                     </div>
                     <div class="c-cards-row tabledHorizontal">
@@ -238,7 +206,7 @@
                                 </select>
                             </div>
                             <div>
-                                <h3>Doel</h3>
+                                <h3>Knoppen</h3>
                                 <select name="Goal" class="js-button-goal-input">
                                     <option value="5">5</option>
                                     <option value="10">10</option>
@@ -258,7 +226,7 @@
         <div class="c-mobile-nav__body">
             <div class="c-mobile-nav__header">            
                 <h1 class="c-mobile-nav-tile">
-                    Interactive palen
+                    Speedrun
                 </h1>
                 <button class="o-button-reset c-nav-trigger js-toggle-nav">
                     <svg class="c-nav-trigger__svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -270,11 +238,17 @@
             <div class="c-mobile-nav__nav c-mobile-nav__nav--main">
                 <nav class="c-nav">
                     <ul class="o-list c-nav__list">
-                        <li class="c-nav__item"><a href="../Front-end/index.html" class="c-nav__link">Home</a></li>
+                        <li class="c-nav-item"><a class="c-nav__link" href="./index.html">Home</a></li>
+                        <li class="c-nav-item"><a class="c-nav__link u-live" href="./Live.html">Live</a></li>
+                        <li class="c-nav-item"><a class="c-nav__link" href="./ScoreBord.html">Scorebord</a></li>
+                        <li class="c-nav-item"><a class="c-nav__link" href="./Info.html">Info</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
     </aside>
+    <div>
+        <lottie-player src="./img/Countdown.json" background="#ffffff"  speed="1"  style="position: absolute; width: 100%; height: 100%;" hover loop controls autoplay></lottie-player>
+    </div>
 </body>
 </html>

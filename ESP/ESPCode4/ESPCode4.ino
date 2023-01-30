@@ -25,6 +25,7 @@ int go=0;
 int progress=0;
 int starttijd;
 #define BUTTON_PIN 2 // GIOP21 pin connected to button
+#define BUZZER_PIN 19 // GPIO19 pin connected to buzzer
 // Define the array of leds
 CRGB leds[NUM_LEDS];
 // Variables will change:
@@ -123,6 +124,13 @@ void callback(char* topic, byte* message, unsigned int length) {
           leds[i] = number; 
         }
         FastLED.show();
+        if (number != 0) {
+          digitalWrite(BUZZER_PIN, HIGH);
+          delay(200);
+          digitalWrite(BUZZER_PIN, LOW);
+        }
+      
+      
   }
 
   //Similarly add more if statements to check for other subscribed topics 
@@ -132,6 +140,7 @@ void setup() {
     Serial.begin(115200);
   // initialize the pushbutton pin as an pull-up input
   pinMode(BUTTON_PIN, INPUT_PULLUP);
+  pinMode(BUZZER_PIN, OUTPUT);
   setup_wifi();
   client.setServer(mqtt_server,1883);//1883 is the default port for MQTT server
   client.setCallback(callback);

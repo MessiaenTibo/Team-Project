@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Import fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style/screen.css">
-    <title>Interactive palen</title>
+    <link rel="stylesheet" href="./style/simonsays.CSS">
+    <title>Kyoku</title>
     <!-- Favicon -->
     <link rel="shortcute icon" type="image/png" href="img/favicon-dark.ico" id="faviconTag"/>
     <link rel="icon" href="/pictures/icon.svg">
@@ -18,12 +23,11 @@
     <script src="script/app.js"></script>
 </head>
 <body>
-    <div class="js-showermonitor-page"></div>
     <header class="o-row">
         <div class="o-container">
             <div class="c-header">
                 <div class="c-header__logo">                      
-                    <a class="title" href="">
+                    <a class="title" href="./index.html">
                         <h1>
                             Simon Says
                         </h1>
@@ -34,6 +38,9 @@
                         <nav class="c-nav u-hide">
                             <ul class="o-list c-nav__list">
                                 <li class="c-nav-item"><a class="c-nav__link" href="./index.html">Home</a></li>
+                                <li class="c-nav-item"><a class="c-nav__link u-live" href="./Live.html">Live</a></li>
+                                <li class="c-nav-item"><a class="c-nav__link" href="./ScoreBord.html">Scorebord</a></li>
+                                <li class="c-nav-item"><a class="c-nav__link" href="./Info.html">Info</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -49,27 +56,176 @@
         </div>
     </header>
     <main>
-        <div>
-            <div class="c-layout c-layout--gutter">
-                <header class="o-row">
-                    <div class="o-container" style="text-align: center;">
-                        <div style="text-align: left;">
-                            <br>
-                            <div class="c-players">
-                                <h2>Simon Says</h2>
-                            </div>
+        <section class="o-row">
+            <div class="o-container u-align-content-center">
+                <form action="countdown.html" class="mobile">
+                    <!-- Player -->
+                    <div class="c-card-player">
+                        <svg class="c-card-player__svg c-player-1__svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="240" viewBox="0 0 240 240">
+                            <defs>
+                            <clipPath id="clip-player">
+                                <rect width="240" height="240"/>
+                            </clipPath>
+                            </defs>
+                            <g id="player" clip-path="url(#clip-player)">
+                            <g id="noun-person-1607993" transform="translate(-42.206 -93.144)">
+                                <path id="Path_8" data-name="Path 8" d="M369.387,248.847l-8.681-56.995v-.834c0-.255-.053-.5-.073-.744-.065-.022-.111-.049-.177-.07l-.083-.56a9.119,9.119,0,0,0-8.218-7.692v-.063h-4.65l-14.771,0H286.56l0,.063a9.107,9.107,0,0,0-8.218,7.693l-9.018,59.2a9.125,9.125,0,1,0,18.041,2.749l6.968-45.751h.07V341.07a11.068,11.068,0,1,0,22.136,0l0-67.926v-2.885a2.819,2.819,0,1,1,5.639,0v70.806a11.068,11.068,0,1,0,22.136,0l0-78.278V205.843h.07l6.972,45.751a9.122,9.122,0,1,0,18.036-2.752Z" transform="translate(-157.15 -29.633)"/>
+                                <path id="Path_9" data-name="Path 9" d="M358.591,125.88a22.1,22.1,0,1,1-22.1-22.1,22.1,22.1,0,0,1,22.1,22.1" transform="translate(-174.288 0)"/>
+                            </g>
+                            </g>
+                        </svg>
+                        <input name="color1" class="js-btn-color-selector1" style="display: none;" type="color" value="#FF0000">
+                        <div class="c-card-player__footer">
+                        <div class="u-center-horizontal">
+                            <input type="text" name="Username1" class="c-card-player__Name js-player-1-input" placeholder="Speler" maxlength="10" id="input-1.0" required></input>
+                            <label for="input-1.0">
+                                <img class="c-edit-icon" src="./img/Pencil.svg" alt="Edit icon">
+                            </label>
+                        </div>
                         </div>
                     </div>
-                </header>
+                    <!-- settings -->
+                    <div class="c-card-settings">
+                        <h2>Instellingen</h2>
+                        <h3>Moeilijkheidsgraad</h3>
+                        <select name="Difficulty" class="js-difficulty-input">
+                            <option value="1">Makkelijk</option>
+                            <option value="2">Normaal</option>
+                            <option value="3">Moeilijk</option>
+                        </select>
+                        <h3>Aantal start knoppen</h3>
+                        <select name="Goal" class="js-start-buttons-input">
+                            <option value="2">2</option>
+                            <option value="4">4</option>
+                            <option value="6">6</option>
+                            <option value="8">8</option>
+                        </select>
+                        <button>Spel aanmaken</button>
+                    </div>
+                </form>
+                <form action="countdown.html" class="tabledVertical">
+                    <!-- Player 1 -->
+                    <div class="c-card-player">
+                        <div class="c-card-player-left">
+                            <h2>Naam</h2>
+                            <div class="u-center-horizontal">
+                              <input type="text" name="Username1" class="c-card-player__Name js-player-1-input" placeholder="Speler" maxlength="10" id="input-1.1" required></input>
+                              <label for="input-1.1">
+                                <img class="c-edit-icon" src="./img/Pencil.svg" alt="Edit icon">
+                              </label>
+                            </div>
+                            <h2>Kleur</h2>
+                            <input name="color1" class="js-btn-color-selector1" type="color" value="#FF0000">
+                        </div>
+                        <div class="c-card-player-right">
+                            <svg class="c-card-player__svg c-player-1__svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="240" viewBox="0 0 240 240">
+                                <defs>
+                                  <clipPath id="clip-player">
+                                    <rect width="240" height="240"/>
+                                  </clipPath>
+                                </defs>
+                                <g id="player" clip-path="url(#clip-player)">
+                                  <g id="noun-person-1607993" transform="translate(-42.206 -93.144)">
+                                    <path id="Path_8" data-name="Path 8" d="M369.387,248.847l-8.681-56.995v-.834c0-.255-.053-.5-.073-.744-.065-.022-.111-.049-.177-.07l-.083-.56a9.119,9.119,0,0,0-8.218-7.692v-.063h-4.65l-14.771,0H286.56l0,.063a9.107,9.107,0,0,0-8.218,7.693l-9.018,59.2a9.125,9.125,0,1,0,18.041,2.749l6.968-45.751h.07V341.07a11.068,11.068,0,1,0,22.136,0l0-67.926v-2.885a2.819,2.819,0,1,1,5.639,0v70.806a11.068,11.068,0,1,0,22.136,0l0-78.278V205.843h.07l6.972,45.751a9.122,9.122,0,1,0,18.036-2.752Z" transform="translate(-157.15 -29.633)"/>
+                                    <path id="Path_9" data-name="Path 9" d="M358.591,125.88a22.1,22.1,0,1,1-22.1-22.1,22.1,22.1,0,0,1,22.1,22.1" transform="translate(-174.288 0)"/>
+                                  </g>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <!-- settings -->
+                    <div class="c-card-settings">
+                        <h2>Instellingen</h2>
+                        <div>
+                            <h3>Moeilijkheidsgraad</h3>
+                            <select name="Difficulty" class="js-difficulty-input">
+                                <option value="1">Makkelijk</option>
+                                <option value="2">Normaal</option>
+                                <option value="3">Moeilijk</option>
+                            </select>
+                        </div>
+                        <div>
+                            <h3>Doel</h3>
+                            <select name="Goal" class="js-start-buttons-input">
+                                <option value="2">2</option>
+                                <option value="4">4</option>
+                                <option value="6">6</option>
+                                <option value="8">8</option>
+                            </select>
+                        </div>
+                        <button>Spel aanmaken</button>
+                    </div>
+                </form>
+                <form action="countdown.html">
+                    <div class="c-cards-row tabledHorizontal">
+                        <!-- Player 1 -->
+                        <div class="c-card-player">
+                            <div class="c-card-player-left">
+                                <h2>Naam</h2>
+                                <div class="u-center-horizontal">
+                                <input type="text" name="Username1" class="c-card-player__Name js-player-1-input" placeholder="Speler" maxlength="10" id="input-1.2" required></input>
+                                <label for="input-1.2">
+                                    <img class="c-edit-icon" src="./img/Pencil.svg" alt="Edit icon">
+                                </label>
+                                </div>
+                                <h2>Kleur</h2>
+                                <input name="color1" class="js-btn-color-selector1" type="color" value="#FF0000">
+                            </div>
+                            <div class="c-card-player-right">
+                                <svg class="c-card-player__svg c-player-1__svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="240" viewBox="0 0 240 240">
+                                    <defs>
+                                    <clipPath id="clip-player">
+                                        <rect width="240" height="240"/>
+                                    </clipPath>
+                                    </defs>
+                                    <g id="player" clip-path="url(#clip-player)">
+                                    <g id="noun-person-1607993" transform="translate(-42.206 -93.144)">
+                                        <path id="Path_8" data-name="Path 8" d="M369.387,248.847l-8.681-56.995v-.834c0-.255-.053-.5-.073-.744-.065-.022-.111-.049-.177-.07l-.083-.56a9.119,9.119,0,0,0-8.218-7.692v-.063h-4.65l-14.771,0H286.56l0,.063a9.107,9.107,0,0,0-8.218,7.693l-9.018,59.2a9.125,9.125,0,1,0,18.041,2.749l6.968-45.751h.07V341.07a11.068,11.068,0,1,0,22.136,0l0-67.926v-2.885a2.819,2.819,0,1,1,5.639,0v70.806a11.068,11.068,0,1,0,22.136,0l0-78.278V205.843h.07l6.972,45.751a9.122,9.122,0,1,0,18.036-2.752Z" transform="translate(-157.15 -29.633)"/>
+                                        <path id="Path_9" data-name="Path 9" d="M358.591,125.88a22.1,22.1,0,1,1-22.1-22.1,22.1,22.1,0,0,1,22.1,22.1" transform="translate(-174.288 0)"/>
+                                    </g>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                        <!-- map -->
+                        <div class="c-card-player">
+                            <img class="c-card-player__map" src="./img/map-simon-says.png" alt="Map">
+                        </div>
+                    </div>
+                    <div class="c-cards-row tabledHorizontal">
+                        <!-- settings -->
+                        <div class="c-card-settings">
+                            <h2>Instellingen</h2>
+                            <div>
+                                <h3>Moeilijkheidsgraad</h3>
+                                <select name="Difficulty" class="js-difficulty-input">
+                                    <option value="1">Makkelijk</option>
+                                    <option value="2">Normaal</option>
+                                    <option value="3">Moeilijk</option>
+                                </select>
+                            </div>
+                            <div>
+                                <h3>Start knoppen</h3>
+                                <select name="Goal" class="js-start-buttons-input">
+                                    <option value="2">2</option>
+                                    <option value="4">4</option>
+                                    <option value="6">6</option>
+                                    <option value="8">8</option>
+                                </select>
+                            </div>
+                            <button>Spel aanmaken</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </div>
+        </section>
     </main>
     <aside class="c-mobile-nav">
         <div class="c-mobile-nav__bg"></div>
         <div class="c-mobile-nav__body">
             <div class="c-mobile-nav__header">            
                 <h1 class="c-mobile-nav-tile">
-                    Interactive palen
+                    Simon Says
                 </h1>
                 <button class="o-button-reset c-nav-trigger js-toggle-nav">
                     <svg class="c-nav-trigger__svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -81,7 +237,10 @@
             <div class="c-mobile-nav__nav c-mobile-nav__nav--main">
                 <nav class="c-nav">
                     <ul class="o-list c-nav__list">
-                        <li class="c-nav__item"><a href="../Front-end/index.html" class="c-nav__link">Home</a></li>
+                        <li class="c-nav-item"><a class="c-nav__link" href="./index.html">Home</a></li>
+                        <li class="c-nav-item"><a class="c-nav__link u-live" href="./Live.html">Live</a></li>
+                        <li class="c-nav-item"><a class="c-nav__link" href="./ScoreBord.html">Scorebord</a></li>
+                        <li class="c-nav-item"><a class="c-nav__link" href="./Info.html">Info</a></li>
                     </ul>
                 </nav>
             </div>

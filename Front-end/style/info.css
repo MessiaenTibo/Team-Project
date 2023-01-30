@@ -30,6 +30,10 @@ img{
     min-width: 264px;
     height: 264px;
     margin-bottom: 16px;
+    box-shadow: 10px 10px 20px #ccc;
+    -moz-border-radius:25px;
+    -webkit-border-radius:25px;
+    border-radius:25px;
 }
 
 .c-card-info{
