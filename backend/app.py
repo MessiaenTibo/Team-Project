@@ -246,7 +246,7 @@ def colorconvert(value):
 
 #region **** game logic steps ****
 def speedrun_next(client, userdata, msg):
-    global started, publish, power_off, btn_choiche1, game_bezig, aantal_knoppen, game_progress, name1, tijd_start, speedrun_init
+    global started, publish, power_off, btn_choiche1, game_bezig, aantal_knoppen, game_progress, name1, tijd_start, speedrun_init, btn_choiche2
     print('verwerken:', str(msg.payload.decode('utf-8')))
     if(speedrun_init == 1):
         game_progress = game_progress+1
@@ -258,7 +258,7 @@ def speedrun_next(client, userdata, msg):
             socketio.emit("Start",time.mktime(tijd_start.timetuple()))
         publish = 1
         temp = random.randint(1,6)
-        while(temp == btn_choiche1):
+        while(temp == btn_choiche1 or temp == btn_choiche2):
             temp = random.randint(1,6)
         btn_choiche1 = temp
         print(btn_choiche1)
@@ -266,6 +266,8 @@ def speedrun_next(client, userdata, msg):
         y = json.dumps(data)
         socketio.emit('B2F_new_data_speedrun',y)
         #print("verzonden")
+        btn_choiche2 = 0
+        #als het 2 keer dezelfde word regel hierboven verwijderen :)
         print(data)
         print(y)
     elif(game_bezig == 0):
@@ -338,7 +340,7 @@ def shuttlerun_init(client,userdate, msg):
     print(btn_choiche1)
     publish = 1
     timerstart = 1
-    data = {"Username": name1, "GameMode": "ShuttleRun","Score":score1}
+    data = {"Username": name1, "GameMode": "Shuttlerun","Score":score1}
     y = json.dumps(data)
     socketio.emit('B2F_new_data_shuttle_run',y)
     print("unix_timestamp => ",(time.mktime(tijd_start.timetuple())))
@@ -371,7 +373,7 @@ socketio = SocketIO(app, cors_allowed_origins="*", logger=False, engineio_logger
 CORS(app)
 
 #endregion
-
+#region **** DATABASE ****
 
 def add_speedrun(spelNaam, spelers, tijd, naam1, aantalPalen, winnaar, moeilijkheidsgraad):
     sql = "insert into spel (spelNaam, spelers, tijd, naam1, aantalPalen, winnaar, moeilijkheidsgraad) VALUES (%s,%s,%s,%s,%s,%s,%s)"
@@ -379,6 +381,18 @@ def add_speedrun(spelNaam, spelers, tijd, naam1, aantalPalen, winnaar, moeilijkh
     result = Database.execute_sql(sql, params)
     return result
 
+def add_multiplayer(spelNaam, spelers, tijd, naam1, naam2, winnaar, moeilijkheidsgraad):
+    sql = "insert into spel (spelNaam, spelers, tijd, naam1, naam2, winnaar, score) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+    params = [spelNaam, spelers, tijd, naam1, naam2, winnaar, moeilijkheidsgraad]
+    result = Database.execute_sql(sql, params)
+    return result
+
+def add_shuttlerun(spelNaam, spelers, naam1, winnaar,score, moeilijkheidsgraad):
+    sql = "insert into spel (spelNaam, spelers, naam1, winnaar, score, moeilijkheidsgraad) VALUES (%s,%s,%s,%s,%s,%s)"
+    params = [spelNaam, spelers, naam1, winnaar, score, moeilijkheidsgraad]
+    result = Database.execute_sql(sql, params)
+    return result
+#endregion
 #region **** ROUTES ****
 @app.route('/')
 def hallo():
@@ -437,6 +451,10 @@ def PageReload():
         print(data)
         print(y)
         socketio.emit('Start',time.mktime(tijd_start.timetuple()))
+        if(btn_choiche2 != 0):
+            socketio.emit('knop_aan', {'knop1': btn_choiche2, 'knop2':0})
+        else:
+            socketio.emit('knop_aan', {'knop1': btn_choiche1, 'knop2':0})
     elif(selected_gamemode == 2):
         print('socketio tis met 1v1 te doen')
         data = {"Username1": name1, "GameMode": "OnevsOne", "Username2":name2,"Score1":score1, "Score2":score2}
@@ -448,28 +466,34 @@ def PageReload():
             y = json.dumps(data)
             socketio.emit('B2F_new_data_1vs1',y)
             socketio.emit("Start",time.mktime(tijd_start.timetuple()))
+            socketio.emit('knop_aan', {'knop1': btn_choiche1, 'knop2':btn_choiche2})
     elif(selected_gamemode == 3):
         print("socketio tis met shuttle te doen")
         data = {"Username": name1, "GameMode": "ShuttleRun","Score":score1}
         y = json.dumps(data)
         socketio.emit('B2F_new_data_shuttle_run',y)
+        socketio.emit('knop_aan', {'knop1': btn_choiche1, 'knop2':0})
         if(timerstart == 1):
             data = {"Username": name1, "GameMode": "ShuttleRun","Score":score1}
             y = json.dumps(data)
             socketio.emit('B2F_new_data_shuttle_run',y)
             socketio.emit("Start",time.mktime(tijd_start.timetuple()))
+            socketio.emit('knop_aan', {'knop1': btn_choiche1, 'knop2':0})
     elif(selected_gamemode == 0 and selected_gamemode_old == 1):
         data = {"Username": name1, "GameMode": "Speedrun", "ButtonsRemaining": aantal_knoppen-game_progress, "Tijd": tijd}
         y = json.dumps(data)
         socketio.emit('Reload',y)
+        socketio.emit('knop_aan', {'knop1': 0, 'knop2':0})
     elif(selected_gamemode == 0 and selected_gamemode_old == 2):
         data = {"Username1": name1, "GameMode": "OnevsOne", "Username2":name2,"Score1":score1, "Score2":score2, "Tijd": tijd}
         y = json.dumps(data)
         socketio.emit('Reload',y)
+        socketio.emit('knop_aan', {'knop1': 0, 'knop2':0})
     elif(selected_gamemode == 0 and selected_gamemode_old == 3):
         data = {"Username": name1, "GameMode": "ShuttleRun","Score":score1, "Tijd": tijd}
         y = json.dumps(data)
         socketio.emit('Reload',y)
+        socketio.emit('knop_aan', {'knop1': 0, 'knop2':0})
 @socketio.on('1vs1')
 def newOneVsOne(testvariabl):
     global name1,publish, name2,btn_choiche1, btn_choiche2, color1,color2, degree, buttonGoal,minutes,game_bezig,aantal_knoppen,color_choiche,game_progress,started,tijd_set,selected_gamemode,score1,score2,timerstart, tijd_start, tijd_end
@@ -490,7 +514,7 @@ def newOneVsOne(testvariabl):
     score1=0
     score2=0
     print('1vs1 aangemaakt')
-    time.sleep(3)
+    time.sleep(4)
     tijd_start = datetime.now()
     tijd_end = tijd_start + timedelta(seconds=int(tijd_set))
     timerstart = 1
@@ -522,7 +546,7 @@ def newOneVsOne(testvariabl):
 #difficulty is datie na x sec nie drukt vanzelf naar volgende gaat ma dan zonder punt te geven.
 @socketio.on('Speedrun')
 def newSpeedrun(testvariabl):
-    global game_bezig, aantal_knoppen, color_choiche, game_progress, started, name1, name2, color1, degree, buttonGoal, tijd_start, selected_gamemode, publish, btn_choiche2, speedrun_init
+    global game_bezig, aantal_knoppen,btn_choiche1, color_choiche, game_progress, started, name1, name2, color1, degree, buttonGoal, tijd_start, selected_gamemode, publish, btn_choiche2, speedrun_init
     print('Speedrun', testvariabl)
     #y = json.dumps(testvariabl)
     aantal_knoppen = int(testvariabl["buttonGoal"])
@@ -616,18 +640,26 @@ def mqttrun():
                 if(selected_gamemode==1):
                     tijd = datetime.now() - tijd_start
                     tijd = round(tijd.total_seconds())
-                    print (tijd)
                     add_speedrun("Speedrun",1,tijd,name1,buttonGoal,name1,degree)
                     selected_gamemode_old=selected_gamemode
                     selected_gamemode=0
                 if(selected_gamemode==2):
-                    print('hier nog database entry doen')
+                    if(score1>score2):
+                        winnaar = name1
+                        score=score1
+                    elif(score2>score1):
+                        winnaar = name2
+                        score=score2
+                    else:
+                        winnaar = "gelijkspel"
+                        score=score1
+                    add_multiplayer("1VS1",2,tijd_set,name1,name2,winnaar,score)
                     tijd = datetime.now() - tijd_start
                     tijd = round(tijd.total_seconds())
                     selected_gamemode_old=selected_gamemode
                     selected_gamemode=0
                 if(selected_gamemode==3):
-                    print('hier nog database entry doen')
+                    add_shuttlerun("Shuttle Run",1,name1,name1,score1,degree)
                     tijd = datetime.now() - tijd_start
                     tijd = round(tijd.total_seconds())
                     selected_gamemode_old=selected_gamemode

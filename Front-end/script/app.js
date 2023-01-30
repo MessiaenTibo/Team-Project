@@ -733,6 +733,10 @@ const listenToSocket = function(){
             OutputScore.innerHTML = `<h3>0</h3>`;
         }
         StopGame();
+        gameOver.style.display = "block";
+        setTimeout(function(){
+            gameOver.style.display = "none";
+        }, 4000);
     });
 
 };
@@ -1404,6 +1408,8 @@ const init = function () {
     OutputTime = document.querySelector('.js-output-time');
     scoreTitle = document.querySelector('.js-output-score__title');
     playersTitle = document.querySelector('.js-output-players__title');
+    gameOver = document.querySelector('.js-game-over');
+
 
     //palen
     Paal1 = document.querySelector('.js-knop-1');
