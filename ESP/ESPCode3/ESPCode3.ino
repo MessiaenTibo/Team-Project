@@ -68,12 +68,12 @@ void connect_mqttServer() {
         //now attemt to connect to MQTT server
         Serial.print("Attempting MQTT connection...");
         // Attempt to connect
-        if (client.connect("ESP32_client4")) { // Change the name of client here if multiple ESP32 are connected
+        if (client.connect("ESP32_client3")) { // Change the name of client here if multiple ESP32 are connected
           //attempt successful
           Serial.println("connected");
           // Subscribe to topics here
           client.subscribe("rpi/broadcast");
-          client.subscribe("esp32/kleur4");
+          client.subscribe("esp32/kleur3");
           //client.subscribe("rpi/xyz"); //subscribe more topics here
           
         } 
@@ -111,7 +111,7 @@ void callback(char* topic, byte* message, unsigned int length) {
         }
         FastLED.show(); 
   }
-  if (String(topic) == "esp32/kleur4") {
+  if (String(topic) == "esp32/kleur3") {
       Serial.print("HIER aan");
       Serial.println(messageTemp);
       const char* ccx = messageTemp.c_str();
@@ -154,7 +154,7 @@ void loop() {
   currentState = digitalRead(BUTTON_PIN);
     if(lastState == LOW && currentState == HIGH)
     {
-      client.publish("esp32/sensor4", "gedrukt");
+      client.publish("esp32/sensor3", "gedrukt");
     }
   // save the last state
   lastState = currentState;
