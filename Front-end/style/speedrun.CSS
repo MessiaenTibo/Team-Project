@@ -1,9 +1,20 @@
 .c-info-icon{
     width: 28px;
     height: 28px;
-    fill: white;
+    fill: black;
     cursor: pointer;
     display: inline-block;
+}
+
+.c-info-icon:hover{
+    fill: gold;
+}
+
+.u-center{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
 }
 
 
@@ -152,6 +163,10 @@ input[type=color]::-webkit-color-swatch{
 button{
     font-size: 18px;
     line-height: 20px;
+}
+
+select{
+    display: inline-block;
 }
 
 
@@ -384,7 +399,7 @@ button{
 
 
 /* Popup container - can be anything you want */
-.popup {
+.c-popup {
     position: relative;
     display: inline-block;
     cursor: pointer;
@@ -392,13 +407,14 @@ button{
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    height: 28px;
   }
   
   /* The actual popup */
-  .popup .popuptext {
+  .c-popup .popuptext {
     visibility: hidden;
     width: 160px;
-    background-color: #555;
+    background-color: var(--global-color-alpha);
     color: #fff;
     text-align: center;
     border-radius: 6px;
@@ -412,7 +428,7 @@ button{
   }
   
   /* Popup arrow */
-  .popup .popuptext::after {
+  .c-popup .popuptext::after {
     content: "";
     position: absolute;
     top: 100%;
@@ -420,11 +436,11 @@ button{
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: #555 transparent transparent transparent;
+    border-color: var(--global-color-alpha) transparent transparent transparent;
   }
   
   /* Toggle this class - hide and show the popup */
-  .popup .show {
+  .c-popup .show {
     visibility: visible;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s;
@@ -444,8 +460,16 @@ button{
 
 @media (min-width: 500px)
 {
-    .popup .popuptext {
+    .c-popup .popuptext {
         width: 240px;
         margin-left: -120px;
+      }
+}
+
+@media (min-width: 1024px)
+{
+    .c-popup .popuptext {
+        width: 320px;
+        margin-left: -160px;
       }
 }

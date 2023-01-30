@@ -321,11 +321,18 @@ SpeedrunPage = function(){
     });
 
 
-    var popup = document.querySelectorAll(".popup");
-    popup.forEach(element => {
+    // Popup
+    btnsPopupDifficulty.forEach(element => {
         element.addEventListener('click', function(){
-            console.log("click");
-            document.querySelectorAll('.myPopup').forEach(element2 => {
+            popupDifficulty.forEach(element2 => {
+                element2.classList.toggle("show");
+            });
+        });
+    });
+
+    btnsPopupButtonGoal.forEach(element => {
+        element.addEventListener('click', function(){
+            popupButtonGoal.forEach(element2 => {
                 element2.classList.toggle("show");
             });
         });
@@ -454,6 +461,16 @@ ShuttleRunPage = function(){
         element.addEventListener('change', function(){
             inputButtonGoal.forEach(element2 => {
                 element2.value = this.value;
+            });
+        });
+    });
+
+
+    // Popup
+    btnsPopupDifficulty.forEach(element => {
+        element.addEventListener('click', function(){
+            popupDifficulty.forEach(element2 => {
+                element2.classList.toggle("show");
             });
         });
     });
@@ -1397,6 +1414,10 @@ const init = function () {
     */
     inputDifficulty = document.querySelectorAll('.js-difficulty-input');
     inputButtonGoal = document.querySelectorAll('.js-button-goal-input');
+    btnsPopupDifficulty = document.querySelectorAll('.js-btn-popup-difficulty');
+    popupDifficulty = document.querySelectorAll('.js-popup-difficulty');
+    btnsPopupButtonGoal = document.querySelectorAll('.js-btn-popup-button-goal');
+    popupButtonGoal = document.querySelectorAll('.js-popup-button-goal');
 
 
     /*
