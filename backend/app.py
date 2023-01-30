@@ -31,6 +31,7 @@ game_bezig = 0
 aantal_knoppen = 0
 selected_gamemode_old=0
 selected_gamemode = 0 # 1 = speedrun, 2 = 1v1, 3 = simon says, 4 = shuttle run
+speedrun_init = 0
 #endregion
 # Custom endpoint
 endpoint = '/api/v1'
@@ -245,8 +246,11 @@ def colorconvert(value):
 
 #region **** game logic steps ****
 def speedrun_next(client, userdata, msg):
-    global started, publish, power_off, btn_choiche1, game_bezig, aantal_knoppen, game_progress, name1, tijd_start
+    global started, publish, power_off, btn_choiche1, game_bezig, aantal_knoppen, game_progress, name1, tijd_start, speedrun_init
     print('verwerken:', str(msg.payload.decode('utf-8')))
+    if(speedrun_init == 1):
+        game_progress = game_progress+1
+        speedrun_init = 0
     if(game_bezig ==1):
         #print('test succes')
         if(game_progress == 0):
@@ -468,17 +472,17 @@ def PageReload():
         socketio.emit('Reload',y)
 @socketio.on('1vs1')
 def newOneVsOne(testvariabl):
-    global name1, name2, color1,color2, degree, buttonGoal,minutes,game_bezig,aantal_knoppen,color_choiche,game_progress,started,tijd_set,selected_gamemode,score1,score2,timerstart
+    global name1,publish, name2,btn_choiche1, btn_choiche2, color1,color2, degree, buttonGoal,minutes,game_bezig,aantal_knoppen,color_choiche,game_progress,started,tijd_set,selected_gamemode,score1,score2,timerstart, tijd_start, tijd_end
     print('1vs1', testvariabl)
     color1 = testvariabl["color1"]
     color2 = testvariabl["color2"]
     name1 = testvariabl["name1"]
     name2 = testvariabl["name2"]
     minutes = testvariabl["minutes"]
-    #tijd_set = int(minutes)*60
+    tijd_set = int(minutes)*60
     ###tijd is hardcoded op 30 sec
     ####ding hierboven is het juiste
-    tijd_set = 30
+    #tijd_set = 30
     selected_gamemode = 2
     timerstart = 0
     game_bezig = 1
@@ -486,12 +490,39 @@ def newOneVsOne(testvariabl):
     score1=0
     score2=0
     print('1vs1 aangemaakt')
+    time.sleep(3)
+    tijd_start = datetime.now()
+    tijd_end = tijd_start + timedelta(seconds=int(tijd_set))
+    timerstart = 1
+    print('timergestart')
+    print(tijd_start)
+    print(tijd_end)
+    if(game_bezig ==1):
+        print('big successsss')
+        #print('test succes')
+        publish = 1
+        ##voor de initial one moeje ze 1 keer alle 2 analeggen en dan de rest laten verlopen via dit
+        temp = random.randint(1,6)
+        while(temp == btn_choiche1):
+            temp = random.randint(1,6)
+        btn_choiche1 = temp
+        print(btn_choiche1)
+        temp = random.randint(1,6)
+        while(temp==btn_choiche1 or temp == btn_choiche2):
+            temp = random.randint(1,6)
+        btn_choiche2= temp
+    data = {"Username1": name1, "GameMode": "Speedrun", "Username2":name2,"Score1":score1, "Score2":score2}
+    y = json.dumps(data)
+    socketio.emit('B2F_new_data_1vs1',y)
+    print("unix_timestamp => ",(time.mktime(tijd_start.timetuple())))
+    socketio.emit("Start",time.mktime(tijd_start.timetuple()))
+    started = 0
     #y = json.dumps(testvariabl)
 
 #difficulty is datie na x sec nie drukt vanzelf naar volgende gaat ma dan zonder punt te geven.
 @socketio.on('Speedrun')
 def newSpeedrun(testvariabl):
-    global game_bezig, aantal_knoppen, color_choiche, game_progress, started, name1, name2, color1, degree, buttonGoal, tijd_start, selected_gamemode
+    global game_bezig, aantal_knoppen, color_choiche, game_progress, started, name1, name2, color1, degree, buttonGoal, tijd_start, selected_gamemode, publish, btn_choiche2, speedrun_init
     print('Speedrun', testvariabl)
     #y = json.dumps(testvariabl)
     aantal_knoppen = int(testvariabl["buttonGoal"])
@@ -505,6 +536,14 @@ def newSpeedrun(testvariabl):
     selected_gamemode = 1
     started = 1
     game_progress = 0
+    time.sleep(4)
+    temp = random.randint(1,6)
+    while(temp==btn_choiche1 or temp == btn_choiche2):
+        temp = random.randint(1,6)
+    btn_choiche2= temp
+    speedrun_init = 1
+    publish = 1
+    tijd_start = datetime.now()
     
 
 @socketio.on('ShuttleRun')
@@ -541,7 +580,7 @@ def newSpeedrun(testvariabl):
     print('Shuttlerun aangemaakt')
 
 def mqttrun():
-    global timerstart,selected_gamemode_old, started, publish, power_off, btn_choiche1,btn_choiche2, game_bezig, aantal_knoppen, game_progress, color_choiche, tijd, tijd_start, name1, name2, color1,color2, degree, buttonGoal,selected_gamemode, tijd_end, tijd_set
+    global timerstart,selected_gamemode_old,speedrun_init, started, publish, power_off, btn_choiche1,btn_choiche2, game_bezig, aantal_knoppen, game_progress, color_choiche, tijd, tijd_start, name1, name2, color1,color2, degree, buttonGoal,selected_gamemode, tijd_end, tijd_set
     client = mqtt.Client("rpi_client2") #this name should be unique
     client.on_publish = on_publish
     flag_connected = 0
@@ -597,25 +636,44 @@ def mqttrun():
                 power_off = 0
                 selected_gamemode = 0
             if(publish == 1 and selected_gamemode==1):
-                print("enter")
-                msg ='led_uit'
-                pubMsg = client.publish(
-                    topic='rpi/broadcast',
-                    payload=msg.encode('utf-8'),
-                    qos=0,
+                if(speedrun_init == 1):
+                    msg ='led_uit'
+                    pubMsg = client.publish(
+                        topic='rpi/broadcast',
+                        payload=msg.encode('utf-8'),
+                        qos=0,
                     )
-                pubMsg.wait_for_publish()
-                #print("succes")
-                msg =color_choiche
-                pubMsg = client.publish(
-                    topic=f'esp32/kleur{btn_choiche1}',
-                    payload=msg.encode('utf-8'),
-                    qos=0,
+                    pubMsg.wait_for_publish()
+                    #print("succes")
+                    msg =color_choiche
+                    pubMsg = client.publish(
+                        topic=f'esp32/kleur{btn_choiche2}',
+                        payload=msg.encode('utf-8'),
+                        qos=0,
                     )
-                pubMsg.wait_for_publish()
-                print("succes2")
-                socketio.emit('knop_aan', {'knop1': btn_choiche1, 'knop2':0})
-                game_progress = game_progress+1
+                    pubMsg.wait_for_publish()
+                    print("succes2")
+                    socketio.emit('knop_aan', {'knop1': btn_choiche2, 'knop2':0})
+                else:
+                    print("enter")
+                    msg ='led_uit'
+                    pubMsg = client.publish(
+                        topic='rpi/broadcast',
+                        payload=msg.encode('utf-8'),
+                        qos=0,
+                        )
+                    pubMsg.wait_for_publish()
+                    #print("succes")
+                    msg =color_choiche
+                    pubMsg = client.publish(
+                        topic=f'esp32/kleur{btn_choiche1}',
+                        payload=msg.encode('utf-8'),
+                        qos=0,
+                        )
+                    pubMsg.wait_for_publish()
+                    print("succes2")
+                    socketio.emit('knop_aan', {'knop1': btn_choiche1, 'knop2':0})
+                    game_progress = game_progress+1
                 if(aantal_knoppen==game_progress):
                     game_bezig=0
                     game_progress=0
