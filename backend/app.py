@@ -633,6 +633,23 @@ def mqttrun():
                     selected_gamemode_old=selected_gamemode
                     selected_gamemode=0
                 socketio.emit('knop_aan', {'knop1': 0, 'knop2':0})
+                for i in range(0, 7):
+                    msg ="0xff0000"
+                    pubMsg = client.publish(
+                        topic=f'esp32/kleur{i}',
+                        payload=msg.encode('utf-8'),
+                        qos=0,
+                    )
+                    pubMsg.wait_for_publish()
+                time.sleep(2)
+                for i in range(0, 7):
+                    msg =""
+                    pubMsg = client.publish(
+                        topic=f'esp32/kleur{i}',
+                        payload=msg.encode('utf-8'),
+                        qos=0,
+                    )
+                    pubMsg.wait_for_publish()
                 power_off = 0
                 selected_gamemode = 0
             if(publish == 1 and selected_gamemode==1):
