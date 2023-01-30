@@ -106,8 +106,8 @@ h3{
 }
 
 input[type=color]{
-    width: calc(160rem / var(--global-baseline));
-    height: calc(48rem / var(--global-baseline));
+    width: calc(200rem / var(--global-baseline));
+    height: calc(60rem / var(--global-baseline));
     padding: 0;
     border: none;
     -webkit-appearance: none;
