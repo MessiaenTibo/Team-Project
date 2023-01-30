@@ -1,26 +1,30 @@
+:root {
+    --global-baseline: 20;
+}
+
 body{
     font-family: 'Oxygen', sans-serif;
 }
 
 h2{
-    margin-top: 12px;
+    margin-top: calc(12rem / var(--global-baseline));
 }
 
 .c-grid-cards{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 12px;
-    margin-bottom: 12px;
-    padding: 0px;
+    grid-gap: calc(12rem / var(--global-baseline));
+    margin-bottom: calc(12rem / var(--global-baseline));
+    padding: 0;
 
 }
 
 
 .c-card{
     background-color: #fff;
-    padding: 8px;
-    height: 140px;
-    width: 140px;
+    padding: calc(8rem / var(--global-baseline));
+    height: calc(140rem / var(--global-baseline));
+    width: calc(140rem / var(--global-baseline));
 
 }
 
@@ -40,26 +44,26 @@ h2{
 }
 
 h2{
-    font-size: 18px;
+    font-size: calc(18rem / var(--global-baseline));
     font-weight: 600;
 }
 
 h3{
-    font-size: 16px;
-    line-height: 20px;
+    font-size: calc(16rem / var(--global-baseline));
+    line-height: calc(20rem / var(--global-baseline));
     font-weight: 400;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .u-grid-column-span-2{
     grid-column: span 2;
     width: auto;
-    margin: 0px;
-    padding: 0px 8px 0 0;
+    margin: 0;
+    padding: 0 calc(8rem / var(--global-baseline)) 0 0;
 }
 
 .c-card__svg{
-    height: 80px;
+    height: calc(80rem / var(--global-baseline));
     width: 100%;
     display: block;
 }
@@ -76,16 +80,16 @@ h3{
 
 .c-card-gamemode__svg:hover {
     cursor: default;
-    padding: 0px;
+    padding: 0;
 }
 
 @media (min-width: 768px) {
     .c-card{
         background-color: #fff;
-        margin: 0px;
-        padding: 0px;
-        height: 180px;
-        width: 180px;
+        margin: 0;
+        padding: 0;
+        height: calc(180rem / var(--global-baseline));
+        width: calc(180rem / var(--global-baseline));
         /* center */
         display: flex;
         flex-direction: column;
@@ -96,17 +100,17 @@ h3{
     .u-grid-column-span-2{
         grid-column: span 2;
         width: auto;
-        margin: 0px;
-        padding: 0px 8px 0 0;
+        margin: 0;
+        padding: 0 calc(8rem / var(--global-baseline)) 0 0;
     }
     h2{
-        font-size: 24px;
+        font-size: calc(24rem / var(--global-baseline));
         font-weight: 600;
-        margin-bottom: 20px;
+        margin-bottom: calc(20rem / var(--global-baseline));
     }
     h3{
-        font-size: 20px;
-        line-height: 24px;
+        font-size: calc(20rem / var(--global-baseline));
+        line-height: calc(24rem / var(--global-baseline));
         font-weight: 400;
     }
 }
@@ -114,38 +118,38 @@ h3{
 @media (min-width: 1024px) {
     .c-card{
         background-color: #fff;
-        margin: 0px;
-        padding: 0px;
-        height: 240px;
-        width: 240px;
+        margin: 0;
+        padding: 0;
+        height: calc(240rem / var(--global-baseline));
+        width: calc(240rem / var(--global-baseline));
     }
     .c-grid-cards{
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
-        grid-gap: 32px;
-        margin-bottom: 32px;
-        padding: 0px;
+        grid-gap: calc(32rem / var(--global-baseline));
+        margin-bottom: calc(32rem / var(--global-baseline));
+        padding: 0;
     }
     .u-grid-column-span-2{
         grid-column: span 2;
         width: auto;
-        margin: 0px;
-        padding: 0px 8px 0 0;
+        margin: 0;
+        padding: 0 calc(8rem / var(--global-baseline)) 0 0;
     }
     .c-card__svg{
-        height: 160px;
-        width: 240px;
+        height: calc(160rem / var(--global-baseline));
+        width: calc(240rem / var(--global-baseline));
         display: block;
     }
 
     h2{
-        font-size: 28px;
+        font-size: calc(28rem / var(--global-baseline));
         font-weight: 600;
-        margin-bottom: 20px;
+        margin-bottom: calc(20rem / var(--global-baseline));
     }
     h3{
-        font-size: 24px;
-        line-height: 26px;
+        font-size: calc(24rem / var(--global-baseline));
+        line-height: calc(26rem / var(--global-baseline));
         font-weight: 400;
     }
 }
@@ -154,38 +158,38 @@ h3{
 {
     .c-card{
         background-color: #fff;
-        margin: 0px;
-        padding: 0px;
-        height: 280px;
-        width: 280px;
+        margin: 0;
+        padding: 0;
+        height: calc(280rem / var(--global-baseline));
+        width: calc(280rem / var(--global-baseline));
     }
     .c-grid-cards{
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-gap: 32px;
-        margin-bottom: 0px;
-        padding: 0px;
+        grid-gap: calc(32rem / var(--global-baseline));
+        margin-bottom: 0;
+        padding: 0;
     }
     .u-grid-column-span-2{
         grid-column: 2/4;
         width: auto;
-        margin: 0px;
-        padding: 0px 8px 0 0;
+        margin: 0;
+        padding: 0 calc(8rem / var(--global-baseline)) 0 0;
     }
     .c-card__svg{
-        height: 200px;
-        width: 300px;
+        height: calc(200rem / var(--global-baseline));
+        width: calc(300rem / var(--global-baseline));
         display: block;
     }
 
     h2{
-        font-size: 32px;
+        font-size: calc(32rem / var(--global-baseline));
         font-weight: 600;
-        margin-bottom: 20px;
+        margin-bottom: calc(20rem / var(--global-baseline));
     }
     h3{
-        font-size: 28px;
-        line-height: 30px;
+        font-size: calc(28rem / var(--global-baseline));
+        line-height: calc(30rem / var(--global-baseline));
         font-weight: 400;
     }
 }
@@ -195,10 +199,10 @@ h3{
     background-color: white;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-gap: 0px;
-    margin: 0px;
-    padding: 0px;
-    width: 292px;
+    grid-gap: 0;
+    margin: 0;
+    padding: 0;
+    width: calc(292rem / var(--global-baseline));
 }
 
 .c-grid-palen > img{
@@ -210,18 +214,18 @@ h3{
 
 @media (min-width: 768px) {
     .c-grid-palen{
-        width: 372px;
+        width: calc(372rem / var(--global-baseline));
     }
 }
 
 @media (min-width: 1024px) {
     .c-grid-palen{
-        width: 512px;
+        width: calc(512rem / var(--global-baseline));
     }
 }
 
 @media (min-width: 1440px) {
     .c-grid-palen{
-        width: 592px;
+        width: calc(592rem / var(--global-baseline));
     }
 }
