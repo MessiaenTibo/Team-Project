@@ -1,23 +1,27 @@
+:root {
+    --global-baseline: 20;
+}
+
 select{
     width: 100%;
-    height: 40px;
+    height: calc(40rem / var(--global-baseline));
     text-align: center;
-    font-size: 24px;
-    border-radius: 4px;
-    margin-bottom: 12px;
+    font-size: calc(24rem / var(--global-baseline));
+    border-radius: calc(4rem / var(--global-baseline));
+    margin-bottom: calc(12rem / var(--global-baseline));
 }
 
 .c-card-scorebord{
     background-color: #fff;
-    border: 1px solid #e5e5e5;
-    border-radius: 4px;
-    box-shadow: 0 1px 1px rgba(0,0,0,.05);
-    margin-bottom: 20px;
-    padding: 15px;
+    border: calc(1rem / var(--global-baseline)) solid #e5e5e5;
+    border-radius: calc(4rem / var(--global-baseline));
+    box-shadow: 0 calc(1rem / var(--global-baseline)) calc(1rem / var(--global-baseline)) rgba(0,0,0,.05);
+    margin-bottom: calc(20rem / var(--global-baseline));
+    padding: calc(15rem / var(--global-baseline));
     position: relative;
     width: 100%;
-    max-width: 640px;
-    height: 500px;
+    max-width: calc(640rem / var(--global-baseline));
+    height: calc(500rem / var(--global-baseline));
     overflow-y: scroll;
 }
 
@@ -29,7 +33,7 @@ select{
 .c-header-gamemodes{
     overflow: auto;
     white-space: nowrap;
-    margin-bottom: 12px;
+    margin-bottom: calc(12rem / var(--global-baseline));
 }
 
 .c-header-gamemode{
@@ -38,14 +42,14 @@ select{
     display: inline-block;
     color: white;
     text-align: center;
-    padding: 0 12px;
-    margin-right: 8px;
+    padding: 0 calc(12rem / var(--global-baseline));
+    margin-right: calc(8rem / var(--global-baseline));
     text-decoration: none;
-    border-radius: 4px;
-    font-size: 16px;
-    line-height: 20px;
+    border-radius: calc(4rem / var(--global-baseline));
+    font-size: calc(16rem / var(--global-baseline));
+    line-height: calc(20rem / var(--global-baseline));
     font-weight: 600;
-    height: 20px;
+    height: calc(20rem / var(--global-baseline));
     cursor: pointer;
 }
 
@@ -65,19 +69,19 @@ select{
 .c-grid-players{
     display: grid;
     grid-template-columns: 1fr;
-    grid-gap: 8px;
+    grid-gap: calc(8rem / var(--global-baseline));
 }
 
 .c-player{
-    min-height: 40px;
+    min-height: calc(40rem / var(--global-baseline));
     background-color: rgb(237, 238, 250);
-    border-radius: 4px;
+    border-radius: calc(4rem / var(--global-baseline));
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
     grid-template-rows: 1fr;
-    gap: 8px;
+    gap: calc(8rem / var(--global-baseline));
     align-items: center;
-    padding-right: 8px;
+    padding-right: calc(8rem / var(--global-baseline));
 }
 
 .c-player:hover{
@@ -97,18 +101,18 @@ select{
 }
 
 .c-player-number{
-    font-size: 24px;
+    font-size: calc(24em / var(--global-baseline));
     text-align: center;
     font-weight: 600;
 }
 
 .c-player-name > h3{
-    font-size: 24px;
+    font-size: calc(24rem / var(--global-baseline));
     font-weight: 400;
 }
 
 .c-player-number > img{
-    border-radius: 4px;
+    border-radius: calc(4rem / var(--global-baseline));
 }
 
 .c-player-score{
@@ -119,7 +123,7 @@ select{
 
 @media (min-width: 768px) {
     .c-player{
-        min-height: 40px;
+        min-height: calc(40rem / var(--global-baseline));
         grid-template-columns: 1fr 8fr 1fr;
     }
     .c-header-gamemodes
@@ -128,12 +132,12 @@ select{
         justify-content: space-between;
     }
     .c-header-gamemode{
-        height: 32px;
-        font-size: 24px;
+        height: calc(32rem / var(--global-baseline));
+        font-size: calc(24rem / var(--global-baseline));
         display: flex;
         align-items: center;
     }
     .c-card-scorebord{
-        height: 560px;
+        height: calc(560rem / var(--global-baseline));
     }
 }
