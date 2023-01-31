@@ -74,10 +74,6 @@ h3{
     color: var(--global-background-footer-color);
 }
 
-.c-card-player__Name:focus{
-    outline: none;
-}
-
 .c-player-1__svg{
     fill: var(--global-player1-color);
 }
