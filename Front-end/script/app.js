@@ -321,6 +321,24 @@ SpeedrunPage = function(){
     });
 
 
+    // Popup
+    btnsPopupDifficulty.forEach(element => {
+        element.addEventListener('click', function(){
+            popupDifficulty.forEach(element2 => {
+                element2.classList.toggle("show");
+            });
+        });
+    });
+
+    btnsPopupButtonGoal.forEach(element => {
+        element.addEventListener('click', function(){
+            popupButtonGoal.forEach(element2 => {
+                element2.classList.toggle("show");
+            });
+        });
+    });
+
+
     // Callback for the form
     var forms = document.querySelectorAll('form');
     forms.forEach(form => {
@@ -443,6 +461,16 @@ ShuttleRunPage = function(){
         element.addEventListener('change', function(){
             inputButtonGoal.forEach(element2 => {
                 element2.value = this.value;
+            });
+        });
+    });
+
+
+    // Popup
+    btnsPopupDifficulty.forEach(element => {
+        element.addEventListener('click', function(){
+            popupDifficulty.forEach(element2 => {
+                element2.classList.toggle("show");
             });
         });
     });
@@ -733,6 +761,10 @@ const listenToSocket = function(){
             OutputScore.innerHTML = `<h3>0</h3>`;
         }
         StopGame();
+        gameOver.style.display = "block";
+        setTimeout(function(){
+            gameOver.style.display = "none";
+        }, 4000);
     });
 
 };
@@ -1382,6 +1414,10 @@ const init = function () {
     */
     inputDifficulty = document.querySelectorAll('.js-difficulty-input');
     inputButtonGoal = document.querySelectorAll('.js-button-goal-input');
+    btnsPopupDifficulty = document.querySelectorAll('.js-btn-popup-difficulty');
+    popupDifficulty = document.querySelectorAll('.js-popup-difficulty');
+    btnsPopupButtonGoal = document.querySelectorAll('.js-btn-popup-button-goal');
+    popupButtonGoal = document.querySelectorAll('.js-popup-button-goal');
 
 
     /*
@@ -1404,6 +1440,8 @@ const init = function () {
     OutputTime = document.querySelector('.js-output-time');
     scoreTitle = document.querySelector('.js-output-score__title');
     playersTitle = document.querySelector('.js-output-players__title');
+    gameOver = document.querySelector('.js-game-over');
+
 
     //palen
     Paal1 = document.querySelector('.js-knop-1');
