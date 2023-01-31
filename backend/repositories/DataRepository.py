@@ -25,7 +25,7 @@ class DataRepository:
 
     @staticmethod
     def read_1vs1_data_by_time(time):
-        sql = "SELECT idSpel, spelNaam, tijd, winnaar, count(winnaar) as 'score' FROM spel where spelNaam = '1VS1' and tijd = %s group by winnaar order by score desc"
+        sql = "SELECT idSpel, spelNaam, tijd, winnaar, count(winnaar) as 'score' FROM spel where spelNaam = '1VS1' and tijd = %s and not winnaar = 'gelijkspel' group by winnaar order by score desc"
         params = [time]
         result = Database.get_rows(sql, params)
         return result
@@ -39,7 +39,7 @@ class DataRepository:
 
     @staticmethod
     def read_speedrun_data_by_difficulty_and_buttons(difficulty, buttons):
-        sql = "SELECT idSpel, spelNaam, naam1, winnaar, tijd AS 'score', aantalPalen, moeilijkheidsgraad FROM spel where spelNaam = 'Speedrun' and moeilijkheidsgraad = %s and aantalPalen = %s  order by tijd asc"
+        sql = "SELECT idSpel, spelNaam, naam1, winnaar, tijd AS 'score', aantalPalen, moeilijkheidsgraad FROM spel where spelNaam = 'Speedrun' and moeilijkheidsgraad = %s and aantalPalen = %s  order by tijd, idSpel asc"
         params = [difficulty, buttons]
         result = Database.get_rows(sql, params)
         return result

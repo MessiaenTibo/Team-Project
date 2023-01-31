@@ -1,11 +1,11 @@
 p{
-    font-size: 12px;
-    line-height: 15px;
-    margin-bottom: 8px;
+    font-size: calc(12rem / var(--global-baseline));
+    line-height: calc(15rem / var(--global-baseline));
+    margin-bottom: calc(8rem / var(--global-baseline));
 }
 
 h1{
-    font-size: 28px;
+    font-size: calc(28rem / var(--global-baseline));
     font-weight: bold;
     text-align: center;
     margin: 0;
@@ -13,64 +13,64 @@ h1{
 }
 
 h2{
-    font-size: 24px;
+    font-size: calc(24rem / var(--global-baseline));
     font-weight: bold;
-    line-height: 31px;
-    margin-bottom: 12px;
+    line-height: calc(31rem / var(--global-baseline));
+    margin-bottom: calc(12rem / var(--global-baseline));
 }
 
 h3{
-    font-size: 18px;
+    font-size: calc(18rem / var(--global-baseline));
     font-weight: bold;
-    line-height: 22px;
-    margin-bottom: 4px;
+    line-height: calc(22rem / var(--global-baseline));
+    margin-bottom: calc(4rem / var(--global-baseline));
 }
 
 img{
-    min-width: 264px;
-    height: 264px;
-    margin-bottom: 16px;
-    box-shadow: 10px 10px 20px #ccc;
-    -moz-border-radius:25px;
-    -webkit-border-radius:25px;
-    border-radius:25px;
+    min-width: calc(264rem / var(--global-baseline));
+    height: calc(264rem / var(--global-baseline));
+    margin-bottom: calc(16rem / var(--global-baseline));
+    box-shadow: calc(10rem / var(--global-baseline)) calc(10rem / var(--global-baseline)) calc(20rem / var(--global-baseline)) #ccc;
+    -moz-border-radius: calc(25rem / var(--global-baseline));
+    -webkit-border-radius: calc(25rem / var(--global-baseline));
+    border-radius: calc(25rem / var(--global-baseline));
 }
 
 .c-card-info{
     display: block;
-    width: 280px;
+    width: calc(280rem / var(--global-baseline));
     height: auto;
-    padding: 8px 8px 12px 8px;
-    margin-bottom: 36px;
+    padding: calc(8rem / var(--global-baseline)) calc(8rem / var(--global-baseline)) calc(12rem / var(--global-baseline)) calc(8rem / var(--global-baseline));
+    margin-bottom: calc(36rem / var(--global-baseline));
 }
 
 
 @media (min-width: 460px) and (max-width: 767px) {
     .c-card-info{
-        margin: 12px;
+        margin: calc(12rem / var(--global-baseline));
         width: 80vw;
     }
     h2{
-        font-size: 24px;
+        font-size: calc(24rem / var(--global-baseline));
     }
     h3{
-        font-size: 20px;
+        font-size: calc(20rem / var(--global-baseline));
     }
     p{
-        font-size: 14px;
-        line-height: 18px;
+        font-size: calc(14rem / var(--global-baseline));
+        line-height: calc(18rem / var(--global-baseline));
         display: inline-block;
     }
     img{
-        min-width: 150px;
-        height: 150px;
-        margin-bottom: 0px;
+        min-width: calc(150rem / var(--global-baseline));
+        height: calc(150rem / var(--global-baseline));
+        margin-bottom: 0;
         display: inline-block;
     }
     .c-placeholder-info{
         display: flex;
         justify-content: space-evenly;
-        gap: 8px;
+        gap: calc(8rem / var(--global-baseline));
         align-items: center;
     }
     .c-placeholder-parapraph{
@@ -87,28 +87,28 @@ img{
 
 @media (min-width: 768px) {
     p{
-        font-size: 16px;
-        line-height: 20px;
+        font-size: calc(16rem / var(--global-baseline));
+        line-height: calc(20rem / var(--global-baseline));
     }
     h2{
-        font-size: 28px;
+        font-size: calc(28rem / var(--global-baseline));
     }
     h3{
-        font-size: 24px;
+        font-size: calc(24rem / var(--global-baseline));
     }
     .c-card-info{
-        padding: 20px;
+        padding: calc(20rem / var(--global-baseline));
         width: 80vw;
     }
     .c-card-info--content{
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
-        gap: 72px;
+        gap: calc(72rem / var(--global-baseline));
     }
     img{
-        min-width: 150px;
+        min-width: calc(150rem / var(--global-baseline));
         height: auto;
-        margin-bottom: 0px;
+        margin-bottom: 0;
         object-fit: contain;
     }
     .o-reverse{
