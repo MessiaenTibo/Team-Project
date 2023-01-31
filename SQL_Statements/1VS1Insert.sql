@@ -1,0 +1,1 @@
+insert into spel (spelNaam, spelers, tijd, naam1, naam2, winnaar, score) VALUES ('1VS1', 2, 500, 'Tibo', 'Tjorven', 'Tibo', 3);

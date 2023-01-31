@@ -1,1 +1,0 @@
-insert into spel (spelNaam, spelers, naam1, winnaar, score, moeilijkheidsgraad) VALUES ('Shuttle Run', 1, 'Lander', 'Lander', 11, 2);

@@ -1,1 +1,0 @@
-insert into spel (spelNaam, spelers, tijd, naam1, aantalPalen, winnaar, moeilijkheidsgraad) VALUES ('Speedrun', 1, 323, 'Lander', 10, 'Lander', 2)
