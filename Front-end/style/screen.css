@@ -2,22 +2,11 @@
   #FONTS
 *------------------------------------*/
 @font-face {
-    font-family: 'Inter Web';
+    font-family: 'Oxygen';
     font-weight: 300;
-    src: url('../fonts/Inter-SemiBold.woff2') format('woff2');
+    src: url('../fonts/Oxygen-Light.woff2') format('woff2');
     }
 
-@font-face {
-    font-family: 'Inter Web';
-    font-weight: 400;
-    src: url('../fonts/Inter-SemiBold.woff2') format('woff2');
-    }
-
-@font-face {
-    font-family: 'Inter Web';
-    font-weight: 600;
-    src: url('../fonts/Inter-SemiBold.woff2') format('woff2');
-    }
   
 /*------------------------------------*\
     #Variables
@@ -127,7 +116,7 @@ aside{
 }
 
 input{
-    outline: none;
+    /* outline: none; */
     max-width: 100%;
 }
 
@@ -177,7 +166,37 @@ form{
     /* background-color: white; */
 }
 
-.js-chart{
+.logo{
+    display: inline-block;
+    height: 2.5rem;
+    margin: 0;
+    fill:#44c8f5;
+}
+
+.logo-title{
+    display: inline-block;
+    margin: 0;
+}
+
+.credits{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 8px;
+    font-size: 10px;
+    color: var(--global-txt-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 2px;
+}
+
+.credits-icon{
+    height: 0.5rem;
+    width: 0.5rem;
+    margin: 0;
+    fill: var(--global-txt-color);
 }
 
 /*
@@ -388,6 +407,9 @@ a:focus {
 }
 
 
+select{
+    color: black;
+}
 
 /*------------------------------------*\
 #OBJECTS
@@ -1517,8 +1539,11 @@ a:focus {
 */
 .c-card-gamemode__svg{
     height: 80%;
+    width: 100%;
+    max-width: 140px;
     display: flex;
-    margin: auto;
+    /* margin: auto; */
+    /* padding: 8px; */
 }
 .c-card-gamemode__svg:hover {
     cursor: pointer;
@@ -1528,6 +1553,25 @@ a:focus {
 .c-card-gamemode__svg:hover + .c-card-gamemode__footer h2{
     color: gold;
     cursor: pointer;
+}
+
+@media (min-width: 768px) {
+    .c-card-gamemode__svg{
+        max-width: 160px;
+    }
+}
+
+@media (min-width: 1024px)
+{
+    .c-card-gamemode__svg{
+        max-width: 200px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .c-card-gamemode__svg{
+        max-width: 240px;
+    }
 }
 
 .c-card-gamemode__title{
@@ -2775,6 +2819,10 @@ main{
     line-height: calc(40rem / var(--global-baseline));
     margin: 0 0 calc(24rem / var(--global-baseline));
     text-decoration: none;
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    gap: .5rem;
 }
 
 .magnet-contact-1{
