@@ -81,7 +81,7 @@ h3{
 
 .c-game-over{
     position: absolute;
-    color: red;
+    color: rgb(0, 199, 0);
     font-size: 48px;
     line-height: 54px;
     font-weight: 600;
@@ -165,7 +165,7 @@ h3{
 
     .c-game-over{
         position: absolute;
-        color: red;
+        color: rgb(0, 199, 0);
         font-size: 58px;
         line-height: 62px;
         font-weight: 600;

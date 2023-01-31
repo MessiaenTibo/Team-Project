@@ -17,6 +17,8 @@ tijd = datetime.now()
 tijd_start = datetime.now()
 tijd_end = datetime.now()
 tijd_set=0
+tijd_cooldown = datetime.now()
+tijd_cooldown_start = datetime.now()
 publish = 0
 power_off =0
 game_progress = 0
@@ -246,7 +248,7 @@ def colorconvert(value):
 
 #region **** game logic steps ****
 def speedrun_next(client, userdata, msg):
-    global started, publish, power_off, btn_choiche1, game_bezig, aantal_knoppen, game_progress, name1, tijd_start, speedrun_init, btn_choiche2
+    global started, publish, power_off, btn_choiche1, game_bezig, aantal_knoppen, game_progress, name1, tijd_start, speedrun_init, btn_choiche2, tijd_cooldown, tijd_cooldown_start, degree
     print('verwerken:', str(msg.payload.decode('utf-8')))
     if(speedrun_init == 1):
         game_progress = game_progress+1
@@ -265,6 +267,14 @@ def speedrun_next(client, userdata, msg):
         data = {"Username": name1, "GameMode": "Speedrun", "ButtonsRemaining": aantal_knoppen-game_progress}
         y = json.dumps(data)
         socketio.emit('B2F_new_data_speedrun',y)
+        tijd_cooldown_start = datetime.now()
+        if(degree == '2'):
+            tijd_cooldown = datetime.now()+timedelta(seconds=12)
+        elif(degree == '3'):
+            tijd_cooldown = datetime.now()+timedelta(seconds=7)
+        else:
+            tijd_cooldown = datetime.now()+timedelta(seconds=16)
+        #timedelta moet afhankelijk worden van difficulty en moet in if komen of het zeker moeilijker is dan difficulty 1
         #print("verzonden")
         btn_choiche2 = 0
         #als het 2 keer dezelfde word regel hierboven verwijderen :)
@@ -393,9 +403,9 @@ def add_multiplayer(spelNaam, spelers, tijd, naam1, naam2, winnaar, moeilijkheid
     result = Database.execute_sql(sql, params)
     return result
 
-def add_shuttlerun(spelNaam, spelers, naam1, winnaar,score, moeilijkheidsgraad):
-    sql = "insert into spel (spelNaam, spelers, naam1, winnaar, score, moeilijkheidsgraad) VALUES (%s,%s,%s,%s,%s,%s)"
-    params = [spelNaam, spelers, naam1, winnaar, score, moeilijkheidsgraad]
+def add_shuttlerun(spelNaam, spelers, naam1, winnaar,score, moeilijkheidsgraad, tijd):
+    sql = "insert into spel (spelNaam, spelers, naam1, winnaar, score, moeilijkheidsgraad, tijd) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+    params = [spelNaam, spelers, naam1, winnaar, score, moeilijkheidsgraad,tijd]
     result = Database.execute_sql(sql, params)
     return result
 #endregion
@@ -552,7 +562,7 @@ def newOneVsOne(testvariabl):
 #difficulty is datie na x sec nie drukt vanzelf naar volgende gaat ma dan zonder punt te geven.
 @socketio.on('Speedrun')
 def newSpeedrun(testvariabl):
-    global game_bezig, aantal_knoppen,btn_choiche1, color_choiche, game_progress, started, name1, name2, color1, degree, buttonGoal, tijd_start, selected_gamemode, publish, btn_choiche2, speedrun_init
+    global game_bezig,tijd_cooldown, tijd_cooldown_start, aantal_knoppen,btn_choiche1, color_choiche, game_progress, started, name1, name2, color1, degree, buttonGoal, tijd_start, selected_gamemode, publish, btn_choiche2, speedrun_init
     print('Speedrun', testvariabl)
     #y = json.dumps(testvariabl)
     aantal_knoppen = int(testvariabl["buttonGoal"])
@@ -566,6 +576,14 @@ def newSpeedrun(testvariabl):
     selected_gamemode = 1
     started = 1
     game_progress = 0
+    if(degree == '2'):
+        tijd_cooldown = datetime.now()+timedelta(seconds=12)
+    elif(degree == '3'):
+        tijd_cooldown = datetime.now()+timedelta(seconds=7)
+    else:
+        tijd_cooldown = datetime.now()+timedelta(seconds=16)
+    #hieredit
+    #ook hier nog seconds afhankelijk van difficulty
     time.sleep(4)
     temp = random.randint(1,6)
     while(temp==btn_choiche1 or temp == btn_choiche2):
@@ -610,7 +628,7 @@ def newSpeedrun(testvariabl):
     print('Shuttlerun aangemaakt')
 
 def mqttrun():
-    global timerstart,selected_gamemode_old,speedrun_init, started, publish, power_off, btn_choiche1,btn_choiche2, game_bezig, aantal_knoppen, game_progress, color_choiche, tijd, tijd_start, name1, name2, color1,color2, degree, buttonGoal,selected_gamemode, tijd_end, tijd_set
+    global timerstart,selected_gamemode_old,tijd_cooldown, tijd_cooldown_start, speedrun_init, started, publish, power_off, btn_choiche1,btn_choiche2, game_bezig, aantal_knoppen, game_progress, color_choiche, tijd, tijd_start, name1, name2, color1,color2, degree, buttonGoal,selected_gamemode, tijd_end, tijd_set
     client = mqtt.Client("rpi_client2") #this name should be unique
     client.on_publish = on_publish
     flag_connected = 0
@@ -665,14 +683,15 @@ def mqttrun():
                     selected_gamemode_old=selected_gamemode
                     selected_gamemode=0
                 if(selected_gamemode==3):
-                    add_shuttlerun("Shuttle Run",1,name1,name1,score1,degree)
                     tijd = datetime.now() - tijd_start
                     tijd = round(tijd.total_seconds())
+                    print(tijd)
+                    add_shuttlerun("Shuttle Run",1,name1,name1,score1,degree,tijd)
                     selected_gamemode_old=selected_gamemode
                     selected_gamemode=0
                 socketio.emit('knop_aan', {'knop1': 0, 'knop2':0})
                 for i in range(0, 7):
-                    msg ="0xff0000"
+                    msg ="0x00ff00"
                     pubMsg = client.publish(
                         topic=f'esp32/kleur{i}',
                         payload=msg.encode('utf-8'),
@@ -802,6 +821,22 @@ def mqttrun():
                 print("game gedaan game gedaan")
                 power_off = 1
                 timerstart=0
+            if(datetime.now()>tijd_cooldown and selected_gamemode==1 and degree != '1'):
+                if(degree == '2'):
+                    tijd_cooldown = datetime.now()+timedelta(seconds=12)
+                elif(degree == '3'):
+                    tijd_cooldown = datetime.now()+timedelta(seconds=7)
+                else:
+                    tijd_cooldown = datetime.now()+timedelta(seconds=16)
+                temp = random.randint(1,6)
+                while(temp==btn_choiche1 or temp == btn_choiche2):
+                    temp = random.randint(1,6)
+                btn_choiche2= temp
+                btn_choiche1 = temp
+                game_progress = game_progress-1
+                speedrun_init= 1
+                publish = 1
+                print("te lang gewacht")
         
         except Exception as e:
             print(e)
