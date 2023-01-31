@@ -338,6 +338,7 @@ def shuttlerun_init(client,userdate, msg):
         temp = random.randint(1,6)
     btn_choiche1 = temp
     print(btn_choiche1)
+    score1 = score1 + 1
     publish = 1
     timerstart = 1
     data = {"Username": name1, "GameMode": "Shuttlerun","Score":score1}
@@ -347,10 +348,15 @@ def shuttlerun_init(client,userdate, msg):
     socketio.emit("Start",time.mktime(tijd_start.timetuple()))
 
 def shuttlerun_next(client,userdate, msg):
-    global timerstart,started, publish, power_off, btn_choiche1, game_bezig, aantal_knoppen, game_progress, name1, btn_choiche2, score1, score1_oud, score2, score2_oud,tijd_start,tijd_set,tijd_end,tijd
+    global timerstart,started, publish, power_off, btn_choiche1, game_bezig, aantal_knoppen, game_progress, name1, btn_choiche2, score1, score1_oud, score2, score2_oud,tijd_start,tijd_set,tijd_end,tijd, degree
     tijd_start_run = datetime.now()
     score1 = score1 + 1
-    tijd_set= tijd_set*0.98
+    if(degree == '1'):
+        tijd_set= tijd_set*0.98
+    elif(degree == '2'):
+        tijd_set= tijd_set*0.97
+    elif(degree == '3'):
+        tijd_set= tijd_set*0.96
     tijd_end = tijd_start_run + timedelta(seconds=int(tijd_set))
     print(tijd_set)
     temp = random.randint(1,6)

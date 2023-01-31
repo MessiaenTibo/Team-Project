@@ -1504,6 +1504,7 @@ select{
 .c-card-gamemode__svg{
     height: 80%;
     width: 100%;
+    max-width: 140px;
     display: flex;
     /* margin: auto; */
     /* padding: 8px; */
@@ -1516,6 +1517,25 @@ select{
 .c-card-gamemode__svg:hover + .c-card-gamemode__footer h2{
     color: gold;
     cursor: pointer;
+}
+
+@media (min-width: 768px) {
+    .c-card-gamemode__svg{
+        max-width: 160px;
+    }
+}
+
+@media (min-width: 1024px)
+{
+    .c-card-gamemode__svg{
+        max-width: 200px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .c-card-gamemode__svg{
+        max-width: 240px;
+    }
 }
 
 .c-card-gamemode__title{
