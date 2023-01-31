@@ -663,7 +663,7 @@ callbackShuttleRun = function(event){
 //#region ***  Favicon  ***********
 const checkFavicon = function(){
     if(window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.getElementById('faviconTag').href = "img/favicon–light.ico";
+        document.getElementById('faviconTag').href = "img/favicon-light.ico";
     }
     else
     {
