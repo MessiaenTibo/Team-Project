@@ -7,6 +7,17 @@
     src: url('../fonts/Oxygen-Light.woff2') format('woff2');
     }
 
+@font-face {
+    font-family: 'Oxygen';
+    font-weight: 400;
+    src: url('../fonts/Oxygen-Regular.woff2') format('woff2');
+    }
+
+@font-face {
+    font-family: 'Oxygen';
+    font-weight: 600;
+    src: url('../fonts/Oxygen-Bold.woff2') format('woff2');
+    }
   
 /*------------------------------------*\
     #Variables
