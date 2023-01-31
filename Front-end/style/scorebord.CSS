@@ -1,7 +1,3 @@
-:root {
-    --global-baseline: 18;
-}
-
 select{
     width: 100%;
     height: calc(40rem / var(--global-baseline));

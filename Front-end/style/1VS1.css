@@ -1,6 +1,4 @@
-:root{
-    --global-baseline: 18;
-}
+
 
 button{
     width: calc(100rem / var(--global-baseline));

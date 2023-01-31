@@ -9,10 +9,6 @@
  *    IE on Windows Phone and in iOS.
  */
 
- :root {
-   --global-baseline: 18;
- }
-
  html {
   line-height: 1.15; /* 1 */
   -ms-text-size-adjust: 100%; /* 2 */
