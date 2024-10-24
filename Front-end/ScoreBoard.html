@@ -7,12 +7,9 @@
     <!-- Import fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap"
-      rel="stylesheet"
-    />
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet"> -->
     <link rel="stylesheet" href="./style/screen.css" />
-    <link rel="stylesheet" href="./style/info.css" />
+    <link rel="stylesheet" href="./style/scoreboard.CSS" />
     <title>Kyoku</title>
     <!-- Favicon -->
     <link
@@ -28,16 +25,17 @@
       crossorigin="anonymous"
     ></script> -->
     <script src="script/libery/Socetio.js"></script>
-    <script src="script/dataHandler.js"></script>
+    <script src="script//datahandler.js"></script>
     <script src="script/app.js"></script>
   </head>
   <body>
+    <div class="js-showermonitor-page"></div>
     <header class="o-row">
       <div class="o-container">
         <div class="c-header">
           <div class="c-header__logo">
             <a class="title" href="./index.html">
-              <h1>Info</h1>
+              <h1>Scorebord</h1>
             </a>
           </div>
           <div class="c-header-nav__disappear">
@@ -51,9 +49,7 @@
                     <a class="c-nav__link u-live" href="./Live.html">Live</a>
                   </li>
                   <li class="c-nav-item">
-                    <a class="c-nav__link" href="./ScoreBoard.html"
-                      >Scorebord</a
-                    >
+                    <a class="c-nav__link" href="./Info.html">Info</a>
                   </li>
                 </ul>
               </nav>
@@ -82,60 +78,95 @@
       </div>
     </header>
     <main>
-      <div>
-        <div class="c-layout c-layout--gutter">
-          <header class="o-row">
-            <div class="o-container">
-              <div class="c-card-info">
-                <h2>Info</h2>
-                <div class="c-card-info--content">
-                  <div class="c-placeholder-info">
-                    <div class="c-placeholder-parapraph">
-                      <h3>Algemeen</h3>
-                      <p>
-                        Deze website is ontworpen om verschillende spelletjes te
-                        starten. Een spel wordt gestart wanneer deze is
-                        aangemaakt. De vooruitgang van het spel kan gevolgd
-                        worden via de live pagina.
-                      </p>
-                    </div>
-                    <img src="./img/Info-1.png" alt="Image" />
-                  </div>
-                  <div class="c-placeholder-info o-reverse">
-                    <div class="c-placeholder-parapraph">
-                      <h3>Spelletjes</h3>
-                      <p>
-                        Alle spelletjes hebben hetzelfde doel, de spelers zo
-                        veel mogelijk laten bewegen tijdens het gebruik van de
-                        palen.
-                      </p>
-                    </div>
-                    <img src="./img/Info-2.png" alt="Image" />
-                  </div>
-                  <div class="c-placeholder-info">
-                    <div class="c-placeholder-parapraph">
-                      <h3>Live</h3>
-                      <p>
-                        Als een persoon of groep aan het spelen is, kan de
-                        vooruitgang van het spel gevolgd worden op de live
-                        pagina. Op de live pagina kan je zien welke paal
-                        oplicht, hoelang je bezig bent en uw score.
-                      </p>
-                    </div>
-                    <img src="./img/Info-3.png" alt="Image" />
-                  </div>
-                </div>
-              </div>
+      <header class="o-row u-align-center">
+        <div class="c-card-scoreboard">
+          <div class="c-header-gamemodes">
+            <div class="js-btn-gamemode-selecter-1vs1 c-header-gamemode active">
+              1VS1
             </div>
-          </header>
+            <div class="js-btn-gamemode-selecter-simon-says c-header-gamemode">
+              Simon Says
+            </div>
+            <div class="js-btn-gamemode-selecter-speedrun c-header-gamemode">
+              Speedrun
+            </div>
+            <div class="js-btn-gamemode-selecter-shuttle-run c-header-gamemode">
+              Shuttle Run
+            </div>
+          </div>
+          <div>
+            <div class="js-options-1vs1">
+              <select
+                name="category 1vs1"
+                id="category 1vs1"
+                class="js-dropdown js-1vs1-time"
+              >
+                <option value="1">1:00</option>
+                <option value="2">2:00</option>
+                <option value="3">3:00</option>
+                <option value="4">4:00</option>
+                <option value="5">5:00</option>
+                <option value="6">6:00</option>
+              </select>
+            </div>
+            <div class="js-options-simon-says o-hide">
+              <select
+                name="Difficulty"
+                class="js-dropdown js-difficulty-input js-simon-says-difficulty"
+              >
+                <option value="1">Makkelijk</option>
+                <option value="2">Normaal</option>
+                <option value="3">Moeilijk</option>
+              </select>
+              <select
+                name="Goal"
+                class="js-dropdown js-start-buttons-input js-simon-says-buttons"
+              >
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="6">6</option>
+                <option value="8">8</option>
+              </select>
+            </div>
+            <div class="js-options-speedrun o-hide">
+              <select
+                name="Difficulty"
+                class="js-dropdown js-difficulty-input js-speedrun-difficulty"
+              >
+                <option value="1">Makkelijk</option>
+                <option value="2">Normaal</option>
+                <option value="3">Moeilijk</option>
+              </select>
+              <select
+                name="Goal"
+                class="js-dropdown js-button-goal-input js-speedrun-buttons"
+              >
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+              </select>
+            </div>
+            <div class="js-options-shuttle-run o-hide">
+              <select
+                name="Difficulty"
+                class="js-dropdown js-difficulty-input js-shuttle-run-difficulty"
+              >
+                <option value="1">Makkelijk</option>
+                <option value="2">Normaal</option>
+                <option value="3">Moeilijk</option>
+              </select>
+            </div>
+          </div>
+          <div class="c-grid-players js-grid-players"></div>
         </div>
-      </div>
+      </header>
     </main>
     <aside class="c-mobile-nav">
       <div class="c-mobile-nav__bg"></div>
       <div class="c-mobile-nav__body">
         <div class="c-mobile-nav__header">
-          <h1 class="c-mobile-nav-tile">Info</h1>
+          <h1 class="c-mobile-nav-tile">History</h1>
           <button class="o-button-reset c-nav-trigger js-toggle-nav">
             <svg
               class="c-nav-trigger__svg"
@@ -158,7 +189,7 @@
                 <a class="c-nav__link u-live" href="./Live.html">Live</a>
               </li>
               <li class="c-nav-item">
-                <a class="c-nav__link" href="./ScoreBoard.html">Scorebord</a>
+                <a class="c-nav__link" href="./Info.html">Info</a>
               </li>
             </ul>
           </nav>
