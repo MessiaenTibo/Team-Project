@@ -72,7 +72,9 @@ const toggleNav = function () {
 const countdownPage = function () {
   console.log('countdownPage');
   setTimeout(function () {
-    window.location.replace(`http://${lanIP}/Front-end/Live.html`);
+    window.location.replace(
+      `https://messiaentibo.github.io/Team-Project/Live.html`
+    );
   }, '4000');
 };
 
